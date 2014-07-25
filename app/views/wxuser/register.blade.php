@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.mobile')
 
 
 
@@ -16,34 +16,38 @@
 		})
 	})		
 </script>
-
+<div data-role="page">
+  <div data-role="content">
 	{{ Form::open(array('url' => 'wxuser/register')) }}
    
     {{ Form::hidden('openid', $openid) }}
-
-    {{ Form::label('type', '用户类型') }}
-	{{ Form::select('type', $typeEnums)}}
-	<br/>
-
-	{{ Form::label('name', '姓名') }}
-	{{ Form::text('name') }}
-	<br/>
-
-	{{ Form::label('phone', '联系号码') }}
-	{{ Form::text('phone') }}
-	<br/>
-
-	{{ Form::label('email', '邮箱') }}
-	{{ Form::text('email') }}
-	<br/>
-
-	<div id="div_idcard">
-	{{ Form::label('idcard', '身份证') }}
-	{{ Form::text('idcard') }}
-	</div>
+	<ul data-role="listview" data-inset="true">
+	 	<li class="ui-field-contain">
+	    {{ Form::label('type', '用户类型') }}
+		{{ Form::select('type', $typeEnums)}}
+		</li>
+		<li class="ui-field-contain">
+		{{ Form::label('name', '姓名') }}
+		{{ Form::text('name') }}
+		</li>
+		<li class="ui-field-contain">
+		{{ Form::label('phone', '联系号码') }}
+		{{ Form::text('phone') }}
+		</li>
+		<li class="ui-field-contain">
+		{{ Form::label('email', '邮箱') }}
+		{{ Form::text('email') }}
+		</li>
 	
+		<li id="div_idcard" class="ui-field-contain">
+		{{ Form::label('idcard', '身份证') }}
+		{{ Form::text('idcard') }}
+		</li>
+	</ul>
 	<p>{{ Form::submit('注册') }}</p>
 
 	{{ Form::close() }}	
-
+	</div>
+</div>
+	
 @stop

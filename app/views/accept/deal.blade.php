@@ -73,7 +73,7 @@
 	  <div class="form-group">
 	    <label class="col-sm-2 control-label">下一步处理人</label>
 	    <div class="col-sm-4">
-	        {{ Form::select('deal',array('zs' =>'张三','ls'=>'李四','ww'=>'王五') ,'',array('class'=>'form-control'))}}
+	        {{ Form::select('deal',$personSet,'',array('class'=>'form-control'))}}
 	    </div>
 	    <div class="col-sm-6">
 	         <button type="submit" class="btn btn-sm btn-primary">生成任务</button>

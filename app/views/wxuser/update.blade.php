@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.mobile')
 
 
 
@@ -16,60 +16,67 @@
 		});
 	})		
 </script>
-
+<div data-role="page">
+  <div data-role="content">
 	{{ Form::open(array('url' => 'wxuser/update')) }}
-   
     {{ Form::hidden('openid', $openid) }}
-
     {{ Form::hidden('verified', $wxUser->verified ,array('id'=>'verified')) }}
-
-    {{ Form::label('type', '用户类型:') }}
-	{{$wxUser->getTypeVal()}}
-	<br/>
-	
-	{{ Form::label('name', '姓名:') }}
-	{{$wxUser->name }} 
-	<br/>
-
+	<ul data-role="listview" data-inset="true">
+   
+    <li class="ui-field-contain">
+    {{ Form::label('type', '用户类型:') }} <p>{{$wxUser->getTypeVal()}}</p>
+	</li>
+	 <li class="ui-field-contain">
+	{{ Form::label('name', '姓名:') }}<p>{{$wxUser->name }} </p>
+	</li>
+	<li class="ui-field-contain">
 	{{ Form::label('phone', '联系号码:') }}
 	{{ Form::text('phone',$wxUser->phone) }}
-	<br/>
-
+	</li>
+	<li class="ui-field-contain">
 	{{ Form::label('email', '邮箱:') }}
 	{{ Form::text('email',$wxUser->email) }}
-	<br/>
-	
+	</li>
+	<li class="ui-field-contain">
 	{{ Form::label('address', '地址:') }}
 	{{ Form::text('address',$wxUser->address)}}
-	<br/>
-
+	</li>
+	
+	<li class="ui-field-contain">
 	{{ Form::label('profession', '职业:') }}
 	{{ Form::text('profession',$wxUser->profession)}}
-	<br/>
-
+	</li>
+	
+	<li class="ui-field-contain">
 	{{ Form::label('interest', '兴趣爱好:') }}
 	{{ Form::text('interest',$wxUser->interest)}}
-	<br/>
+	</li>
 
 	
 	@if ($wxUser->isVerified())
+	<li class="ui-field-contain">
     	{{ Form::label('verified', '状态:') }}已认证
+	</li>
 	@else
-	    <div id="div_idcard">
-			{{ Form::label('idcard', '身份证:') }}
-			{{ Form::text('idcard') }}
+
+	    <li id="div_idcard" >
+	    	<div class="ui-field-contain">
+		    	{{ Form::label('idcard', '身份证:') }}
+				{{ Form::text('idcard') }}
+	    	</div>
 			<input id="verify_idcard" type="button" value="认证成为业主">
-		</div>
-		<div id="result" style="display:none;">
-			{{ Form::label('verified', '状态:') }}已认证
-		</div>
+		</li>
+		<li class="ui-field-contain" id="result" style="display:none;">
+			{{ Form::label('verified', '状态:') }}<p>已认证</p>
+		</li>
 	@endif
 
 
-
+ 	</ul>
 	
 	<p>{{ Form::submit('更新注册信息') }}</p>
 
 	{{ Form::close() }}	
-
+	</div>
+</div>
 @stop

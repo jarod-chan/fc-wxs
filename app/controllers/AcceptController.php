@@ -14,9 +14,11 @@ class AcceptController extends BaseController{
 			->Where('pkid',$id)
 			->orderBy('id')
 			->get();
+		$personSet=Events::personSet();
 		return View::make('accept.deal')
 			->with('accept',$accept)
-			->with('files',$files);
+			->with('files',$files)
+			->with('personSet',$personSet);
 	}
 	
 	public function dealPost($id){
