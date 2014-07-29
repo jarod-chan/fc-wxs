@@ -55,7 +55,7 @@
 	
 	@if ($wxUser->isVerified())
 	<li class="ui-field-contain">
-    	{{ Form::label('verified', '状态:') }}已认证
+    	{{ Form::label('verified', '状态:') }}<p>已认证</p>
 	</li>
 	@else
 

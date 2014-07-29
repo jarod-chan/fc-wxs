@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateComplaintTable extends Migration {
+class CreateComplaint extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -23,7 +23,6 @@ class CreateComplaintTable extends Migration {
 			$table->string('state');//状态 ：未处理   已处理   已拒绝
 		});
 		
-
 		
 	}
 

@@ -6,6 +6,6 @@ class Complaint extends Eloquent{
 	
 	public $timestamps = false;
 	
-	protected $fillable = array('name','phone', 'address', 'content','state');
+	protected $fillable = array('name','phone', 'address', 'content','state','create_at','openid');
 	
 }

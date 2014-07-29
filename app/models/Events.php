@@ -5,18 +5,18 @@ class Events extends Eloquent{
 	
 	public $timestamps = false;
 	
-	protected $fillable = array('type','result', 'deal', 'next','create_at','commit_at','accept_id');
+	protected $fillable = array('type','result', 'deal_id', 'next_id','create_at','commit_at','accept_id');
 	
-	public static function personSet(){
-		return array('zs' =>'张三','ls'=>'李四','jy'=>'王五');
+	public function isCommited(){
+		return $this->commit_at!=null;
 	}
 	
 	public function deal(){
-		return self::personSet()[$this->deal];
+		return $this->belongsTo('SyUser', 'deal_id');
 	}
 	
 	public function next(){
-		return self::personSet()[$this->next];
+		return $this->belongsTo('SyUser', 'next_id');
 	}
 	
 	
@@ -27,4 +27,6 @@ class Events extends Eloquent{
 	public function type(){
 		return self::typeSet()[$this->type];
 	}
+	
+	
 }

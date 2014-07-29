@@ -58,7 +58,9 @@
             <label>附件</label>
             <div>
             @foreach ($files as $file)
-				<img src="{{ URL::asset('data/'.$file->filename) }}"   style="height: 180px;"  alt="{{$file->filename}}" class="img-thumbnail">
+            	<a href="{{ URL::asset('data/'.$file->filename) }}" data-toggle="lightbox" >
+					<img src="{{ URL::asset('data/'.$file->filename) }}"   style="height: 180px;"  alt="{{$file->filename}}" class="img-thumbnail">
+				</a>
 			@endforeach
 			</div>
        </div>
@@ -105,16 +107,22 @@
               	 {{ Form::select('area', $areaEnums,'',array('class'=>'form-control'))}}
             </div>
         </div>
-        <div class='col-sm-3'>
+        <div class='col-sm-2'>
             <div class='form-group'>
                 <label >楼号</label>
   				 {{ Form::select('building', $buildingEnums,'',array('class'=>'form-control'))}}
             </div>
         </div>
-        <div class='col-sm-3'>
+          <div class='col-sm-2'>
+            <div class='form-group'>
+                <label >单元</label>
+  				 {{ Form::select('unit', $unitEnums,'',array('class'=>'form-control'))}}
+            </div>
+        </div>
+        <div class='col-sm-2'>
             <div class='form-group'>
                 <label >房间</label>
-  				{{ Form::text('room','',array('class'=>'form-control')) }}
+  				{{ Form::text('room','0',array('class'=>'form-control')) }}
             </div>
         </div>
     </div>

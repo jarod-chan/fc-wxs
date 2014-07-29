@@ -5,7 +5,7 @@ class Accept extends Eloquent{
 	
 	public $timestamps = false;
 	
-	protected $fillable = array('no','name', 'phone', 'community','area','building','room','content','from','degree','type','complaint_id');
+	protected $fillable = array('no','name', 'phone', 'community','area','building','unit','room','content','from','degree','type','complaint_id');
 	
 	public static function communityEnums(){
 		return array('sj' =>'尚景','hj'=>'鸿景','jy'=>'景园');
@@ -30,6 +30,14 @@ class Accept extends Eloquent{
 	
 	public function building(){
 		return self::buildingEnums()[$this->building];
+	}
+	
+	public static function  unitEnums(){
+		return  array('u1'=>'一单元','u2'=>'二单元','u3'=>'三单元');
+	}
+	
+	public function unit(){
+		return self::unitEnums()[$this->unit];
 	}
 	
 	public static function fromEnums(){
@@ -59,6 +67,6 @@ class Accept extends Eloquent{
 	
 	public function getAddress(){
 		
-		return $this->community().$this->area().$this->building().'-'.$this->room;
+		return $this->community().$this->area().$this->building().$this->unit().'-'.$this->room;
 	}
 }

@@ -23,24 +23,56 @@ class ComplaintController extends BaseController {
 				'phone'=>Input::get('phone'),
 				'address'=>Input::get('address'),
 				'content'=>Input::get('content'),
-				'state'=>'N/A'
+				'state'=>'N/A',
+				'create_at'=>new DateTime()
 		);
 		$complaint = Complaint::create($arr);
 		
-		foreach(Input::file('file') as $file){
-			$ext = $file->getClientOriginalExtension();
-			$filename=uniqid(date('Ymd-')).'.'.$ext;
-			$file->move(public_path().'/data',$filename);
-			$arr=array(
-				'tabname'=>'wx_complaint',
-				'pkid'=>$complaint->id,
-				'filename'=>$filename
-			);
-			UpFile::create($arr);
+		if (Input::hasFile('file'))
+		{
+			foreach(Input::file('file') as $file){
+				$ext = $file->getClientOriginalExtension();
+				$filename=uniqid(date('Ymd-')).'.'.$ext;
+				$file->move(public_path().'/data',$filename);
+				$arr=array(
+					'tabname'=>'wx_complaint',
+					'pkid'=>$complaint->id,
+					'filename'=>$filename
+				);
+				UpFile::create($arr);
+			}
 		}
+
 		
 		Session::flash('message', '保存成功');
 		return Redirect::action('ComplaintController@complaint', array('openid' => $openid));
+	}
+	
+	public function mycp(){
+		$openid=Input::get('openid');
+		$complaintSet = Complaint::where('openid',$openid)
+			->orderBy('create_at','desc')
+			->get();
+		return View::make('complaint.mycp')
+			->with("complaintSet",$complaintSet);
+	}
+	
+	public function cpitem($id){
+		$complaint=Complaint::find($id);
+		$files=UpFile::where('tabname', 'wx_complaint')
+			->Where('pkid',$id)
+			->orderBy('id')
+			->get();
+		$accept_id=Accept::where("complaint_id",$id)
+			->pluck('id');
+		$eventHistory=Events::where('accept_id',$accept_id)
+			->whereNotNull('commit_at')
+			->orderBy('create_at')
+			->get();
+		return View::make('complaint.cpitem')
+			->with('complaint',$complaint)
+			->with('files',$files)
+			->with('eventHistory',$eventHistory);
 	}
 	
 	public function deal($id){
@@ -58,7 +90,8 @@ class ComplaintController extends BaseController {
 			->with('buildingEnums',Accept::buildingEnums())
 			->with('fromEnums',Accept::fromEnums())
 			->with('degreeEnums',Accept::degreeEnums())
-			->with('typeEnums',Accept::typeEnums()); 
+			->with('typeEnums',Accept::typeEnums())
+			->with('unitEnums',Accept::unitEnums()); 
 	}
 	
 	public function dealPost($id){

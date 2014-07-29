@@ -14,17 +14,23 @@ class AcceptController extends BaseController{
 			->Where('pkid',$id)
 			->orderBy('id')
 			->get();
-		$personSet=Events::personSet();
+		$eventHistory=Events::where('accept_id',$accept->id)
+			->orderBy('create_at','desc')
+			->get();
+		
+		$dealUserSet=Syuser::dealUser()->lists('name','id');
+
 		return View::make('accept.deal')
 			->with('accept',$accept)
 			->with('files',$files)
-			->with('personSet',$personSet);
+			->with('eventHistory',$eventHistory)
+			->with('dealUserSet',$dealUserSet);
 	}
 	
 	public function dealPost($id){
-		$deal=Input::get('deal');
+		$deal_id=Input::get('deal_id');
 		$arr=array(
-			'deal'=>$deal,
+			'deal_id'=>$deal_id,
 			'create_at'=>new Datetime(),
 			'accept_id'=>$id
 		);

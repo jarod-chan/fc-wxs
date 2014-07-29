@@ -9,7 +9,10 @@
     <!-- Bootstrap -->
     {{HTML::style('css/bootstrap.min.css')}} 
     {{HTML::script('js/jquery-1.11.1.min.js')}}
-    {{HTML::script('js/bootstrap.min.js')}}  
+    {{HTML::script('js/bootstrap.min.js')}}
+    
+    {{HTML::style('plug/lightbox/ekko-lightbox.min.css')}} 
+    {{HTML::script('plug/lightbox/ekko-lightbox.min.js')}} 
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -33,11 +36,18 @@
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-               <li class="dropdown">
+              <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">投诉处理 <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
                 <li><a href="{{ URL::to('complaint/list') }}">客户投诉</a></li>
                 <li><a href="{{ URL::to('accept/list') }}">投诉受理</a></li>
+              </ul>
+            </li>
+            
+             <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">基础信息 <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="{{ URL::to('syuser/list') }}">系统用户</a></li>
               </ul>
             </li>
             
@@ -68,5 +78,15 @@
   
   
   		@yield('content')
+  		
+  		 
+  		  <script type="text/javascript">
+            $(document).ready(function ($) {
+				$(document).delegate('*[data-toggle="lightbox"]', 'click', function(event) {
+					event.preventDefault();
+					return $(this).ekkoLightbox();
+				});
+			});
+        </script>
   </body>
 </html>

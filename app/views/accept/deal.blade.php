@@ -56,9 +56,11 @@
 	  <div class="col-sm-12">
 	   <div class='form-group'>
             <label>附件</label>
-            <div>
+           <div>
             @foreach ($files as $file)
-				<img src="{{ URL::asset('data/'.$file->filename) }}"   style="height: 180px;"  alt="{{$file->filename}}" class="img-thumbnail">
+            	<a href="{{ URL::asset('data/'.$file->filename) }}" data-toggle="lightbox" >
+					<img src="{{ URL::asset('data/'.$file->filename) }}"   style="height: 180px;"  alt="{{$file->filename}}" class="img-thumbnail">
+				</a>
 			@endforeach
 			</div>
        </div>
@@ -73,15 +75,41 @@
 	  <div class="form-group">
 	    <label class="col-sm-2 control-label">下一步处理人</label>
 	    <div class="col-sm-4">
-	        {{ Form::select('deal',$personSet,'',array('class'=>'form-control'))}}
+	        {{ Form::select('deal_id',$dealUserSet,'',array('class'=>'form-control'))}}
 	    </div>
 	    <div class="col-sm-6">
-	         <button type="submit" class="btn btn-sm btn-primary">生成任务</button>
+	         <button type="submit" class="btn btn-primary">生成任务</button>
 	    </div>
 	 </div>
 	</div>
 </fieldset> 
 {{ Form::close() }}	
+    <div class="list-group">
+      @foreach ($eventHistory as $event)
+      <div class="list-group-item row">
+	     @if ($event->isCommited())
+	     <div class="col-sm-2">
+	     	{{$event->type()}}
+	     </div>
+	     <div class="col-sm-6"><p>{{ $event->result}}</p></div>
+	     @else
+	      <div class="col-sm-8 ">
+				<div class="input-group">
+				  <input type="text" class="form-control" value="{{ URL::to('events/deal/'.$event->id) }}"  readonly="readonly">
+				  <span class="input-group-btn">
+				    <a class="btn  btn-success bt_copy"  data-url="{{ URL::to('events/deal/'.$event->id) }}" >复制</a>
+				  </span>
+				</div>
+	      </div>
+		 @endif
+	    
+	     <div class="col-sm-4">
+	     	<div class="col-sm-12">处理人：{{ $event->deal->name}}</div>
+	     	<div class="col-sm-12">创建时间：{{ $event->create_at}}</div>
+	     </div>
+	  </div>
+      @endforeach
+	</div>
 
 <p>
  <a class="btn btn-sm btn-default" href="{{ URL::to('accept/list' ) }}">返回</a>
@@ -89,7 +117,19 @@
     
    
 
-
-
 </div>
+
+{{HTML::script('plug/zclip/jquery.zclip.min.js')}} 
+<script type="text/javascript">
+	$('.bt_copy').zclip({
+	    path: "{{ URL::asset('plug/zclip/ZeroClipboard.swf') }}",
+	    copy: function(){
+				return $(this).data("url");
+			},
+	    afterCopy:function(){
+		}
+	});
+</script>
+
+
 @stop
