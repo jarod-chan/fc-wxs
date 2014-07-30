@@ -18,7 +18,7 @@ class AcceptController extends BaseController{
 			->orderBy('create_at','desc')
 			->get();
 		
-		$dealUserSet=Syuser::dealUser()->lists('name','id');
+		$dealUserSet=SyUser::dealUser()->lists('name','id');
 
 		return View::make('accept.deal')
 			->with('accept',$accept)

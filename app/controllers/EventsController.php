@@ -26,7 +26,7 @@ class EventsController extends BaseController{
 			->orderBy('create_at')
 			->get();
 
-		$dealUserSet=Syuser::dealUser()->lists('name','id');
+		$dealUserSet=SyUser::dealUser()->lists('name','id');
 		$typeSet=Events::typeSet();
 		
 		return View::make('events.deal')
