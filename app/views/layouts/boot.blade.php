@@ -48,6 +48,7 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">基础信息 <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
                 <li><a href="{{ URL::to('syuser/list') }}">系统用户</a></li>
+                <li><a href="{{ URL::to('state/list') }}">投诉受理状态</a></li>
               </ul>
             </li>
             

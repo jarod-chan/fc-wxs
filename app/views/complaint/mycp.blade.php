@@ -13,7 +13,7 @@
 		    <a href="{{ URL::to('complaint/'. $complaint->id) }}">
 		    <p style="white-space: normal;">{{ $complaint->content }}</p>
 		    <p>投诉时间：{{ $complaint->create_at }}</p>
-		    <p class="ui-li-cside">状态：<strong>{{ $complaint->state }}</strong></p>
+		    <p class="ui-li-cside">状态：<strong>{{ $complaint->state() }}</strong></p>
 		    </a>
 		</li>
 		@endforeach

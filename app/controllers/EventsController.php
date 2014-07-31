@@ -27,7 +27,7 @@ class EventsController extends BaseController{
 			->get();
 
 		$dealUserSet=SyUser::dealUser()->lists('name','id');
-		$typeSet=Events::typeSet();
+		$stateSet=State::orderBy("no")->lists('name','id');
 		
 		return View::make('events.deal')
 			->with('event',$event)
@@ -36,7 +36,7 @@ class EventsController extends BaseController{
 			->with('acceptFiles',$acceptFiles)
 			->with('eventHistory',$eventHistory)
 			->with('dealUserSet',$dealUserSet)
-			->with('typeSet',$typeSet);
+			->with('stateSet',$stateSet);
 	}
 	
 	public function save($id){
@@ -73,9 +73,13 @@ class EventsController extends BaseController{
 		$event->fill($arr);
 		$event->save();
 		
-		$next=Input::get("next");
+		$accept=Accept::find($event->accept_id);
+		$accept->state_id=$event->state_id;
+		$accept->save();
+		
+		$next_id=Input::get("next_id");
 		$arr=array(
-			'deal'=>$next,
+			'deal_id'=>$next_id,
 			'create_at'=>new Datetime(),
 			'accept_id'=>$event->accept_id
 		);

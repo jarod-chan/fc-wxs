@@ -44,11 +44,17 @@
         </div>
     </div>
         <div class='row'>
-        <div class='col-sm-12'>
+        <div class='col-sm-8'>
             <div class='form-group'>
 
                 <label>地址</label>
                <p class="form-control-static">{{$accept->getAddress()}}</p>
+            </div>
+        </div>
+          <div class='col-sm-4'>
+            <div class='form-group'>
+                <label>状态</label>
+               <p class="form-control-static">@if($accept->state_id){{ $accept->state->name }}@endif</p>
             </div>
         </div>
     </div>
@@ -89,7 +95,7 @@
       <div class="list-group-item row">
 	     @if ($event->isCommited())
 	     <div class="col-sm-2">
-	     	{{$event->type()}}
+	     	{{$event->state->name}}
 	     </div>
 	     <div class="col-sm-6"><p>{{ $event->result}}</p></div>
 	     @else

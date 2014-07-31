@@ -5,7 +5,7 @@ class Events extends Eloquent{
 	
 	public $timestamps = false;
 	
-	protected $fillable = array('type','result', 'deal_id', 'next_id','create_at','commit_at','accept_id');
+	protected $fillable = array('state_id','result', 'deal_id', 'next_id','create_at','commit_at','accept_id');
 	
 	public function isCommited(){
 		return $this->commit_at!=null;
@@ -19,14 +19,8 @@ class Events extends Eloquent{
 		return $this->belongsTo('SyUser', 'next_id');
 	}
 	
-	
-	public static function typeSet(){
-		return array('xckc' =>'现场勘查','clfa'=>'处理方案','clzx'=>'处理执行');
+	public function state(){
+		return $this->belongsTo('State', 'state_id');
 	}
-	
-	public function type(){
-		return self::typeSet()[$this->type];
-	}
-	
 	
 }

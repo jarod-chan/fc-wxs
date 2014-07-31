@@ -34,13 +34,14 @@
 			<td>{{ $complaint->name }}</td>
 			<td>{{ $complaint->phone }}</td>
 			<td>{{ $complaint->content }}</td>
-			<td>{{ $complaint->state }}</td>
+			<td>{{ $complaint->state() }}</td>
 
 			<td>
-
-				<!-- show the nerd (uses the show method found at GET /nerds/{id} -->
-				<a class="btn btn-small btn-primary" href="{{ URL::to('complaint/deal/' . $complaint->id) }}">处理投诉</a>
-
+				@if( $complaint->isDeal()) 
+					<a class="btn  btn-sm btn-default" href="{{ URL::to('complaint/view/' . $complaint->id) }}">查看</a>
+				@else
+					<a class="btn btn-sm btn-primary"  href="{{ URL::to('complaint/deal/' . $complaint->id) }}">处理投诉</a>
+				@endif
 			</td>
 		</tr>
 	@endforeach

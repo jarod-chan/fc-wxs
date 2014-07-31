@@ -24,8 +24,8 @@ class EventsDealid extends Migration {
 			{
 				$table->dropColumn('next');
 			}
-			$table->integer('deal_id')->default(3);//关联用户
-			$table->integer('next_id')->default(4);//关联用户
+			$table->integer('deal_id')->nullable();//关联用户
+			$table->integer('next_id')->nullable();//关联用户
 			
 		});
 	}

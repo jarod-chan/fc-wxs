@@ -23,7 +23,7 @@ class ComplaintController extends BaseController {
 				'phone'=>Input::get('phone'),
 				'address'=>Input::get('address'),
 				'content'=>Input::get('content'),
-				'state'=>'N/A',
+				'state'=>'wait',
 				'create_at'=>new DateTime()
 		);
 		$complaint = Complaint::create($arr);
@@ -94,9 +94,24 @@ class ComplaintController extends BaseController {
 			->with('unitEnums',Accept::unitEnums()); 
 	}
 	
-	public function dealPost($id){
-		$arr=Input::all();
+	public function view($id){
 		$complaint=Complaint::find($id);
+		$files=UpFile::where('tabname', 'wx_complaint')
+			->Where('pkid',$id)
+			->orderBy('id')
+			->get();
+	
+		return View::make('complaint.view')
+			->with('complaint',$complaint)
+			->with('files',$files);
+	}
+	
+	public function accept($id){
+		$complaint=Complaint::find($id);
+		$complaint->fill(array('state'=>'deal'));
+		$complaint->save();
+		
+		$arr=Input::all();
 		$arr['no']=uniqid();
 		$arr['name']=$complaint->name;
 		$arr['complaint_id']=$complaint->id;
@@ -120,6 +135,16 @@ class ComplaintController extends BaseController {
 		
 		Session::flash('message', '操作成功！');
 		
+		return Redirect::action('ComplaintController@index');
+	}
+	
+	public function reject($id){
+		$complaint=Complaint::find($id);
+		$complaint->fill(array('state'=>'close'));
+		$complaint->save();
+	
+		Session::flash('message', '操作成功！');
+	
 		return Redirect::action('ComplaintController@index');
 	}
 	

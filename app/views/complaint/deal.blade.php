@@ -37,18 +37,23 @@
     <div class='row'>
         <div class='col-sm-12'>
             <div class='form-group'>
-
                 <label>投诉内容</label>
                <p class="form-control-static">{{$complaint->content}}</p>
             </div>
         </div>
     </div>
     <div class='row'>
-        <div class='col-sm-12'>
+        <div class='col-sm-8'>
             <div class='form-group'>
 
                 <label>地址</label>
                <p class="form-control-static">{{$complaint->address}}</p>
+            </div>
+        </div>
+        <div class='col-sm-4'>
+            <div class='form-group'>
+                <label>状态</label>
+               <p class="form-control-static">{{$complaint->state()}}</p>
             </div>
         </div>
     </div>
@@ -168,8 +173,9 @@
     
 
 <p>
-{{ Form::submit('生成受理单', array('class' => 'btn btn-sm btn-primary')) }}
- <a class="btn btn-sm btn-warning" href="#">拒绝</a>
+
+ <button id="btn_accept" class="btn btn-sm btn-primary" >生成受理单</button>
+ <button id="btn_reject" class="btn btn-sm btn-warning" >拒绝</button>
  <a class="btn btn-sm btn-default" href="{{ URL::to('complaint/list' ) }}">返回</a>
 </p>  
     
@@ -177,7 +183,20 @@
 </fieldset>
 {{ Form::close() }}	
 
-
+<script type="text/javascript">
+	$(function(){
+		$("#btn_accept").click(function(){
+			var url=$("form").attr('action');
+			$("form").attr('action',url+'/accept');
+			$("form").submit();
+		})
+		$("#btn_reject").click(function(){
+			var url=$("form").attr('action');
+			$("form").attr('action',url+'/reject');
+			$("form").submit();
+		})
+	})
+</script>
 
 
 </div>

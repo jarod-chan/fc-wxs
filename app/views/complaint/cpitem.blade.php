@@ -10,7 +10,7 @@
 	            <label>投诉时间</label><p>{{ $complaint->create_at }}</p>
 	        </li>
 	         <li class="ui-field-contain">
-	            <label>状态</label><p>{{ $complaint->state }}</p>
+	            <label>状态</label><p>{{ $complaint->state() }}</p>
 	        </li>
 	        <li class="ui-field-contain">
         	<label>附件</label>
@@ -26,7 +26,7 @@
 	    	<li data-role="list-divider">事件列表</li>
 	    	@foreach ($eventHistory as $event)
 	    	<li class="ui-field-contain">
-			      <label>{{$event->type()}}</label><p>{{$event->result}}</p>
+			      <label>{{$event->state->name}}</label><p>{{$event->result}}</p>
 			</li>
 			@endforeach
 		 </ul>

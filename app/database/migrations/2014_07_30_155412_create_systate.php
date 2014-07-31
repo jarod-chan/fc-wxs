@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSyUser extends Migration {
+class CreateSystate extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,13 +12,12 @@ class CreateSyUser extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('sy_user', function($table)
+		Schema::create('sy_state', function($table)
 		{
 			$table->increments('id');
+			$table->integer('no');
 			$table->string('name');
-			$table->string('password');
-			$table->string('email');
-			$table->timestamps();
+			$table->softDeletes();//软删除
 		});
 	}
 
@@ -29,7 +28,7 @@ class CreateSyUser extends Migration {
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('sy_user');
+		Schema::dropIfExists('sy_state');
 	}
 
 }

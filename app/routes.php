@@ -17,6 +17,17 @@ Route::get('login','SyUserController@login');
 Route::post('login','SyUserController@loginPost');
 
 
+
+Route::get('state/list','StateController@index');
+
+Route::get('state/add','StateController@add');
+
+Route::get('state/edit/{id}','StateController@edit')
+	->where('id', '[0-9]+');
+
+Route::post('state/save','StateController@save');
+
+
 Route::get('syuser/list','SyUserController@index');
 
 Route::get('syuser/add','SyUserController@add');
@@ -53,10 +64,15 @@ Route::get('complaint/list','ComplaintController@index');
 
 Route::get('complaint/deal/{id}','ComplaintController@deal')
 	->where('id', '[0-9]+');
-
-Route::post('complaint/deal/{id}','ComplaintController@dealPost')
-	->where('id', '[0-9]+');
 	
+Route::get('complaint/view/{id}','ComplaintController@view')
+	->where('id', '[0-9]+');
+
+Route::post('complaint/deal/{id}/accept','ComplaintController@accept')
+	->where('id', '[0-9]+');
+
+Route::post('complaint/deal/{id}/reject','ComplaintController@reject')
+	->where('id', '[0-9]+');
 
 	
 Route::get('accept/list','AcceptController@index');

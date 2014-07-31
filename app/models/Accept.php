@@ -69,4 +69,8 @@ class Accept extends Eloquent{
 		
 		return $this->community().$this->area().$this->building().$this->unit().'-'.$this->room;
 	}
+	
+	public function state(){
+		return $this->belongsTo('State', 'state_id');
+	}
 }

@@ -55,7 +55,7 @@
         </li>
         <li class="ui-field-contain">
             <label for="type">任务节点</label>
-              {{ Form::select('type',$typeSet,$event->type)}}
+              {{ Form::select('state_id',$stateSet,$event->state_id)}}
         </li>
         <li class="ui-field-contain">
             <label for="result">结果记录</label>
@@ -92,7 +92,7 @@
     	<li data-role="list-divider">事件列表</li>
     	@foreach ($eventHistory as $event)
     	<li class="ui-field-contain">
-		      <label>{{$event->type()}}</label><p>{{$event->result}}</p>
+		      <label>{{$event->state->name}}</label><p>{{$event->result}}</p>
 		</li>
 		@endforeach
  </ul>
