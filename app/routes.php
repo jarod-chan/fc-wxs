@@ -83,7 +83,26 @@ Route::get('accept/deal/{id}','AcceptController@deal')
 Route::post('accept/deal/{id}','AcceptController@dealPost')
 	->where('id', '[0-9]+');
 
-	
+Route::get('accept/add','AcceptController@add');
+
+Route::post('accept/add','AcceptController@addPost');
+
+Route::get('accept/history','AcceptController@history');
+
+Route::get('accept/history/item/{id}','AcceptController@historyitem')
+	->where('id', '[0-9]+');
+
+
+Route::get('accept/todo','AcceptController@todo');
+
+Route::get('accept/doitem/{id}','AcceptController@doitem')
+	->where('id', '[0-9]+');;
+
+Route::post('accept/doitem/{id}/save','AcceptController@dosave')
+	->where('id', '[0-9]+');
+
+Route::post('accept/doitem/{id}/commit','AcceptController@docommit')
+	->where('id', '[0-9]+');
 	
 	
 Route::get('events/list','EventsController@index');

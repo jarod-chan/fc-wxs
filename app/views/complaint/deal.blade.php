@@ -161,13 +161,23 @@
         </div>
     </div> 
     <div class='row'>
-    <div class='col-sm-12'>
+        <div class='col-sm-4'>
+    	<div class='form-group'>
+               <label >下一步处理人</label>
+              {{ Form::select('next_id',$dealUserSet,'',array('class'=>'form-control'))}}
+        </div>
+    </div>
+    <div class='col-sm-8'>
+    <div class='form-group'>
+    	<label >附件</label>
     	<div class="checkbox">
-        <label>
-          <input type="checkbox" checked="true" disabled> 自动关联附件
-        </label>
-      </div>
-      </div>
+	        <label>
+	          <input type="checkbox" checked="true" disabled> 自动关联附件
+	        </label>
+	      </div>
+	 </div>
+     </div>
+   
     </div> 
     
     

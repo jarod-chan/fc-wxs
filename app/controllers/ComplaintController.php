@@ -82,6 +82,8 @@ class ComplaintController extends BaseController {
 			->orderBy('id')
 			->get();
 		
+		$dealUserSet=SyUser::dealUser()->lists('name','id');
+		
 		return View::make('complaint.deal')
 			->with('complaint',$complaint)
 			->with('files',$files)
@@ -91,7 +93,8 @@ class ComplaintController extends BaseController {
 			->with('fromEnums',Accept::fromEnums())
 			->with('degreeEnums',Accept::degreeEnums())
 			->with('typeEnums',Accept::typeEnums())
-			->with('unitEnums',Accept::unitEnums()); 
+			->with('unitEnums',Accept::unitEnums())
+			->with('dealUserSet',$dealUserSet); 
 	}
 	
 	public function view($id){
@@ -132,6 +135,15 @@ class ComplaintController extends BaseController {
 			);
 			UpFile::create($arr);
 		}
+		
+		//生成下一个节点处理人
+		$next_id=Input::get("next_id");
+		$arr=array(
+				'deal_id'=>$next_id,
+				'create_at'=>new Datetime(),
+				'accept_id'=>$accept->id
+		);
+		$nextEvent=Events::create($arr);
 		
 		Session::flash('message', '操作成功！');
 		

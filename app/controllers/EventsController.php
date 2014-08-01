@@ -23,7 +23,7 @@ class EventsController extends BaseController{
 			->get();
 		$eventHistory=Events::where('accept_id',$event->accept_id)
 			->whereNotNull('commit_at')
-			->orderBy('create_at')
+			->orderBy('create_at','desc')
 			->get();
 
 		$dealUserSet=SyUser::dealUser()->lists('name','id');
@@ -39,9 +39,8 @@ class EventsController extends BaseController{
 			->with('stateSet',$stateSet);
 	}
 	
-	public function save($id){
+	private function saveEvent($id,$arr){
 		$event=Events::find($id);
-		$arr=Input::all();
 		$event->fill($arr);
 		$event->save();
 		
@@ -60,6 +59,12 @@ class EventsController extends BaseController{
 				UpFile::create($arr);
 			}
 		}
+		return $event;
+	}
+	
+	public function save($id){
+		$arr=Input::all();
+		$this->saveEvent($id, $arr);
 		
 		Session::flash('action', 'save');
 		Session::flash('message', '保存成功！');
@@ -67,11 +72,10 @@ class EventsController extends BaseController{
 	}
 	
 	public function commit($id){
-		$event=Events::find($id);
+
 		$arr=Input::all();
 		$arr["commit_at"]=new Datetime();
-		$event->fill($arr);
-		$event->save();
+		$event=$this->saveEvent($id,$arr);
 		
 		$accept=Accept::find($event->accept_id);
 		$accept->state_id=$event->state_id;
