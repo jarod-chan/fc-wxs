@@ -71,7 +71,16 @@
              
             
           </ul>
-
+          @if ( Auth::guest() )
+          <ul class="nav navbar-nav navbar-right">
+        	<li>{{ HTML::link('/login', '登录') }}</li>
+          </ul>
+          @else
+          <ul class="nav navbar-nav navbar-right">
+        	<li><a id="btn_logout"  href="#">退出</a></li>
+          </ul>
+		  <p class="navbar-text navbar-right">用户：{{Auth::user()->name}}</p>
+		  @endif
         </div><!--/.nav-collapse -->
       </div>
     </div>
@@ -88,6 +97,14 @@
 					return $(this).ekkoLightbox();
 				});
 			});
+
+            $(function () {
+                $("#btn_logout").click(function(){ 
+                	$('<form/>',{action:"{{ URL::to('logout') }}",method:'post'})
+           			.appendTo($("body"))
+           			.submit();
+                })
+            })
         </script>
   </body>
 </html>

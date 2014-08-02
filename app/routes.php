@@ -10,11 +10,19 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
-Route::get('','SyUserController@login');
 
-Route::get('login','SyUserController@login');
+Route::get('','LoginController@login');
 
-Route::post('login','SyUserController@loginPost');
+Route::get('login','LoginController@login');
+
+Route::post('login','LoginController@loginPost');
+
+Route::post('logout','LoginController@logout');
+
+
+
+//微信接口
+Route::get('wx/menu','WxMenuController@menu');
 
 
 
@@ -28,17 +36,15 @@ Route::get('state/edit/{id}','StateController@edit')
 Route::post('state/save','StateController@save');
 
 
+
 Route::get('syuser/list','SyUserController@index');
 
 Route::get('syuser/add','SyUserController@add');
 
-Route::post('syuser/add','SyUserController@addPost');
-
 Route::get('syuser/edit/{id}','SyUserController@edit')
 	->where('id', '[0-9]+');
 
-Route::post('syuser/edit/{id}','SyUserController@editPost')
-	->where('id', '[0-9]+');
+Route::post('syuser/save','SyUserController@save');
 
 
 
@@ -60,7 +66,7 @@ Route::get('complaint/{id}','ComplaintController@cpitem')
 
 
 
-Route::get('complaint/list','ComplaintController@index');
+Route::get('complaint/list',array('uses' =>'ComplaintController@index'));
 
 Route::get('complaint/deal/{id}','ComplaintController@deal')
 	->where('id', '[0-9]+');

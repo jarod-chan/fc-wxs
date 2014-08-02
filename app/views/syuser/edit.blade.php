@@ -15,12 +15,20 @@
 @if (Session::has('message'))
 	<div class="alert alert-info">{{ Session::get('message') }}</div>
 @endif
-{{ Form::open(array('url' => 'syuser/edit/'.$syuser->id)) }}
+{{ Form::open(array('url' => 'syuser/save')) }}
+
+  	{{ Form::hidden('id',$syuser->id) }}
 	 <div class='row'>
 	        <div class='col-sm-6'>    
 	            <div class='form-group'>
 	                <label >用户名</label>
 	                {{ Form::text('name',$syuser->name,array('class'=>'form-control')) }}
+	            </div>
+	        </div>
+	         <div class='col-sm-6'>    
+	            <div class='form-group'>
+	                <label >密码</label>
+	                {{ Form::text('password','',array('class'=>'form-control')) }}
 	            </div>
 	        </div>
 	        <div class='col-sm-6'>
@@ -33,6 +41,12 @@
 	            <div class='form-group'>
 	                <label >角色</label>
 	                {{ Form::select('role',$roleEnums,$syuser->role,array('class'=>'form-control'))}}
+	            </div>
+	        </div>
+	        <div class='col-sm-6'>
+	            <div class='form-group'>
+	                <label >微信id</label>
+	                 {{ Form::text('openid',$syuser->openid,array('class'=>'form-control')) }}
 	            </div>
 	        </div>
 	</div>
