@@ -1,26 +1,22 @@
-@extends('layouts.mobile')
 
 
-
-@section('content')
-<script type="text/javascript">
-	$(function(){
-		$("#type").change(function(){
-			if($(this).val()=='yz'){
-				$("#idcard").val("");
-				$("#div_idcard").show();
-			}else{
-				$("#idcard").val("");
-				$("#div_idcard").hide();
-			}
-		})
-	})		
-</script>
 <div data-role="page">
+	  <script type="text/javascript">
+		$(function(){ 
+			$("#type").change(function(){ 
+				if($(this).val()=='yz'){
+					$("#idcard").val("");
+					$("#div_idcard").show();
+				}else{
+					$("#idcard").val("");
+					$("#div_idcard").hide();
+				}
+			})
+		})		
+	</script>
   <div data-role="content">
-	{{ Form::open(array('url' => 'wxuser/register')) }}
+	{{ Form::open(array('url' => 'wx/register?'.$param,'data-ajax'=>'true')) }}
    
-    {{ Form::hidden('openid', $openid) }}
 	<ul data-role="listview" data-inset="true">
 	 	<li class="ui-field-contain">
 	    {{ Form::label('type', '用户类型') }}
@@ -50,4 +46,3 @@
 	</div>
 </div>
 	
-@stop

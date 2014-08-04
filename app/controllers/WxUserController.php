@@ -3,7 +3,7 @@
 class WxUserController extends BaseController{
 
 	//微信用户的注册页面
-	public function register()
+	public function info()
 	{
 		$openid=Input::get('openid');
 		$wxUser=WxUser::find($openid); 
@@ -14,39 +14,12 @@ class WxUserController extends BaseController{
 			->with('typeEnums',WxUser::typeEnums())
 			->with('wxUser',$wxUser);
 		}else{
-			return View::make('wxuser.register')
-			->with('openid',$openid)
-			->with('typeEnums',WxUser::typeEnums());
+			return Redirect::action('WxRegisterController@toRegister', array('openid' => $openid,'tourl'=>'wx/user/info'));
 		}	
 	}
 
 
-	public function registerPost(){
-		$openid=Input::get('openid');
-		$idcard=Input::get('idcard');
-		if(empty($idcard)){
-			$verified='no';
-		}else{
-			$verified='yes';
-		}
-		$arr=array(
-			'openid'=>$openid,
-			'type'=>Input::get('type'),
-			'name'=>Input::get('name'),
-			'phone'=>Input::get('phone'),
-			'email'=>Input::get('email'),
-			'idcard'=>$idcard,
-			'verified'=>$verified
-		);
-		$wxUser=new WxUser();
-		$wxUser->fill($arr);
-		$result=$wxUser->save();
-		
-		return Redirect::action('WxUserController@register', array('openid' => $openid));
-	}
-
-
-	public function updatePost(){
+	public function infoPast(){
 		$openid=Input::get('openid');
 		$wxUser=WxUser::find($openid); 
 
@@ -59,7 +32,7 @@ class WxUserController extends BaseController{
 		
 		$wxUser->save();
 
-		return Redirect::action('WxUserController@register', array('openid' => $openid));
+		return Redirect::action('WxUserController@info', array('openid' => $openid));
 	}
 
 }
