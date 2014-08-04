@@ -21,9 +21,19 @@ Route::post('logout','LoginController@logout');
 
 
 
-//微信接口
+//微信获得菜单
 Route::get('wx/menu','WxMenuController@menu');
 
+
+//用户注册
+Route::get('wx/toregister','WxRegisterController@toRegister');
+Route::get('wx/register','WxRegisterController@register');
+Route::post('wx/register','WxRegisterController@registerPost');
+
+
+//用户信息
+Route::get('wx/user/info','WxUserController@info');
+Route::post('wx/user/info','WxUserController@infoPast');
 
 
 Route::get('state/list','StateController@index');
@@ -48,11 +58,7 @@ Route::post('syuser/save','SyUserController@save');
 
 
 
-Route::get('wxuser/register','WxUserController@register');
 
-Route::post('wxuser/register','WxUserController@registerPost');
-
-Route::post('wxuser/update','WxUserController@updatePost');
 
 
 Route::get('complaint','ComplaintController@complaint');
