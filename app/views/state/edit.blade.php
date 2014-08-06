@@ -30,6 +30,12 @@
 	                 {{ Form::text('name',$state->name,array('class'=>'form-control')) }}
 	            </div>
 	        </div>
+	        <div class='col-sm-6'>
+	            <div class='form-group'>
+	                <label >属性</label>
+	                 {{ Form::text('prop',$state->prop,array('class'=>'form-control')) }}
+	            </div>
+	        </div>
 	</div>
 	
 	

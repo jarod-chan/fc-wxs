@@ -5,7 +5,7 @@ class Accept extends Eloquent{
 	
 	public $timestamps = false;
 	
-	protected $fillable = array('no','name', 'phone', 'community','area','building','unit','room','content','from','degree','type','complaint_id','accept_id','create_at');
+	protected $fillable = array('no','name', 'phone', 'community','area','building','unit','room','content','from','degree','type','complaint_id','accept_id','create_at','tag_key','state_id');
 	
 	public static function communityEnums(){
 		return array('sj' =>'尚景','hj'=>'鸿景','jy'=>'景园');
@@ -70,13 +70,19 @@ class Accept extends Eloquent{
 		return $this->community().$this->area().$this->building().$this->unit().'-'.$this->room;
 	}
 	
+	
 	public function state(){
 		return $this->belongsTo('State', 'state_id');
 	}
 	
+	
 	public function events()
 	{
 		return $this->hasMany('Events','accept_id');
+	}
+	
+	public function tag(){
+		return $this->belongsTo('SyTag', 'tag_key');
 	}
 	
 }

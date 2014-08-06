@@ -84,6 +84,9 @@ class ComplaintController extends BaseController {
 		
 		$dealUserSet=SyUser::dealUser()->lists('name','id');
 		
+		$stateBeg=State::beg()->first();
+		$tagSet=SyTag::lists('name','key');
+		
 		return View::make('complaint.deal')
 			->with('complaint',$complaint)
 			->with('files',$files)
@@ -94,7 +97,9 @@ class ComplaintController extends BaseController {
 			->with('degreeEnums',Accept::degreeEnums())
 			->with('typeEnums',Accept::typeEnums())
 			->with('unitEnums',Accept::unitEnums())
-			->with('dealUserSet',$dealUserSet); 
+			->with('dealUserSet',$dealUserSet)
+			->with('stateBeg',$stateBeg)
+			->with('tagSet',$tagSet); 
 	}
 	
 	public function view($id){
@@ -138,7 +143,9 @@ class ComplaintController extends BaseController {
 		
 		//生成下一个节点处理人
 		$next_id=Input::get("next_id");
+		$state_id=Input::get("state_id");
 		$arr=array(
+				'state_id'=>$state_id,
 				'deal_id'=>$next_id,
 				'create_at'=>new Datetime(),
 				'accept_id'=>$accept->id

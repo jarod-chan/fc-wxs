@@ -12,7 +12,7 @@
 			</div>
 		</div>
 		@if (Session::get('action')=='save')
-			<p><a href="{{ URL::to('events/deal/' . $eventId) }}"  data-ajax='false' class="ui-btn ui-shadow ui-corner-all">点击此处跳转编辑页面</a></p>
+			<p><a href="{{ URL::to('wx/events/deal/' . $eventId) }}"  data-ajax='false' class="ui-btn ui-shadow ui-corner-all">点击此处跳转编辑页面</a></p>
 		@endif	
 	</div>
 </div>

@@ -74,7 +74,7 @@
 	</div>
  </fieldset>
  
- {{ Form::open(array('url' => 'accept/deal/'.$accept->id)) }}
+<!--  {{ Form::open(array('url' => 'accept/deal/'.$accept->id)) }}
  <fieldset>
     <legend>下一步处理人</legend>
     <div class="form-horizontal">
@@ -89,21 +89,24 @@
 	 </div>
 	</div>
 </fieldset> 
-{{ Form::close() }}	
+{{ Form::close() }}	 -->
     <div class="list-group">
       @foreach ($eventHistory as $event)
       <div class="list-group-item row">
 	     @if ($event->isCommited())
 	     <div class="col-sm-2">
-	     	{{$event->state->name}}
+	     	<p>{{$event->state->name}}</p>
 	     </div>
 	     <div class="col-sm-6"><p>{{ $event->result}}</p></div>
 	     @else
-	      <div class="col-sm-8 ">
+	     <div class="col-sm-2">
+	     	<p>{{$event->state->name}}</p>
+	     </div>
+	      <div class="col-sm-6 ">
 				<div class="input-group">
-				  <input type="text" class="form-control" value="{{ URL::to('events/deal/'.$event->id) }}"  readonly="readonly">
+				  <input type="text" class="form-control" value="{{ URL::to('wx/events/deal/'.$event->id) }}"  readonly="readonly">
 				  <span class="input-group-btn">
-				    <a class="btn  btn-success bt_copy"  data-url="{{ URL::to('events/deal/'.$event->id) }}" >复制</a>
+				    <a class="btn  btn-success bt_copy"  data-url="{{ URL::to('wx/events/deal/'.$event->id) }}" >复制</a>
 				  </span>
 				</div>
 	      </div>

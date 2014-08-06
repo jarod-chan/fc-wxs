@@ -10,6 +10,7 @@
     {{HTML::style('css/bootstrap.min.css')}} 
     {{HTML::script('js/jquery-1.11.1.min.js')}}
     {{HTML::script('js/bootstrap.min.js')}}
+    {{HTML::script('js/myplug.js')}}
     
     {{HTML::style('plug/lightbox/ekko-lightbox.min.css')}} 
     {{HTML::script('plug/lightbox/ekko-lightbox.min.js')}} 
@@ -48,6 +49,7 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">基础信息 <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
                 <li><a href="{{ URL::to('syuser/list') }}">系统用户</a></li>
+                <li><a href="{{ URL::to('sytag/list') }}">系统标签</a></li>
                 <li><a href="{{ URL::to('state/list') }}">投诉受理状态</a></li>
               </ul>
             </li>

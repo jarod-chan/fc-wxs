@@ -1,13 +1,10 @@
 <?php
-class EventsController extends BaseController{
-	public function index(){
-		$events=Events::all();
-		return Response::json($events);
-	}
+class WxEventsController extends BaseController{
+
 	
 	public function deal($id){
 		if(Session::has('message')){
-			return View::make('events.message')
+			return View::make('wxevents.message')
 				->with('eventId',$id);
 		}
 		$event=Events::find($id);
@@ -25,18 +22,27 @@ class EventsController extends BaseController{
 			->whereNotNull('commit_at')
 			->orderBy('create_at','desc')
 			->get();
-
-		$dealUserSet=SyUser::dealUser()->lists('name','id');
-		$stateSet=State::orderBy("no")->lists('name','id');
 		
-		return View::make('events.deal')
+		$currState=$event->state;
+		$nextState=State::nextState($currState)->first();
+		
+		$stateUserSet=$nextState->stateUser;
+		$dealUserSet=array();
+		foreach ($stateUserSet as $stateUser){
+			if ($stateUser->tag_key==$accept->tag->key) {
+				$dealUserSet[$stateUser->user_id]=$stateUser->user_name;
+			}
+		}
+	
+		
+		return View::make('wxevents.deal')
 			->with('event',$event)
 			->with('files',$files)
 			->with('accept',$accept)
 			->with('acceptFiles',$acceptFiles)
 			->with('eventHistory',$eventHistory)
 			->with('dealUserSet',$dealUserSet)
-			->with('stateSet',$stateSet);
+			->with('nextState',$nextState);
 	}
 	
 	private function saveEvent($id,$arr){
@@ -68,7 +74,7 @@ class EventsController extends BaseController{
 		
 		Session::flash('action', 'save');
 		Session::flash('message', '保存成功！');
-		return Redirect::action('EventsController@deal', array('id' => $id));
+		return Redirect::action('WxEventsController@deal', array('id' => $id));
 	}
 	
 	public function commit($id){
@@ -77,21 +83,36 @@ class EventsController extends BaseController{
 		$arr["commit_at"]=new Datetime();
 		$event=$this->saveEvent($id,$arr);
 		
+		$next_state_id=Input::get("next_state_id");
+		$nextState=State::find($next_state_id);
+		
+		//更新受理单状态
 		$accept=Accept::find($event->accept_id);
-		$accept->state_id=$event->state_id;
+		$accept->state_id=$nextState->id;
 		$accept->save();
 		
-		$next_id=Input::get("next_id");
-		$arr=array(
-			'deal_id'=>$next_id,
-			'create_at'=>new Datetime(),
-			'accept_id'=>$event->accept_id
-		);
-		$nextEvent=Events::create($arr);
+		//如果非结束节点，生成下一节点
+		if(!$nextState->isEnd()){
+			$next_id=Input::get("next_id");
+			$arr=array(
+					'state_id'=>$nextState->id,
+					'deal_id'=>$next_id,
+					'create_at'=>new Datetime(),
+					'accept_id'=>$event->accept_id
+			);
+			$nextEvent=Events::create($arr);
+			
+			Session::flash('action', 'commit');
+			Session::flash('message', '提交成功！请分享当前页面到下一步处理人。');
+			
+			return Redirect::action('WxEventsController@deal', array('id' => $nextEvent->id));
+		}else{
+			Session::flash('action', 'commit');
+			Session::flash('message', '提交成功！流程已经结束。');
+			
+			return Redirect::action('WxEventsController@deal', array('id' => $event->id));
+		}
 		
-		Session::flash('action', 'commit');
-		Session::flash('message', '提交成功！请分享当前页面到下一步处理人。');
-		
-		return Redirect::action('EventsController@deal', array('id' => $nextEvent->id));
+			
 	}
 }

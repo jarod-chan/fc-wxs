@@ -47,7 +47,7 @@
         </li>
     </ul>
   
-{{ Form::open(array('url' => 'events/deal/'.$event->id, 'files'=>true,'data-ajax'=>'false')) }}
+{{ Form::open(array('url' => 'wx/events/deal/'.$event->id, 'files'=>true,'data-ajax'=>'false')) }}
     <ul data-role="listview" data-inset="true">
      	<li class="ui-field-contain">
             <label for="type">当前处理人</label>
@@ -55,7 +55,7 @@
         </li>
         <li class="ui-field-contain">
             <label for="type">任务节点</label>
-              {{ Form::select('state_id',$stateSet,$event->state_id)}}
+              <p>{{$event->state->name}}</p>
         </li>
         <li class="ui-field-contain">
             <label for="result">结果记录</label>
@@ -77,10 +77,21 @@
 	        </div>
            
         </li>
+         <li class="ui-field-contain">
+        	  <label >流程标签</label>
+        	  <p>{{$accept->tag->name}}</p>
+        </li>
+        <li class="ui-field-contain">
+        	  <label >下一步流程</label>
+        	 <p>{{$nextState->name}}</p>
+        	 {{ Form::hidden('next_state_id',$nextState->id)}}
+        </li>
+        @if(!$nextState->isEnd())
         <li class="ui-field-contain">
         	<label for="next">下一步处理人</label>
         	{{ Form::select('next_id',$dealUserSet,$event->next_id)}}
         </li>
+        @endif
         <li class="ui-grid-a ui-responsive">
 		    <div class="ui-block-a"><button id="btn_save" class="ui-btn  ui-shadow  ui-corner-all" >暂存</button></div>
 		    <div class="ui-block-b"><button id="btn_commit" class="ui-btn  ui-shadow  ui-corner-all" >提交</button></div>
