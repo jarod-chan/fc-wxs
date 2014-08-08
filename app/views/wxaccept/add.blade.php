@@ -3,22 +3,9 @@
 
 
 @section('content')
-<script type="text/javascript">
-	$(function(){
-		$("#type").change(function(){
-			if($(this).val()=='yz'){
-				$("#idcard").val("");
-				$("#div_idcard").show();
-			}else{
-				$("#idcard").val("");
-				$("#div_idcard").hide();
-			}
-		})
-	})		
-</script>
 <div data-role="page">
   <div data-role="content">
-	{{ Form::open(array('url' => 'accept/add?openid=$openid','files'=>true,'data-ajax'=>'false')) }}
+	{{ Form::open(array('url' => 'wx/accept/add?openid='.$openid,'files'=>true,'data-ajax'=>'false')) }}
    
     {{ Form::hidden('openid', $openid) }}
 	<ul data-role="listview" data-inset="true">
@@ -71,8 +58,17 @@
 		{{ Form::select('type', $typeEnums)}}
 		</li>
 		<li class="ui-field-contain">
+		{{ Form::label('', '下一步流程') }}
+		<p>{{$stateBeg->name}}</p>
+		{{ Form::hidden('next_state_id',$stateBeg->id)}}
+		</li>
+		<li class="ui-field-contain">
+		{{ Form::label('tag_key', '流程标签') }}
+		{{ Form::select('tag_key',$tagSet,array('id'=>'tag_key'))}}
+		</li>
+		<li class="ui-field-contain">
 		{{ Form::label('next_id', '下一步处理人') }}
-		{{ Form::select('next_id', $dealUserSet)}}
+		{{ Form::select('next_id',array(),array('id'=>'next_id'))}} 
 		</li>
 		<li class="ui-field-contain">
 		{{ Form::label('file[]', '附件:') }}
@@ -83,6 +79,24 @@
 
 	{{ Form::close() }}	
 	</div>
+	<script type="text/javascript">
+	$(function(){
+		var nextSet={{$stateBeg->stateUser->toJson()}}; 
+		$("#tag_key").change(function(){
+			var select=$("#next_id");
+			select.find("option").remove();
+			var tag=$(this).val()
+			$.each(nextSet,function(n,obj){
+				if(obj.tag_key==tag){
+					select.append("<option value='"+obj.user_id+"'>"+obj.user_name+"</option>");
+				}
+			});
+			select.selectmenu();
+			select.selectmenu('refresh', true);
+		});
+		$("#tag_key").triggerHandler('change');
+	})		
+	</script>
 </div>
 	
 @stop

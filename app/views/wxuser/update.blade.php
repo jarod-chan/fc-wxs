@@ -18,8 +18,8 @@
 </script>
 <div data-role="page">
   <div data-role="content">
-	{{ Form::open(array('url' => 'wx/user/info')) }}
-    {{ Form::hidden('openid', $openid) }}
+	{{ Form::open(array('url' => 'wx/user/info?openid='.$openid)) }}
+<!--     {{ Form::hidden('openid', $openid) }} -->
     {{ Form::hidden('verified', $wxUser->verified ,array('id'=>'verified')) }}
 	<ul data-role="listview" data-inset="true">
    

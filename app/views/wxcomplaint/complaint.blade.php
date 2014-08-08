@@ -5,7 +5,7 @@
 @section('content')
 <div data-role="page">
   <div data-role="content">
-	{{ Form::open(array('url' => 'complaint', 'files'=>true,'data-ajax'=>'false')) }}
+	{{ Form::open(array('url' => 'wx/complaint', 'files'=>true,'data-ajax'=>'false')) }}
 	{{ Form::hidden('openid', $openid) }}
     <ul data-role="listview" data-inset="true">
       <li class="ui-field-contain">

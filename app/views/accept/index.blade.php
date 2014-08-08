@@ -39,7 +39,7 @@
 			<td>
 
 				<!-- show the nerd (uses the show method found at GET /nerds/{id} -->
-				<a class="btn btn-small btn-primary" href="{{ URL::to('accept/deal/'.$accept->id) }}">处理</a>
+				<a class="btn btn-small btn-default" href="{{ URL::to('accept/deal/'.$accept->id) }}">查看</a>
 
 			</td>
 		</tr>

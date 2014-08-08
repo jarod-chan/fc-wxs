@@ -23,4 +23,10 @@ class Events extends Eloquent{
 		return $this->belongsTo('State', 'state_id');
 	}
 	
+	public function state_val(){
+		if($this->state){
+			return $this->state->name;
+		}
+	}
+	
 }

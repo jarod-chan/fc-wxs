@@ -165,7 +165,7 @@
     	<div class='form-group'>
                <label >下一步流程</label>
                <p class="form-control-static">{{$stateBeg->name}}</p>
-                {{ Form::hidden('state_id',$stateBeg->id)}}
+                {{ Form::hidden('next_state_id',$stateBeg->id)}}
         </div>
     </div>
 

@@ -9,7 +9,7 @@
 
 
 
-<h1>投诉受理状态</h1>
+<h1>投诉受理状态-人员配置</h1>
 
 <!-- will be used to show any messages -->
 @if (Session::has('message'))
