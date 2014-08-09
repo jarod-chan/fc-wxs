@@ -1,5 +1,6 @@
+@extends('layouts.mobile')
 
-
+@section('content')
 <div data-role="page">
 	  <script type="text/javascript">
 		$(function(){ 
@@ -45,4 +46,4 @@
 	{{ Form::close() }}	
 	</div>
 </div>
-	
+@stop	

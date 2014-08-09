@@ -26,7 +26,7 @@ class WxMenuController extends BaseController{
 		
 		if ($this->registerAndNotVerified($wxUser)) {
 			return array(
-				'result'=>true,
+				'result'=>false,
 				'data'=>"只有认证的注册用户才能进行微信投诉，<a href=\"".URL::to('wx/user/info?openid='.$openid)."\">点此跳转认证页面</a>"
 			);
 		}

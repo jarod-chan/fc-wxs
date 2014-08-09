@@ -9,6 +9,8 @@
 				<p>恭喜，您已经注册成功。</p>
 			</div>
 		</div>
+		@if($tourl && $openid)
 		<p><a href="{{ URL::to($tourl.'?openid='.$openid)}}"  data-ajax='false' class="ui-btn ui-shadow ui-corner-all">点击此处继续之前操作</a></p>
+		@endif
 	</div>
 </div>
