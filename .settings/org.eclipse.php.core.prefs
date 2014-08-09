@@ -1,3 +1,4 @@
 eclipse.preferences.version=1
+include_path=0;/fc-wxs/app/models\u00050;/fc-wxs/app/controllers
 phpVersion=php5.4
 useShortTags=true

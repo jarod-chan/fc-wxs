@@ -1,23 +1,21 @@
 <?php
 class WxComplaintController extends BaseController {
-	
+
 	public function complaint(){
 		$openid=Input::get('openid');
 		$wxUser=WxUser::find($openid);
-		
-		if(!$wxUser){
-			return Redirect::action('WxRegisterController@toRegister', array('openid' => $openid,'tourl'=>'wx/complaint'));
-		}elseif(!$wxUser->isVerified()){
-			Session::flash('message', '只有认证用户才能发起微信投诉。');
-			return View::make('common.message');
-		}else{
+
+		if($wxUser && $wxUser->isVerified()){
 			return View::make('wxcomplaint.complaint')
-				->with("wxUser",$wxUser)
-				->with("openid",$openid);
+			->with("wxUser",$wxUser)
+			->with("openid",$openid);
+		}else {
+			Session::flash('message', '只有用户类型为[业主]的用户才能进行客户投诉。');
+			return View::make('common.message');
 		}
 	}
-	
-	
+
+
 	public function  complaintPost(){
 		$openid=Input::get('openid');
 		$arr=array(
@@ -30,7 +28,7 @@ class WxComplaintController extends BaseController {
 				'create_at'=>new DateTime()
 		);
 		$complaint = Complaint::create($arr);
-	
+
 		if (Input::hasFile('file'))
 		{
 			foreach(Input::file('file') as $file){
@@ -45,12 +43,12 @@ class WxComplaintController extends BaseController {
 				UpFile::create($arr);
 			}
 		}
-	
-	
+
+
 		Session::flash('message', '投诉已经提交，请耐心等待反馈。');
 		return View::make('common.message');
 	}
-	
+
 	public function mycp(){
 		$openid=Input::get('openid');
 		$complaintSet = Complaint::where('openid',$openid)
@@ -59,7 +57,7 @@ class WxComplaintController extends BaseController {
 		return View::make('wxcomplaint.mycp')
 		->with("complaintSet",$complaintSet);
 	}
-	
+
 	public function cpitem($id){
 		$complaint=Complaint::find($id);
 		$files=UpFile::where('tabname', 'wx_complaint')
@@ -77,6 +75,6 @@ class WxComplaintController extends BaseController {
 			->with('files',$files)
 			->with('eventHistory',$eventHistory);
 	}
-	
+
 }
 
