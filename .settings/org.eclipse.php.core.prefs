@@ -1,2 +1,3 @@
 eclipse.preferences.version=1
-include_path=0;/fc-wxs/app\u00050;/fc-wxs/bootstrap\u00050;/fc-wxs/vendor\u00050;/fc-wxs/public
+phpVersion=php5.4
+useShortTags=true
