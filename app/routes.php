@@ -52,7 +52,11 @@ Route::post('state/save','StateController@save');
 Route::get('state/{id}/userinfo','StateController@userinfo');
 Route::post('state/{id}/userinfo','StateController@userinfoPost');
 
-
+//投诉处理满意度
+Route::get('grade/list','GradeController@toList');
+Route::get('grade/add','GradeController@toAdd');
+Route::get('grade/edit/{id}','GradeController@toEdit');
+Route::post('grade/save','GradeController@save');
 
 //用户注册
 Route::get('wx/toregister','WxRegisterController@toRegister');

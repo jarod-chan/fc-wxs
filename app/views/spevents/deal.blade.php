@@ -12,7 +12,7 @@
             <label for="result">结果记录</label>
        		 <textarea cols="40" rows="8" name="result" id="result">{{$event->result}}</textarea>
         </li>
-   
+
         <li>
         	<div class='ui-field-contain'>
         	 <label for="file[]">附件</label>
@@ -26,8 +26,19 @@
 				 </div>
 			 @endforeach
 	        </div>
-           
+
         </li>
+        @if(isset($gradeSet))
+ 		<li class="ui-field-contain">
+        	  <label >投诉处理满意度</label>
+        	  <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+			        @foreach($gradeSet as $grade)
+			        <input type="radio" name="grade_id" id="radio-choice-{{$grade->id}}" value="{{$grade->id}}"   @if($grade->id==$event->grade_id) checked="checked" @endif >
+			        <label for="radio-choice-{{$grade->id}}">{{$grade->name}}</label>
+			        @endforeach
+			 </fieldset>
+        </li>
+        @endif
          <li class="ui-field-contain">
         	  <label >流程标签</label>
         	  <p>{{$accept->tag->name}}</p>
@@ -46,5 +57,5 @@
         <li class="ui-grid-a ui-responsive">
 		    <div class="ui-block-a"><button id="btn_save" class="ui-btn  ui-shadow  ui-corner-all" >暂存</button></div>
 		    <div class="ui-block-b"><button id="btn_commit" class="ui-btn  ui-shadow  ui-corner-all" >提交</button></div>
-		</li>  
+		</li>
     </ul>
