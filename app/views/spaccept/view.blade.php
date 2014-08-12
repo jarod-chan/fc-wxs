@@ -1,8 +1,13 @@
- 
+
     <ul data-role="listview" data-inset="true">
     	<li data-role="list-divider">客户投诉内容</li>
-        <li class="ui-field-contain">
+        <li  class="ui-field-contain">
             <label>编号</label><p>{{$accept->no}}</p>
+        	<div  class="ui-grid-a"  style="white-space: normal;">
+			 @foreach ($acceptFiles as $file)
+		  	 <a href="{{ URL::to('wx/img/'.$file->filename) }}" data-ajax="false"><img src="{{ URL::asset('data/'.$file->filename) }}" style="height: 80px;"></a>
+			 @endforeach
+	  		</div>
         </li>
         <li class="ui-field-contain">
             <label>姓名</label><p>{{$accept->name}}</p>
@@ -14,16 +19,5 @@
   		<li class="ui-field-contain">
   		<label>投诉内容</label>
   		<p>{{$accept->content}}</p>
-        </li>
-        <li class="ui-field-contain">
-        	<label>附件</label>
-	  		<div  class="ui-grid-a ui-responsive" >
-		  	 @foreach ($acceptFiles as $file)
-		  	 <a href="#{{'fl_'.$file->id}}" data-rel="popup" data-position-to="window" data-transition="fade"><img class="popphoto" src="{{ URL::asset('data/'.$file->filename) }}" style="height: 180px;"></a>
-			 <div data-role="popup" id="{{'fl_'.$file->id}}" data-overlay-theme="b" data-theme="b" data-corners="false">
-			    <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a><img class="popphoto" src="{{ URL::asset('data/'.$file->filename) }}" style="max-height:512px;" alt="Paris, France">
-			 </div>
-			@endforeach
-	  		</div>
         </li>
     </ul>

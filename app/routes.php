@@ -96,6 +96,9 @@ Route::get('wx/events/deal/{id}','WxEventsController@deal');
 Route::post('wx/events/deal/{id}/save','WxEventsController@save');
 Route::post('wx/events/deal/{id}/commit','WxEventsController@commit');
 
+//微信显示图片
+Route::get('wx/img/{imgname}','WxImgController@toImg');
+
 
 
 
