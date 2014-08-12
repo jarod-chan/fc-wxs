@@ -6,8 +6,10 @@
 <div data-role="page">
   <div data-role="content">
 	{{ Form::open(array('url' => 'wx/accept/add?openid='.$openid,'files'=>true,'data-ajax'=>'false')) }}
-   
+
     {{ Form::hidden('openid', $openid) }}
+    <ul data-role="listview" data-inset="true">
+    </ul>
 	<ul data-role="listview" data-inset="true">
 		<li class="ui-field-contain">
 		{{ Form::label('no', '编号') }}
@@ -68,7 +70,7 @@
 		</li>
 		<li class="ui-field-contain">
 		{{ Form::label('next_id', '下一步处理人') }}
-		{{ Form::select('next_id',array(),array('id'=>'next_id'))}} 
+		{{ Form::select('next_id',array(),array('id'=>'next_id'))}}
 		</li>
 		<li class="ui-field-contain">
 		{{ Form::label('file[]', '附件:') }}
@@ -77,11 +79,11 @@
 	</ul>
 	<p>{{ Form::submit('提交') }}</p>
 
-	{{ Form::close() }}	
+	{{ Form::close() }}
 	</div>
 	<script type="text/javascript">
 	$(function(){
-		var nextSet={{$stateBeg->stateUser->toJson()}}; 
+		var nextSet={{$stateBeg->stateUser->toJson()}};
 		$("#tag_key").change(function(){
 			var select=$("#next_id");
 			select.find("option").remove();
@@ -95,8 +97,8 @@
 			select.selectmenu('refresh', true);
 		});
 		$("#tag_key").triggerHandler('change');
-	})		
+	})
 	</script>
 </div>
-	
+
 @stop

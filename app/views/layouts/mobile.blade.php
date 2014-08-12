@@ -8,7 +8,7 @@
     {{HTML::script('js/jquery.mobile-1.4.3.min.js')}}
 
 	<style type="text/css">
-	.ui-listview > li p {
+ 	.ui-listview > li p {
 	    font-size: 1em;
 	}
 	</style>
