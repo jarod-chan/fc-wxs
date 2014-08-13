@@ -13,10 +13,6 @@
 
 Route::pattern('id', '[0-9]+');
 
-//微信获得菜单
-Route::get('wx/menu','WxMenuController@menu');
-
-
 //用户登录
 Route::get('','LoginController@login');
 Route::get('login','LoginController@login');
@@ -57,6 +53,14 @@ Route::get('grade/list','GradeController@toList');
 Route::get('grade/add','GradeController@toAdd');
 Route::get('grade/edit/{id}','GradeController@toEdit');
 Route::post('grade/save','GradeController@save');
+
+//微信获得菜单
+Route::get('wx/menu','WxMenuController@service');
+
+//内部员工绑定入口
+Route::get('wx/bind','WxBindController@service');
+Route::get('wx/binduser','WxBindController@toBindUser');
+Route::post('wx/binduser','WxBindController@bindUser');
 
 //用户注册
 Route::get('wx/toregister','WxRegisterController@toRegister');

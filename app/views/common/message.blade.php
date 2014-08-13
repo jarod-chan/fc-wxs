@@ -11,6 +11,9 @@
 				<p>{{ Session::get('message') }}</p>
 			</div>
 		</div>
+		@if(isset($back))
+		 <a href="#" data-role="button" data-rel="back">返回</a>
+		@endif
 	</div>
 </div>
 @stop

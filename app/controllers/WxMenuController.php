@@ -1,7 +1,7 @@
 <?php
 class WxMenuController extends BaseController{
 
-	public function menu(){
+	public function service(){
 		$openid=Input::get("openid");
 
 		if($this->isEmployee($openid)){
