@@ -8,33 +8,28 @@
 	{{ Form::open(array('url' => 'wx/complaint', 'files'=>true,'data-ajax'=>'false')) }}
 	{{ Form::hidden('openid', $openid) }}
     <ul data-role="listview" data-inset="true">
+      <li data-role="list-divider">客户信息</li>
       <li class="ui-field-contain">
-        {{ Form::label('name', '姓名:') }}
-		{{ Form::text('name',$wxUser->name) }}
+		{{ Form::text('name',$wxUser->name,array('placeholder'=>'姓名')) }}
      </li>
 	 <li class="ui-field-contain">
-		{{ Form::label('phone', '电话:') }}
-		{{ Form::text('phone',$wxUser->phone) }}
+		{{ Form::text('phone',$wxUser->phone,array('placeholder'=>'电话')) }}
 	</li>
 	 <li class="ui-field-contain">
-		{{ Form::label('address', '地址:') }}
-		{{ Form::text('address',$wxUser->address) }}
+		{{ Form::text('address',$wxUser->address,array('placeholder'=>'地址')) }}
 	</li>
+	<li data-role="list-divider">投诉内容</li>
 	<li class="ui-field-contain">
-	{{ Form::label('content', '内容:') }}
-	{{ Form::textarea('content') }}
-	</li>
-	<li class="ui-field-contain">
-	{{ Form::label('file[]', '附件:') }}
+	{{ Form::textarea('content','') }}
 	{{Form::file('file[]', array('multiple'=>true))}}
 	</li>
 	</ul>
 
-	
+
 	<p>{{ Form::submit('提交') }}</p>
 
-	{{ Form::close() }}	
+	{{ Form::close() }}
   </div>
 </div>
-	
+
 @stop

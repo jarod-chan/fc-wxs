@@ -7,21 +7,20 @@
 	<div data-role="content">
 	    <ul data-role="listview" data-inset="true">
 	    	<li data-role="list-divider">投诉详细信息</li>
-	        <li class="ui-field-contain">
-	            <label>内容</label><p style="white-space: normal;">{{$complaint->content}}</p>
+	        <li>
+	            <p style="white-space: normal;">{{$complaint->content}}</p>
 	            <div  class="ui-grid-a"  style="white-space: normal;">
 			  	 @foreach ($files as $file)
 			  	 <a href="{{ URL::to('wx/img/'.$file->filename) }}"  data-ajax="false"><img src="{{ URL::asset('data/'.$file->filename) }}" style="height: 80px;"></a>
 				 @endforeach
 		  		</div>
 	        </li>
-	        <li class="ui-field-contain">
-	            <label>投诉时间</label><p>{{ $complaint->create_at }}</p>
+	        <li>
+	            <p>状态:{{ $complaint->state() }}</p>
 	        </li>
-	         <li class="ui-field-contain">
-	            <label>状态</label><p>{{ $complaint->state() }}</p>
+	        <li>
+	            <p>投诉时间:{{ $complaint->create_at }}</p>
 	        </li>
-        </li>
 	    </ul>
 
 	    <ul data-role="listview" data-inset="true">
