@@ -23,14 +23,14 @@ class WxBindController extends BaseController{
 		public function  bindUser(){
 			$name=Input::get("name");
 			$openid=Input::get("openid");
-			$syUser=Syuser::where("name",$name)->first();
+			$syUser=SyUser::where("name",$name)->first();
 			if($syUser){
-				$syUser->openid=$openid;
-				$syUser->save();
 				$syuser_id=Input::get("syuser_id");
 				if(!empty($syuser_id)){
-					Syuser::find($syuser_id)->update(array("openid"=>null));
+					SyUser::find($syuser_id)->update(array("openid"=>null));
 				}
+				$syUser->openid=$openid;
+				$syUser->save();
 				Session::flash('message', '绑定成功！');
 				return View::make("common.message");
 			}else{
