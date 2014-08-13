@@ -38,8 +38,7 @@
         </li>
         @if(!$nextState->isEnd())
         <li class="ui-field-contain">
-        	<label for="next">下一步处理人:</label>
-        	{{ Form::select('next_id',$dealUserSet,$event->next_id)}}
+        	{{ Form::select('next_id',H::prepend($dealUserSet,'下一步处理人'),$event->next_id,array('data-native-menu'=>'false'))}}
         </li>
         @endif
         <li class="ui-grid-a ui-responsive">

@@ -9,74 +9,67 @@
 
     {{ Form::hidden('openid', $openid) }}
     <ul data-role="listview" data-inset="true">
+    	<li data-role="list-divider">客户信息</li>
+    	<li>
+		{{ Form::label('name', '姓名',array('class'=>'ui-hidden-accessible')) }}
+		{{ Form::text('name','',array('placeholder'=>'姓名')) }}
+		</li>
+		<li>
+		{{ Form::label('phone', '联系号码',array('class'=>'ui-hidden-accessible')) }}
+		{{ Form::text('phone','',array('placeholder'=>'联系号码')) }}
+		</li>
+		<li data-role="list-divider">地址</li>
+		<li>
+			<div class="ui-grid-a">
+			    <div class="ui-block-a">{{ Form::select('community', $communityEnums)}}</div>
+			    <div class="ui-block-b">{{ Form::select('area', $areaEnums,'')}}</div>
+			</div>
+		</li>
+		<li>
+			<div class="ui-grid-a">
+			    <div class="ui-block-a">{{ Form::select('building', $buildingEnums)}}</div>
+			    <div class="ui-block-b">{{ Form::select('unit', $unitEnums)}}</div>
+			</div>
+		</li>
+		<li>
+			{{ Form::label('room', '房间',array('class'=>'ui-hidden-accessible')) }}
+			{{ Form::text('room','',array('placeholder'=>'房间')) }}
+		</li>
+		<li data-role="list-divider">投诉内容</li>
+		<li>
+			{{ Form::textarea('content') }}
+			{{Form::file('file[]', array('multiple'=>true))}}
+		</li>
     </ul>
-	<ul data-role="listview" data-inset="true">
-		<li class="ui-field-contain">
-		{{ Form::label('no', '编号') }}
-		<p>系统自动生成</p>
+
+     <ul data-role="listview" data-inset="true">
+    	<li data-role="list-divider">投诉性质</li>
+    	<li class="ui-field-contain">
+		{{ Form::select('from', H::prepend($fromEnums,'信息来源'),'',array('data-native-menu'=>'false'))}}
 		</li>
 		<li class="ui-field-contain">
-		{{ Form::label('name', '姓名') }}
-		{{ Form::text('name') }}
+		{{ Form::select('degree',H::prepend($degreeEnums,'严重程度'),'',array('data-native-menu'=>'false'))}}
 		</li>
 		<li class="ui-field-contain">
-		{{ Form::label('phone', '联系号码') }}
-		{{ Form::text('phone') }}
+		{{ Form::select('type',H::prepend($typeEnums,'投诉类别'),'',array('data-native-menu'=>'false'))}}
 		</li>
-		<li class="ui-field-contain">
-		{{ Form::label('community', '社区') }}
-		{{ Form::select('community', $communityEnums)}}
-		</li>
-		<li class="ui-field-contain">
-		{{ Form::label('area', '区域') }}
-		{{ Form::select('area', $areaEnums,'')}}
-		</li>
-		<li class="ui-field-contain">
-		{{ Form::label('building', '楼号') }}
-		{{ Form::select('building', $buildingEnums)}}
-		</li>
-		<li class="ui-field-contain">
-		{{ Form::label('unit', '单元') }}
-		{{ Form::select('unit', $unitEnums)}}
-		</li>
-		<li class="ui-field-contain">
-		{{ Form::label('room', '房间') }}
-		{{ Form::text('room','0') }}
-		</li>
-		<li class="ui-field-contain">
-		{{ Form::label('content', '投诉内容') }}
-		{{ Form::textarea('content') }}
-		</li>
-		<li class="ui-field-contain">
-		{{ Form::label('from', '信息来源') }}
-		{{ Form::select('from', $fromEnums)}}
-		</li>
-		<li class="ui-field-contain">
-		{{ Form::label('degree', '严重程度') }}
-		{{ Form::select('degree', $degreeEnums)}}
-		</li>
-		<li class="ui-field-contain">
-		{{ Form::label('type', '投诉类别') }}
-		{{ Form::select('type', $typeEnums)}}
-		</li>
-		<li class="ui-field-contain">
-		{{ Form::label('', '下一步流程') }}
-		<p>{{$stateBeg->name}}</p>
+	 </ul>
+
+	 <ul data-role="listview" data-inset="true">
+	 	<li data-role="list-divider">流程方案</li>
+		<li>
+		<p>下一步流程:{{$stateBeg->name}}</p>
 		{{ Form::hidden('next_state_id',$stateBeg->id)}}
 		</li>
 		<li class="ui-field-contain">
-		{{ Form::label('tag_key', '流程标签') }}
-		{{ Form::select('tag_key',$tagSet,array('id'=>'tag_key'))}}
+		{{ Form::select('tag_key',H::prepend($tagSet,'流程标签'),'',array('id'=>'tag_key','data-native-menu'=>'false'))}}
 		</li>
 		<li class="ui-field-contain">
-		{{ Form::label('next_id', '下一步处理人') }}
-		{{ Form::select('next_id',array(),array('id'=>'next_id'))}}
+		{{ Form::select('next_id',H::prepend(array(),'下一步处理人'),'',array('id'=>'next_id','data-native-menu'=>'false'))}}
 		</li>
-		<li class="ui-field-contain">
-		{{ Form::label('file[]', '附件:') }}
-		{{Form::file('file[]', array('multiple'=>true))}}
-		</li>
-	</ul>
+	 </ul>
+
+
 	<p>{{ Form::submit('提交') }}</p>
 
 	{{ Form::close() }}
