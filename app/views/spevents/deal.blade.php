@@ -10,14 +10,23 @@
 		<li data-role="list-divider">结果记录</li>
         <li class="ui-field-contain">
        		 <textarea cols="40" rows="8" name="result" id="result">{{$event->result}}</textarea>
-       		 <div class="ui-grid-a">
-       		 	{{Form::file('file[]', array('multiple'=>true))}}
-       		 </div>
-       		 <div  class="ui-grid-a"  style="white-space: normal;">
-			 @foreach ($files as $file)
-		  	 <a href="{{ URL::to('wx/img/'.$file->filename) }}" data-ajax="false"><img src="{{ URL::asset('data/'.$file->filename) }}" style="height: 80px;"></a>
-			 @endforeach
-	  		</div>
+       		 <div class="ui-grid-a plug-fileup">
+				{{Form::hidden('delete_file_id','',array('class'=>'delete_file_id'))}}
+				<div class="up_file_div">
+				 @foreach ($files as $file)
+				<div id="saved_{{$file->id}}" class="img_ck">
+					<img  class="up_img" src="{{ URL::asset('data/'.$file->filename) }}">
+					<span class="close_span"  onclick="remove_saved({{$file->id}})"><img src="http://localhost/fc-wxs/public/plug/upfile/close.png"></span>
+				</div>
+				 @endforeach
+				</div>
+				<div class="add_img_div"><input class="fileinput" data-role="none"  type="file" ></div>
+			</div>
+			<script type="text/javascript">
+				var plug_fileup=$('.plug-fileup').last();
+				var fileup=initFile(plug_fileup);
+				plug_fileup.find(".fileinput").tap(fileup);
+			</script>
         </li>
 
         @if(isset($gradeSet))
@@ -38,7 +47,7 @@
         </li>
         @if(!$nextState->isEnd())
         <li class="ui-field-contain">
-        	{{ Form::select('next_id',H::prepend($dealUserSet,'下一步处理人'),$event->next_id,array('data-native-menu'=>'false'))}}
+        	{{ Form::select('next_id',H::prepend($dealUserSet,'下一步处理人'),$event->next_id,array('data-native-menu'=>'false','id'=>'next_id'))}}
         </li>
         @endif
         <li class="ui-grid-a ui-responsive">

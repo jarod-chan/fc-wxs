@@ -7,6 +7,8 @@
     {{HTML::script('js/jquery-1.11.1.min.js')}}
     {{HTML::script('js/jquery.mobile-1.4.3.min.js')}}
 
+	@include('layouts.fileup_include')
+
 	<style type="text/css">
  	.ui-listview > li p {
 	    font-size: 1em;

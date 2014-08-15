@@ -15,7 +15,6 @@ class WxComplaintController extends BaseController {
 		}
 	}
 
-
 	public function  complaintPost(){
 		$openid=Input::get('openid');
 		$arr=array(
@@ -29,25 +28,16 @@ class WxComplaintController extends BaseController {
 		);
 		$complaint = Complaint::create($arr);
 
-		if (Input::hasFile('file'))
+		if (Input::has('file'))
 		{
-			foreach(Input::file('file') as $file){
-				$ext = $file->getClientOriginalExtension();
-				$filename=uniqid(date('Ymd-')).'.'.$ext;
-				$file->move(public_path().'/data',$filename);
-				$arr=array(
-						'tabname'=>'wx_complaint',
-						'pkid'=>$complaint->id,
-						'filename'=>$filename
-				);
-				UpFile::create($arr);
-			}
+			C::save_files('wx_complaint',$complaint->id,Input::get('file'));
 		}
-
 
 		Session::flash('message', '投诉已经提交，请耐心等待反馈。');
 		return View::make('common.message');
+
 	}
+
 
 	public function mycp(){
 		$openid=Input::get('openid');

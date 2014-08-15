@@ -8,6 +8,10 @@
 				$("form").attr('action',url+'/save');
 			});
 			$("#btn_commit").tap(function(){
+				if($("#next_id").length>0||$("#next_id").val()==""){
+					alert("请选下一步处理人");
+					return false;
+				}
 				var url=$("form").attr('action');
 				$("form").attr('action',url+'/commit');
 			});

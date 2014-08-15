@@ -41,20 +41,14 @@ class SpEvents {
 		$event->save();
 
 		//附件处理
-		if (Input::hasFile('file'))
+		if (Input::has('file'))
 		{
-			foreach(Input::file('file') as $file){
-				$ext = $file->getClientOriginalExtension();
-				$filename=uniqid(date('Ymd-')).'.'.$ext;
-				$file->move(public_path().'/data',$filename);
-				$arr=array(
-						'tabname'=>'wx_event',
-						'pkid'=>$id,
-						'filename'=>$filename
-				);
-				UpFile::create($arr);
-			}
+			C::save_files('wx_event',$id,Input::get('file'));
 		}
+		if(Input::has('delete_file_id')){
+			C::remove_filse(Input::get('delete_file_id'));
+		}
+
 		return $event;
 	}
 
@@ -64,6 +58,15 @@ class SpEvents {
 		$event=Events::find($id);
 		$event->fill($arr);
 		$event->save();
+
+		//附件处理
+		if (Input::has('file'))
+		{
+			C::save_files('wx_event',$id,Input::get('file'));
+		}
+		if(Input::has('delete_file_id')){
+			C::remove_filse(Input::get('delete_file_id'));
+		}
 
 		$next_state_id=Input::get("next_state_id");
 		$nextState=State::find($next_state_id);
