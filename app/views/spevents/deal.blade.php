@@ -1,4 +1,5 @@
 
+
     <ul data-role="listview" data-inset="true">
     	<li data-role="list-divider">当前流程节点</li>
     	<li class="ui-field-contain">
@@ -14,9 +15,9 @@
 				{{Form::hidden('delete_file_id','',array('class'=>'delete_file_id'))}}
 				<div class="up_file_div">
 				 @foreach ($files as $file)
-				<div id="saved_{{$file->id}}" class="img_ck">
+				<div data-role="none" id="saved_{{$file->id}}" class="img_ck">
 					<img  class="up_img" src="{{ URL::asset('data/'.$file->filename) }}">
-					<span class="close_span"  onclick="remove_saved({{$file->id}})"><img src="http://localhost/fc-wxs/public/plug/upfile/close.png"></span>
+					<span class="close_span" data-role="none"  onclick="remove_saved({{$file->id}})"><img data-role="none"  src="{{ URL::asset('plug/upfile/close.png') }}"></span>
 				</div>
 				 @endforeach
 				</div>

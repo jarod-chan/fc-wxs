@@ -13,7 +13,7 @@
 				$("form").attr('action',url+'/save');
 			});
 			$("#btn_commit").tap(function(){
-				if($("#next_id").length>0||$("#next_id").val()==""){
+				if($("#next_id").length>0 && $("#next_id").val()==""){
 					alert("请选下一步处理人");
 					return false;
 				}
