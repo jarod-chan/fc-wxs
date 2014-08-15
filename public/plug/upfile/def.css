@@ -1,0 +1,39 @@
+.add_img_div{
+	background: url("add.jpg") no-repeat scroll 0 0 / 75px  rgba(0, 0, 0, 0);
+    cursor: pointer;
+    display: block;
+    height: 75px;
+    width: 75px;
+	float:left;
+	border:1px solid #E3E3E3;
+}
+
+.add_img_div .fileinput{
+	width:75px; height:75px; opacity:0; cursor:pointer;
+}
+
+
+
+.up_file_div .img_ck{
+	  margin-right: 4px;
+	  width: 75px;
+	  display: inline;
+	  float: left;
+	  position: relative;
+}
+.up_file_div .img_ck .up_img{
+	height:75px;
+	width:75px;
+}
+.up_file_div  .close_span{
+	right: 0;
+    top: 0;
+    cursor: pointer;
+	display: block;
+	position: absolute;
+}
+
+.close_span img{
+	height:16px;
+	width:16px;
+}

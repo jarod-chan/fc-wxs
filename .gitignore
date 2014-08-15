@@ -9,3 +9,5 @@ Thumbs.db
 /.settings
 /public/data
 /app/config/production
+/.buildpath
+/.project

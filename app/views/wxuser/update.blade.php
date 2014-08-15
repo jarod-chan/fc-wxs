@@ -3,80 +3,74 @@
 
 
 @section('content')
-<script type="text/javascript">
-	$(function(){
-		$("#verify_idcard").click(function(){
-			if($("#idcard").val()=='123456'){
-				$("#div_idcard").hide();
-				$("#verified").val("yes");
-				$("#result").show();
+<div data-role="page" class="user_update">
+  <div data-role="content">
+
+	<script>
+	if(!verifyCard){
+		var verifyCard=function(){
+			var P=$(".user_update:visible");
+			if(P.find("#idcard").val()=='123456'){
+				P.find("#div_idcard").hide();
+				P.find("#verified").val("yes");
+				P.find("#result").show();
 			}else{
 				alert("认证失败！");
 			}
-		});
-	})		
-</script>
-<div data-role="page">
-  <div data-role="content">
-	{{ Form::open(array('url' => 'wx/user/info')) }}
-    {{ Form::hidden('openid', $openid) }}
+		}
+	}
+   </script>
+	{{ Form::open(array('url' => "wx/user/info?openid=$openid")) }}
     {{ Form::hidden('verified', $wxUser->verified ,array('id'=>'verified')) }}
 	<ul data-role="listview" data-inset="true">
-   
+
     <li class="ui-field-contain">
-    {{ Form::label('type', '用户类型:') }} <p>{{$wxUser->getTypeVal()}}</p>
+    <p>用户类型:{{$wxUser->getTypeVal()}}</p>
 	</li>
 	 <li class="ui-field-contain">
-	{{ Form::label('name', '姓名:') }}<p>{{$wxUser->name }} </p>
+	<p>姓名:{{$wxUser->name }} </p>
 	</li>
 	<li class="ui-field-contain">
-	{{ Form::label('phone', '联系号码:') }}
-	{{ Form::text('phone',$wxUser->phone) }}
+	{{ Form::text('phone',$wxUser->phone,array('placeholder'=>'联系号码')) }}
 	</li>
 	<li class="ui-field-contain">
-	{{ Form::label('email', '邮箱:') }}
-	{{ Form::text('email',$wxUser->email) }}
+	{{ Form::text('email',$wxUser->email,array('placeholder'=>'邮箱')) }}
 	</li>
 	<li class="ui-field-contain">
-	{{ Form::label('address', '地址:') }}
-	{{ Form::text('address',$wxUser->address)}}
-	</li>
-	
-	<li class="ui-field-contain">
-	{{ Form::label('profession', '职业:') }}
-	{{ Form::text('profession',$wxUser->profession)}}
-	</li>
-	
-	<li class="ui-field-contain">
-	{{ Form::label('interest', '兴趣爱好:') }}
-	{{ Form::text('interest',$wxUser->interest)}}
+	{{ Form::text('address',$wxUser->address,array('placeholder'=>'地址'))}}
 	</li>
 
-	
+	<li class="ui-field-contain">
+	{{ Form::text('profession',$wxUser->profession,array('placeholder'=>'职业'))}}
+	</li>
+
+	<li class="ui-field-contain">
+	{{ Form::text('interest',$wxUser->interest,array('placeholder'=>'兴趣爱好'))}}
+	</li>
+
+
 	@if ($wxUser->isVerified())
 	<li class="ui-field-contain">
-    	{{ Form::label('verified', '状态:') }}<p>已认证</p>
+    	<p>状态:已认证</p>
 	</li>
 	@else
-
-	    <li id="div_idcard" >
-	    	<div class="ui-field-contain">
-		    	{{ Form::label('idcard', '身份证:') }}
-				{{ Form::text('idcard') }}
-	    	</div>
-			<input id="verify_idcard" type="button" value="认证成为业主">
-		</li>
-		<li class="ui-field-contain" id="result" style="display:none;">
-			{{ Form::label('verified', '状态:') }}<p>已认证</p>
-		</li>
+    <li id="div_idcard" >
+    	<div class="ui-field-contain">
+			{{ Form::text('idcard','',array('id'=>'idcard','placeholder'=>'身份证')) }}
+    	</div>
+		<input id="verify_idcard" type="button" value="认证成为业主" onclick="verifyCard()">
+	</li>
+	<li class="ui-field-contain" id="result" style="display:none;">
+		<p>状态:已认证</p>
+	</li>
 	@endif
 
 
  	</ul>
-	
+
 	<p>{{ Form::submit('更新注册信息') }}</p>
 
-	{{ Form::close() }}	
+	{{ Form::close() }}
 	</div>
 </div>
 @stop

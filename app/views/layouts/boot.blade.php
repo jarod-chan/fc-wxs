@@ -5,14 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title></title>
-    
+
     <!-- Bootstrap -->
-    {{HTML::style('css/bootstrap.min.css')}} 
+    {{HTML::style('css/bootstrap.min.css')}}
     {{HTML::script('js/jquery-1.11.1.min.js')}}
     {{HTML::script('js/bootstrap.min.js')}}
-    
-    {{HTML::style('plug/lightbox/ekko-lightbox.min.css')}} 
-    {{HTML::script('plug/lightbox/ekko-lightbox.min.js')}} 
+    {{HTML::script('js/myplug.js')}}
+
+    {{HTML::style('plug/lightbox/ekko-lightbox.min.css')}}
+    {{HTML::script('plug/lightbox/ekko-lightbox.min.js')}}
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -43,16 +44,18 @@
                 <li><a href="{{ URL::to('accept/list') }}">投诉受理</a></li>
               </ul>
             </li>
-            
+
              <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">基础信息 <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
                 <li><a href="{{ URL::to('syuser/list') }}">系统用户</a></li>
+                <li><a href="{{ URL::to('sytag/list') }}">系统标签</a></li>
                 <li><a href="{{ URL::to('state/list') }}">投诉受理状态</a></li>
+                <li><a href="{{ URL::to('grade/list') }}">投诉处理满意度</a></li>
               </ul>
             </li>
-            
-            
+
+
 <!--             <li class="active"><a href="#">客户投诉</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#contact">Contact</a></li>
@@ -68,8 +71,8 @@
                 <li><a href="#">One more separated link</a></li>
               </ul>
             </li> -->
-             
-            
+
+
           </ul>
           @if ( Auth::guest() )
           <ul class="nav navbar-nav navbar-right">
@@ -84,12 +87,12 @@
         </div><!--/.nav-collapse -->
       </div>
     </div>
-  
-  
-  
+
+
+
   		@yield('content')
-  		
-  		 
+
+
   		  <script type="text/javascript">
             $(document).ready(function ($) {
 				$(document).delegate('*[data-toggle="lightbox"]', 'click', function(event) {
@@ -99,7 +102,7 @@
 			});
 
             $(function () {
-                $("#btn_logout").click(function(){ 
+                $("#btn_logout").click(function(){
                 	$('<form/>',{action:"{{ URL::to('logout') }}",method:'post'})
            			.appendTo($("body"))
            			.submit();

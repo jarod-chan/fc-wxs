@@ -1,15 +1,13 @@
 <?php
-
-use Illuminate\Support\Facades\Redirect;
 class SyUserController extends BaseController {
 
-	public function index(){
+	public function toList(){
 		$syuserSet=SyUser::all();
-		return View::make('syuser.index')
+		return View::make('syuser.list')
 			->with('syuserSet', $syuserSet);
 	}
 	
-	public function add(){
+	public function toAdd(){
 		$syuser=new SyUser;
 		$syuser->role='accept';
 		return View::make('syuser.edit')
@@ -17,21 +15,12 @@ class SyUserController extends BaseController {
 			->with('roleEnums',SyUser::roleEnums());
 	}
 	
-	public function edit($id){
+	public function toEdit($id){
 		$syuser=SyUser::find($id);
 		return View::make('syuser.edit')
 			->with('syuser',$syuser)
 			->with('roleEnums',SyUser::roleEnums());
 	}
-	
-	public function addPost(){
-		$arr=Input::all();
-		$arr["password"]= Hash::make($arr["password"]);
-		SyUser::create($arr);
-		Session::flash('message', '保存成功');
-		return Redirect::to("syuser/list");
-	}
-	
 
 	
 	public function save(){

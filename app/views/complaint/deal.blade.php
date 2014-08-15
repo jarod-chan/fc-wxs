@@ -161,13 +161,33 @@
         </div>
     </div> 
     <div class='row'>
-        <div class='col-sm-4'>
+    <div class='col-sm-4'>
     	<div class='form-group'>
-               <label >下一步处理人</label>
-              {{ Form::select('next_id',$dealUserSet,'',array('class'=>'form-control'))}}
+               <label >下一步流程</label>
+               <p class="form-control-static">{{$stateBeg->name}}</p>
+                {{ Form::hidden('next_state_id',$stateBeg->id)}}
         </div>
     </div>
-    <div class='col-sm-8'>
+
+     <div class='col-sm-4'>
+    	<div class='form-group'>
+               <label >流程标签</label>
+              {{ Form::select('tag_key',$tagSet,'',array('class'=>'form-control','id'=>'tag_key'))}}
+        </div>
+    </div>
+    
+    <div class='col-sm-4'>
+    	<div class='form-group'>
+               <label >下一步处理人</label>
+              {{ Form::select('next_id',array(),'',array('class'=>'form-control','id'=>'next_id'))}}
+        </div>
+    </div>
+
+    </div> 
+    
+    <div class="row">
+    <div class='col-sm-4'>
+    
     <div class='form-group'>
     	<label >附件</label>
     	<div class="checkbox">
@@ -177,8 +197,7 @@
 	      </div>
 	 </div>
      </div>
-   
-    </div> 
+    </div>
     
     
 
@@ -187,7 +206,7 @@
  <button id="btn_accept" class="btn btn-sm btn-primary" >生成受理单</button>
  <button id="btn_reject" class="btn btn-sm btn-warning" >拒绝</button>
  <a class="btn btn-sm btn-default" href="{{ URL::to('complaint/list' ) }}">返回</a>
-</p>  
+</p> 
     
    
 </fieldset>
@@ -205,6 +224,18 @@
 			$("form").attr('action',url+'/reject');
 			$("form").submit();
 		})
+
+		var nextSet={{$stateBeg->stateUser->toJson()}};
+		$("#tag_key").change(function(){
+			$("#next_id option").remove();
+			var tag=$(this).val()
+			$.each(nextSet,function(n,obj){
+				if(obj.tag_key==tag){
+					$("#next_id").append("<option value='"+obj.user_id+"'>"+obj.user_name+"</option>");
+				}
+			});
+		});
+		$("#tag_key").triggerHandler('change');
 	})
 </script>
 
