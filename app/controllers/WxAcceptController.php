@@ -31,19 +31,9 @@ class WxAcceptController extends BaseController{
 
 		$accept=Accept::create($arr);
 
-		if (Input::hasFile('file'))
+		if (Input::has('file'))
 		{
-			foreach(Input::file('file') as $file){
-				$ext = $file->getClientOriginalExtension();
-				$filename=uniqid(date('Ymd-')).'.'.$ext;
-				$file->move(public_path().'/data',$filename);
-				$arr=array(
-						'tabname'=>'sy_accept',
-						'pkid'=>$accept->id,
-						'filename'=>$filename
-				);
-				UpFile::create($arr);
-			}
+			C::save_files('sy_accept',$accept->id,Input::get('file'));
 		}
 
 		//生成下一个节点处理人

@@ -38,7 +38,15 @@
 		<li data-role="list-divider">投诉内容</li>
 		<li>
 			{{ Form::textarea('content') }}
-			{{Form::file('file[]', array('multiple'=>true))}}
+			<div class="ui-grid-a plug-fileup">
+					<div class="up_file_div"></div>
+					<div class="add_img_div"><input class="fileinput" data-role="none"  type="file" ></div>
+			</div>
+			<script type="text/javascript">
+				var plug_fileup=$('.plug-fileup').last();
+				var fileup=initFile(plug_fileup);
+				plug_fileup.find(".fileinput").tap(fileup);
+			</script>
 		</li>
     </ul>
 
