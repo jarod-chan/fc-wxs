@@ -52,6 +52,7 @@
                 <li><a href="{{ URL::to('sytag/list') }}">系统标签</a></li>
                 <li><a href="{{ URL::to('state/list') }}">投诉受理状态</a></li>
                 <li><a href="{{ URL::to('grade/list') }}">投诉处理满意度</a></li>
+                <li><a href="{{ URL::to('registeruser/list') }}">注册用户</a></li>
               </ul>
             </li>
 

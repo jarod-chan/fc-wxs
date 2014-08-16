@@ -36,6 +36,9 @@ class SpEvents {
 
 	public static function saveEvent($id){
 		$arr=Input::all();
+		if(empty($arr["next_id"])){
+			$arr["next_id"]=null;
+		}
 		$event=Events::find($id);
 		$event->fill($arr);
 		$event->save();

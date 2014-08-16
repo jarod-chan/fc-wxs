@@ -1,6 +1,4 @@
 <?php
-use Illuminate\Support\Facades\View;
-use Illuminate\Support\Facades\Input;
 class AcceptController extends BaseController{
 	
 	public function index(){
