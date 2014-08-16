@@ -14,7 +14,7 @@
 		    <a href="{{ URL::to('wx/accept/doitem/'.$accept->id.'?syuserid='.$syuserid) }}">
 		    <p style="white-space: normal;">{{ $accept->content }}</p>
 		    <p>状态：@if( $accept->state_id){{ $accept->state->name }}@endif</p>
-		    <p>创建时间:{{ $accept->commit_at }}</p>
+		    <p>创建时间:{{ $accept->create_at }}</p>
 		    </a>
 		</li>
 		@endforeach

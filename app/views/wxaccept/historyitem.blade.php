@@ -1,4 +1,8 @@
+@extends('layouts.mobile')
 
+
+
+@section('content')
 <div data-role="page" id="historyitem">
   <div data-role="content">
 
@@ -8,5 +12,5 @@
   	 <a href="#" data-role="button" data-rel="back">返回</a>
   </div>
 </div>
-
+@stop
 
