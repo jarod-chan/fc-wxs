@@ -54,6 +54,13 @@ Route::get('grade/add','GradeController@toAdd');
 Route::get('grade/edit/{id}','GradeController@toEdit');
 Route::post('grade/save','GradeController@save');
 
+//注册用户管理
+Route::get('registeruser/list','RegisterUserController@toList');
+Route::get('registeruser/view/{openid}','RegisterUserController@toView');
+
+
+
+
 //微信获得菜单
 Route::get('wx/menu','WxMenuController@service');
 

@@ -3,11 +3,11 @@
 @section('content')
 	<script>
 	$(function(){
- 			$("#btn_save").tap(function(){
+ 			$("#btn_save").click(function(){
 				var url=$("form").attr('action');
 				$("form").attr('action',url+'/save');
 			});
-			$("#btn_commit").tap(function(){
+			$("#btn_commit").click(function(){
 				if($("#next_id").length>0 && $("#next_id").val()==""){
 					alert("请选下一步处理人");
 					return false;

@@ -30,7 +30,7 @@
 	<tbody>
 	@foreach($acceptSet as $accept)
 		<tr>
-			<td>{{ $accept->no }}</td>
+			<td>{{ $accept->id }}</td>
 			<td>{{ $accept->name }}</td>
 			<td>{{ $accept->phone }}</td>
 			<td>{{ $accept->content }}</td>
