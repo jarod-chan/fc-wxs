@@ -59,6 +59,7 @@
     	<p>状态:已认证</p>
 	</li>
 	@else
+	<li data-role="list-divider">认证信息</li>
     <li id="row_vf" >
     	<div class="ui-field-contain">
     		{{ Form::text('vf_name',$wxUser->name,array('id'=>'vf_name','placeholder'=>'真实姓名')) }}

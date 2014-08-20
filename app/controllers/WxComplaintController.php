@@ -6,26 +6,30 @@ class WxComplaintController extends BaseController {
 		$wxUser=WxUser::find($openid);
 
 		if($wxUser && $wxUser->isVerified()){
+			$roomSet=array();
+			$wxUser->ownCustomers()->each(function( $customer )use ( &$roomSet ){
+				$room=$customer->room;
+				$roomSet[$room->fid]=$room->address();
+			});
+
 			return View::make('wxcomplaint.complaint')
 			->with("wxUser",$wxUser)
-			->with("openid",$openid);
+			->with("openid",$openid)
+			->with("roomSet",$roomSet);
 		}else {
-			Session::flash('message', '只有用户类型为[业主]的用户才能进行客户投诉。');
-			return View::make('common.message');
+			return View::make('common.message_pg')
+			->with('message', '只有用户类型为[业主]的用户才能进行客户投诉。');
 		}
 	}
 
 	public function  complaintPost(){
 		$openid=Input::get('openid');
-		$arr=array(
-				'openid'=>$openid,
-				'name'=>Input::get('name'),
-				'phone'=>Input::get('phone'),
-				'address'=>Input::get('address'),
-				'content'=>Input::get('content'),
-				'state'=>'wait',
-				'create_at'=>new DateTime()
-		);
+		$arr=Input::All();
+		$arr['openid']=$openid;
+		$arr['address']="";
+		$arr['state']='wait';
+		$arr['create_at']=new DateTime();
+
 		$complaint = Complaint::create($arr);
 
 		if (Input::has('file'))

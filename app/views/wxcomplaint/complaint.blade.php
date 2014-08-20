@@ -14,7 +14,7 @@
 		{{ Form::text('phone',$wxUser->phone,array('placeholder'=>'电话')) }}
 	</li>
 	 <li class="ui-field-contain">
-		{{ Form::text('address',$wxUser->address,array('placeholder'=>'地址')) }}
+		{{ Form::select('room_id',H::prepend($roomSet,'投诉房产'),$wxUser->defroom_id,array('data-native-menu'=>'false','id'=>'room_id'))}}
 	</li>
 	<li data-role="list-divider">投诉内容</li>
 	<li>
