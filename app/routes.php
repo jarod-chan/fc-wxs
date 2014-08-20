@@ -77,6 +77,7 @@ Route::post('wx/register','WxRegisterController@registerPost');
 //用户信息
 Route::get('wx/user/info','WxUserController@info');
 Route::post('wx/user/info','WxUserController@infoPast');
+Route::post('wx/user/verify','WxUserController@verify');
 
 
 //微信投诉

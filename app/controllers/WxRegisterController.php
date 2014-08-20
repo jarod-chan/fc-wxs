@@ -26,12 +26,15 @@ class WxRegisterController extends BaseController{
 	public function registerPost(){
 		$type=Input::get('type');
 		if($type=='yz'){
-			$idcard = Input::get("idcard");
-			$isOwner = UserVerify::isOwner($idcard);
+			$name = Input::get("name");
+			$idcard =  Input::get("idcard");
+			$isOwner = UserVerify::isOwner($name,$idcard);
 			if($isOwner){
 				$arr=Input::all();
 				$arr["verified"]='yes';
 				$arr["idcard"]=$idcard;
+				$firstRoom=UserVerify::firstRoom($name,$idcard);
+				$arr["defroom_id"]=$firstRoom->fid;
 				WxUser::create($arr);
 				$param=Input::only('tourl','openid');
 				return View::make('wxregister.success')
@@ -57,32 +60,5 @@ class WxRegisterController extends BaseController{
 
 	}
 
-
-	public function registerPost_back(){
-		$openid=Input::get('openid');
-		$idcard=Input::get('idcard');
-		if(empty($idcard)){
-			$verified='no';
-		}else{
-			$verified='yes';
-		}
-		$arr=array(
-				'openid'=>$openid,
-				'type'=>Input::get('type'),
-				'name'=>Input::get('name'),
-				'phone'=>Input::get('phone'),
-				'email'=>Input::get('email'),
-				'idcard'=>$idcard,
-				'verified'=>$verified
-		);
-		$wxUser=new WxUser();
-		$wxUser->fill($arr);
-		$result=$wxUser->save();
-
-		$param=Input::only('tourl','openid');
-
- 		return View::make('wxregister.success')
- 			->with($param);
-	}
 
 }
