@@ -33,13 +33,6 @@ class Accept extends Eloquent{
 		return self::typeEnums()[$this->type];
 	}
 
-
-	public function getAddress(){
-
-		return $this->community().$this->area().$this->building().$this->unit().'-'.$this->room;
-	}
-
-
 	public function state(){
 		return $this->belongsTo('State', 'state_id');
 	}
@@ -60,5 +53,11 @@ class Accept extends Eloquent{
 
 	public function room(){
 		return $this->belongsTo('EasRoom','room_id');
+	}
+
+	//文件
+	public function files()
+	{
+		return $this->morphMany('UpFile', 'fileable');
 	}
 }

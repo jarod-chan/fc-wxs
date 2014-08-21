@@ -26,7 +26,6 @@ class WxComplaintController extends BaseController {
 		$openid=Input::get('openid');
 		$arr=Input::All();
 		$arr['openid']=$openid;
-		$arr['address']="";
 		$arr['state']='wait';
 		$arr['create_at']=new DateTime();
 
@@ -34,7 +33,7 @@ class WxComplaintController extends BaseController {
 
 		if (Input::has('file'))
 		{
-			C::save_files('wx_complaint',$complaint->id,Input::get('file'));
+			C::save_fileable($complaint,Input::get('file'));
 		}
 
 		return View::make('common.message_pg')
@@ -53,10 +52,6 @@ class WxComplaintController extends BaseController {
 
 	public function cpitem($id){
 		$complaint=Complaint::find($id);
-		$files=UpFile::where('tabname', 'wx_complaint')
-			->Where('pkid',$id)
-			->orderBy('id')
-			->get();
 		$accept_id=Accept::where("complaint_id",$id)
 			->pluck('id');
 		$eventHistory=Events::where('accept_id',$accept_id)
@@ -65,7 +60,6 @@ class WxComplaintController extends BaseController {
 			->get();
 		return View::make('wxcomplaint.cpitem')
 			->with('complaint',$complaint)
-			->with('files',$files)
 			->with('eventHistory',$eventHistory);
 	}
 

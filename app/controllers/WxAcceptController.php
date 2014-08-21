@@ -30,7 +30,7 @@ class WxAcceptController extends BaseController{
 
 		if (Input::has('file'))
 		{
-			C::save_files('sy_accept',$accept->id,Input::get('file'));
+			C::save_fileable($accept,Input::get('file'));
 		}
 
 		//生成下一个节点处理人

@@ -4,11 +4,6 @@ class SpEvents {
 	public static function toDeal($event,$accept){
 		$view=View::make('spevents.deal');
 
-		$files=UpFile::where('tabname', 'wx_event')
-			->Where('pkid',$event->id)
-			->orderBy('id')
-			->get();
-
 		$currState=$event->state;
 		$nextState=State::nextState($currState)->first();
 
@@ -26,7 +21,6 @@ class SpEvents {
 		}
 
 		$view->with('event',$event)
-			->with('files',$files)
 			->with('accept',$accept)
 			->with('dealUserSet',$dealUserSet)
 			->with('nextState',$nextState);
@@ -46,7 +40,7 @@ class SpEvents {
 		//附件处理
 		if (Input::has('file'))
 		{
-			C::save_files('wx_event',$id,Input::get('file'));
+			C::save_fileable($event,Input::get('file'));
 		}
 		if(Input::has('delete_file_id')){
 			C::remove_filse(Input::get('delete_file_id'));

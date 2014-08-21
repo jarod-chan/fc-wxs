@@ -29,11 +29,10 @@ class Events extends Eloquent{
 		}
 	}
 
-	public function event_filse(){
-		return UpFile::where('tabname', 'wx_event')
-			->Where('pkid',$this->id)
-			->orderBy('id')
-			->get();
+	//文件
+	public function files()
+	{
+		return $this->morphMany('UpFile', 'fileable');
 	}
 
 }

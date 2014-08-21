@@ -63,7 +63,7 @@
 	   <div class='form-group'>
             <label>附件</label>
            <div>
-            @foreach ($files as $file)
+            @foreach ($accept->files as $file)
             	<a href="{{ URL::asset('data/'.$file->filename) }}" data-toggle="lightbox" >
 					<img src="{{ URL::asset('data/'.$file->filename) }}"   style="height: 180px;"  alt="{{$file->filename}}" class="img-thumbnail">
 				</a>

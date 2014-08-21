@@ -4,7 +4,7 @@
     	<li class="ui-field-contain">
 	      	<p style="white-space: normal;">{{$event->state->name}}:{{$event->result}}</p>
 	      	<?php
- 				$eventfiles=$event->event_filse();
+ 				$eventfiles=$event->files;
 			?>
 	      	 @if(count($eventfiles)>0)
 		     	 <div  class="ui-grid-a"  style="white-space: normal;">

@@ -38,4 +38,14 @@ class C {
 		}
 	}
 
+	public static function save_fileable($fileable,$filestrSet){
+		foreach ($filestrSet as $filestr){
+			$filename=self::save_file_to_disk($filestr);
+			$arr=array(
+					'filename'=>$filename
+			);
+			$fileable->files()->create($arr);
+		}
+	}
+
 }

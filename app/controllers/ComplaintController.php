@@ -12,18 +12,12 @@ class ComplaintController extends BaseController {
 	public function deal($id){
 
 		$complaint=Complaint::find($id);
-		$files=UpFile::where('tabname', 'wx_complaint')
-			->Where('pkid',$id)
-			->orderBy('id')
-			->get();
-
 
 		$stateBeg=State::beg()->first();
 		$tagSet=SyTag::lists('name','key');
 
 		$view=View::make('complaint.deal');
 		$view->with('complaint',$complaint)
-			->with('files',$files)
 			->with('fromEnums',Accept::fromEnums())
 			->with('degreeEnums',Accept::degreeEnums())
 			->with('typeEnums',Accept::typeEnums())
@@ -42,14 +36,10 @@ class ComplaintController extends BaseController {
 
 	public function view($id){
 		$complaint=Complaint::find($id);
-		$files=UpFile::where('tabname', 'wx_complaint')
-			->Where('pkid',$id)
-			->orderBy('id')
-			->get();
+
 
 		return View::make('complaint.view')
-			->with('complaint',$complaint)
-			->with('files',$files);
+			->with('complaint',$complaint);
 	}
 
 	public function accept($id){
@@ -71,19 +61,13 @@ class ComplaintController extends BaseController {
 
 		$accept=Accept::create($arr);
 
-		$files=UpFile::where('tabname', 'wx_complaint')
-			->Where('pkid',$complaint->id)
-			->orderBy('id')
-			->get();
 
 		//复制相关附件
-		foreach ($files as $file){
+		foreach ($complaint->files as $file){
 			$arr=array(
-				'tabname'=>'sy_accept',
-				'pkid'=>$accept->id,
 				'filename'=>$file->filename
 			);
-			UpFile::create($arr);
+			$accept->files()->create($arr);
 		}
 
 		//生成下一个节点处理人

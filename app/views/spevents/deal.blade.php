@@ -14,7 +14,7 @@
        		 <div class="ui-grid-a plug-fileup">
 				{{Form::hidden('delete_file_id','',array('class'=>'delete_file_id'))}}
 				<div class="up_file_div">
-				 @foreach ($files as $file)
+				 @foreach ($event->files as $file)
 				<div data-role="none" id="saved_{{$file->id}}" class="img_ck">
 					<img  class="up_img" src="{{ URL::asset('data/'.$file->filename) }}">
 					<span class="close_span" data-role="none"  onclick="remove_saved({{$file->id}})"><img data-role="none"  src="{{ URL::asset('plug/upfile/close.png') }}"></span>

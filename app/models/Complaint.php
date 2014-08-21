@@ -19,15 +19,24 @@ class Complaint extends Eloquent{
 		return self::stateEnums()[$this->state];
 	}
 
+	//微信投诉是否已经处理
 	public function isDeal(){
 		return $this->state=='deal'||$this->state=='close';
 	}
 
+	//处理单
 	public function  accept(){
 		return $this->hasOne('Accept', 'complaint_id');
 	}
 
+	//房间
 	public function room(){
 		return $this->belongsTo('EasRoom', 'room_id');
+	}
+
+	//文件
+	public function files()
+	{
+		return $this->morphMany('UpFile', 'fileable');
 	}
 }

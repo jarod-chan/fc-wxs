@@ -1,17 +1,12 @@
 <?php
 class SpAccept {
-	
+
 	public static function toView($accept){
-		$acceptFiles=UpFile::where('tabname', 'sy_accept')
-			->Where('pkid',$accept->id)
-			->orderBy('id')
-			->get();
 		$accept_view=View::make('spaccept.view')
-			->with('accept',$accept)
-			->with('acceptFiles',$acceptFiles);
+			->with('accept',$accept);
 		return $accept_view;
 	}
-	
+
 	public static function toEventsHistory($accept_id) {
 		$eventHistory=Events::where('accept_id',$accept_id)
 			->whereNotNull('commit_at')

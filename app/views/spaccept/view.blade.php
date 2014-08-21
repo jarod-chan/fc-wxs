@@ -16,7 +16,7 @@
         		<p style="white-space: normal;">{{$accept->content}}</p>
 	  		</div>
         	<div  class="ui-grid-a"  style="white-space: normal;">
-			 @foreach ($acceptFiles as $file)
+			 @foreach ($accept->files as $file)
 		  	 <a href="{{ URL::to('wx/img/'.$file->filename) }}" data-ajax="false"><img src="{{ URL::asset('data/'.$file->filename) }}" style="height: 80px;"></a>
 			 @endforeach
 	  		</div>
