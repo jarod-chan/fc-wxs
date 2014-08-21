@@ -36,16 +36,15 @@ class WxRegisterController extends BaseController{
 				$firstRoom=UserVerify::firstRoom($name,$idcard);
 				$arr["defroom_id"]=$firstRoom->fid;
 				WxUser::create($arr);
-				$param=Input::only('tourl','openid');
+				$param=http_build_query(Input::only('tourl','openid'));
 				return View::make('wxregister.success')
 					->with($param);
 			}else{
 				$param=Input::only('tourl','openid');
 				$param=http_build_query($param);
 				$openid=Input::get('openid');
-				return Redirect::to('wx/register?openid='.$openid)
+				return Redirect::to('wx/register?'.$param)
 					->with("message","对不起，您的身份证没有通过业主认证。</br>请确认您的身份证是否有误。")
-					->with("param",$param)
 					->withInput();
 			}
 		}else{
