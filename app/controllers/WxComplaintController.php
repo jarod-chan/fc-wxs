@@ -37,9 +37,8 @@ class WxComplaintController extends BaseController {
 			C::save_files('wx_complaint',$complaint->id,Input::get('file'));
 		}
 
-		Session::flash('message', '投诉已经提交，请耐心等待反馈。');
-		return View::make('common.message');
-
+		return View::make('common.message_pg')
+		->with('message', '投诉已经提交，请耐心等待反馈。');
 	}
 
 

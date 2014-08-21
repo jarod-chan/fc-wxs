@@ -15,7 +15,7 @@
  <fieldset>
     <legend>投诉受理内容</legend>
     <div class='row'>
-        <div class='col-sm-4'>    
+        <div class='col-sm-4'>
             <div class='form-group'>
                 <label >编号</label>
                 <p class="form-control-static">{{$accept->id}}</p>
@@ -47,8 +47,8 @@
         <div class='col-sm-8'>
             <div class='form-group'>
 
-                <label>地址</label>
-               <p class="form-control-static">{{$accept->getAddress()}}</p>
+                <label>投诉房产</label>
+               <p class="form-control-static">@if($accept->room_id){{$accept->room->address()}}@endif</p>
             </div>
         </div>
           <div class='col-sm-4'>
@@ -73,23 +73,7 @@
 	  </div>
 	</div>
  </fieldset>
- 
-<!--  {{ Form::open(array('url' => 'accept/deal/'.$accept->id)) }}
- <fieldset>
-    <legend>下一步处理人</legend>
-    <div class="form-horizontal">
-	  <div class="form-group">
-	    <label class="col-sm-2 control-label">下一步处理人</label>
-	    <div class="col-sm-4">
-	        {{ Form::select('deal_id',$dealUserSet,'',array('class'=>'form-control'))}}
-	    </div>
-	    <div class="col-sm-6">
-	         <button type="submit" class="btn btn-primary">生成任务</button>
-	    </div>
-	 </div>
-	</div>
-</fieldset> 
-{{ Form::close() }}	 -->
+
     <div class="list-group">
       @foreach ($eventHistory as $event)
       <div class="list-group-item row">
@@ -111,7 +95,7 @@
 				</div>
 	      </div>
 		 @endif
-	    
+
 	     <div class="col-sm-4">
 	     	<div class="col-sm-12">处理人：{{ $event->deal->name}}</div>
 	     	<div class="col-sm-12">创建时间：{{ $event->create_at}}</div>
@@ -122,13 +106,13 @@
 
 <p>
  <a class="btn btn-sm btn-default" href="{{ URL::to('accept/list' ) }}">返回</a>
-</p>  
-    
-   
+</p>
+
+
 
 </div>
 
-{{HTML::script('plug/zclip/jquery.zclip.min.js')}} 
+{{HTML::script('plug/zclip/jquery.zclip.min.js')}}
 <script type="text/javascript">
 	$('.bt_copy').zclip({
 	    path: "{{ URL::asset('plug/zclip/ZeroClipboard.swf') }}",

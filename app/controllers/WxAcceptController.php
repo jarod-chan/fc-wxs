@@ -8,13 +8,10 @@ class WxAcceptController extends BaseController{
 
 		return View::make('wxaccept.add')
 			->with('openid',$openid)
-			->with('communityEnums',Accept::communityEnums())
-			->with('areaEnums',Accept::areaEnums())
-			->with('buildingEnums',Accept::buildingEnums())
+			->with('sellProjectSet',UserVerify::sellProject())
 			->with('fromEnums',Accept::fromEnums())
 			->with('degreeEnums',Accept::degreeEnums())
 			->with('typeEnums',Accept::typeEnums())
-			->with('unitEnums',Accept::unitEnums())
 			->with('stateBeg',$stateBeg)
 			->with('tagSet',$tagSet);
 	}
@@ -47,8 +44,8 @@ class WxAcceptController extends BaseController{
 		);
 		$nextEvent=Events::create($arr);
 
-		Session::flash('message', '投诉已经受理！');
-		return View::make('common.message');
+		return View::make('common.message_pg')
+			->with('message', '投诉已经受理！');
 	}
 
 	public function history(){

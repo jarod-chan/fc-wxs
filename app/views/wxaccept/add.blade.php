@@ -21,19 +21,15 @@
 		<li data-role="list-divider">地址</li>
 		<li>
 			<div class="ui-grid-a">
-			    <div class="ui-block-a">{{ Form::select('community', $communityEnums)}}</div>
-			    <div class="ui-block-b">{{ Form::select('area', $areaEnums,'')}}</div>
+			    <div class="ui-block-a">{{ Form::select('',H::prepend($sellProjectSet,'小区'),'',array('id'=>'sel_sellproject'))}}</div>
+			    <div class="ui-block-b">{{ Form::select('',H::prepend(null,'楼栋'),'',array('id'=>'sel_building'))}}</div>
 			</div>
 		</li>
 		<li>
 			<div class="ui-grid-a">
-			    <div class="ui-block-a">{{ Form::select('building', $buildingEnums)}}</div>
-			    <div class="ui-block-b">{{ Form::select('unit', $unitEnums)}}</div>
+			    <div class="ui-block-a">{{ Form::select('',H::prepend(null,'单元'),'',array('id'=>'sel_buildingunit'))}}</div>
+			    <div class="ui-block-b">{{ Form::select('room_id',H::prepend(null,'房间'),'',array('id'=>'sel_room'))}}</div>
 			</div>
-		</li>
-		<li>
-			{{ Form::label('room', '房间',array('class'=>'ui-hidden-accessible')) }}
-			{{ Form::text('room','',array('placeholder'=>'房间')) }}
 		</li>
 		<li data-role="list-divider">投诉内容</li>
 		<li>
@@ -97,7 +93,62 @@
 			select.selectmenu();
 			select.selectmenu('refresh', true);
 		});
-		$("#tag_key").triggerHandler('change');
+
+		$("#sel_sellproject").change(function(){
+			$("#sel_building,#sel_buildingunit,#sel_room").find("option:gt(0)").remove();
+			$("#sel_building,#sel_buildingunit,#sel_room").selectmenu('refresh', true);
+			if($(this).val()=="") return;
+			$.get('{{URL::to("selroom/sel")}}',{val:$(this).val(),tag:'building'},function(data){
+				var toSelect=$("#sel_building");
+				for(var i=0;i<data.length;i++){
+					toSelect.append($("<option value='"+data[i].id+"'>"+data[i].name+"</option>"));
+				}
+				toSelect.selectmenu();
+				toSelect.selectmenu('refresh', true);
+			});
+		});
+
+		$("#sel_building").change(function(){
+			$("#sel_buildingunit,#sel_room").find("option:gt(0)").remove();
+			$("#sel_buildingunit,#sel_room").selectmenu('refresh', true);
+			if($(this).val()=="") return;
+			$.get('{{URL::to("selroom/sel_buildingunit")}}',{'val':$(this).val()},function(data){
+				if(data.type=="unit"){
+					var toSelect=$("#sel_buildingunit");
+					for(var i=0;i<data.arr.length;i++){
+						toSelect.append($("<option value='"+data.arr[i].id+"'>"+data.arr[i].name+"</option>"));
+					}
+					toSelect.selectmenu('refresh', true);
+				}else if(data.type=="room"){
+					var toSelect=$("#sel_room");
+					for(var i=0;i<data.arr.length;i++){
+						toSelect.append($("<option value='"+data.arr[i].id+"'>"+data.arr[i].name+"</option>"));
+					}
+					toSelect.selectmenu('refresh', true);
+				}
+			});
+		});
+
+		$("#sel_buildingunit").change(function(){
+			$("#sel_room").find("option:gt(0)").remove();
+			$("#sel_room").selectmenu('refresh', true);
+			if($(this).val()=="") return;
+			$.get('{{URL::to("selroom/sel")}}',{val:$(this).val(),tag:'room'},function(data){
+				var toSelect=$("#sel_room");
+				for(var i=0;i<data.length;i++){
+					toSelect.append($("<option value='"+data[i].id+"'>"+data[i].name+"</option>"));
+				}
+				toSelect.selectmenu('refresh', true);
+			});
+		});
+
+		$("form").last().submit(function(){
+			if($("#sel_room").val()==""){
+				alert("请先选择房间");
+				return false;
+			}
+			return true;
+		})
 	})
 	</script>
 </div>

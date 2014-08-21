@@ -8,7 +8,7 @@
 			<p>联系号码:{{$accept->phone}}</p>
 		</li>
 		<li  class="ui-field-contain">
-			<p>地址:{{$accept->getAddress()}}</p>
+			<p>房产:@if($accept->room_id){{$accept->room->address()}}@endif</p>
 		</li>
     	<li data-role="list-divider">客户投诉内容</li>
         <li  class="ui-field-contain">

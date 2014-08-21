@@ -12,11 +12,11 @@ class WxacceptRoomid extends Migration {
 	 */
 	public function up()
 	{
-		 DB::statement('alter table sy_accept change community  community varchar(255);');
-		 DB::statement('alter table sy_accept change area area varchar(255);');
-		 DB::statement('alter table sy_accept change building building varchar(255);');
-		 DB::statement('alter table sy_accept change room room varchar(255);');
 		 Schema::table('sy_accept',function ($table){
+		 	$table->dropColumn('community');
+		 	$table->dropColumn('area');
+		 	$table->dropColumn('building');
+		 	$table->dropColumn('room');
 		 	$table->String('room_id')->nullable();
 		 });
 	}

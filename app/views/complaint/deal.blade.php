@@ -103,13 +103,13 @@
     <div class='row' id="row_sel">
         <div class='col-sm-3'>
             <div class='form-group'>
-                <label >社区</label>
+                <label >小区</label>
                 {{ Form::select('', $sellProjectSet,$room->fsellprojectid,array('class'=>'form-control','id'=>'sel_sellproject'))}}
             </div>
         </div>
         <div class='col-sm-3'>
             <div class='form-group'>
-                <label >楼号</label>
+                <label >楼栋</label>
               	 {{ Form::select('', $buildingSet,$room->fbuildingid,array('class'=>'form-control','id'=>'sel_building'))}}
             </div>
         </div>
@@ -209,12 +209,6 @@
 
 <script type="text/javascript">
 	$(function(){
-		var selList=[
-		$("#sel_sellproject"),
-		$("#sel_building"),
-		$("#sel_buildingunit"),
-		$("#sel_room")
-		];
 
 		function getSelfunc(index,queryTag){
 			return function(){
