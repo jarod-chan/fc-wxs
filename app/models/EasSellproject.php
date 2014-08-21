@@ -7,6 +7,14 @@ class EasSellproject extends Eloquent{
 
 	public $timestamps = false;
 
-	protected $fillable = array('fname_l2');
+	protected $fillable = array('fname_l2','state');
+
+	public static function stateEnums(){
+		return array('on' =>'开启','off'=>'关闭');
+	}
+
+	public function state(){
+		return self::stateEnums()[$this->state];
+	}
 
 }

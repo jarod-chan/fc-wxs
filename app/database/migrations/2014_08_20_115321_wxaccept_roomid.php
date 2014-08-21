@@ -13,10 +13,14 @@ class WxacceptRoomid extends Migration {
 	public function up()
 	{
 		 Schema::table('sy_accept',function ($table){
-		 	$table->dropColumn('community');
-		 	$table->dropColumn('area');
-		 	$table->dropColumn('building');
-		 	$table->dropColumn('room');
+		 	if (Schema::hasColumn('sy_accept', 'community'))
+		 	{
+		 		$table->dropColumn('community');
+			 	$table->dropColumn('area');
+			 	$table->dropColumn('building');
+			 	$table->dropColumn('room');
+		 	}
+
 		 	$table->String('room_id')->nullable();
 		 });
 	}

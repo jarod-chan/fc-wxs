@@ -1,22 +1,37 @@
 <?php
 class UserVerify {
 
+	private static function ownerRooms($name,$idcard){
+		$customerSet=EasFdccustomer::with('room')
+		->where("fname_l2",$name)
+		->where("fcertificatenumber",$idcard)
+		->get();
+		$sellPorjectIds=EasSellproject::where('state','on')
+		->lists('fid');
+		$roomSet=array();
+		$customerSet->each(function($customer) use ($sellPorjectIds,&$roomSet) {
+			$room=$customer->room;
+		    $sellProjectId=$room->fsellprojectid;
+		    if(in_array($sellProjectId,$sellPorjectIds)){
+				array_push($roomSet,$room);
+		    }
+		});
+		return $roomSet;
+	}
+
 	public static  function isOwner($name,$idcard){
-		$num = EasFdccustomer::where("fname_l2",$name)
-			->where("fcertificatenumber",$idcard)
-			->count();
-		return $num>0;
+		$roomSet=self::ownerRooms($name, $idcard);
+		return count($roomSet)>0;
 	}
 
 	public static function  firstRoom($name,$idcard){
-		$Fdccustomer=EasFdccustomer::where("fname_l2",$name)
-		->where("fcertificatenumber",$idcard)
-		->first();
-		return $Fdccustomer->room;
+		$roomSet=self::ownerRooms($name, $idcard);
+		return $roomSet[0];
 	}
 
 	public static function sellProject(){
-		return EasSellproject::orderBy('fname_l2')
+		return EasSellproject::where('state','on')
+		->orderBy('fname_l2')
 		->lists('fname_l2','fid');
 	}
 

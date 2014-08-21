@@ -62,7 +62,9 @@ Route::post('grade/save','GradeController@save');
 Route::get('registeruser/list','RegisterUserController@toList');
 Route::get('registeruser/view/{openid}','RegisterUserController@toView');
 
-
+//小区管理
+Route::get('sellproject/list','SellProjectController@toList');
+Route::post('sellproject/switchstate','SellProjectController@switchState');
 
 
 //微信获得菜单
