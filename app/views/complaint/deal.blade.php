@@ -15,7 +15,7 @@
  <fieldset>
     <legend>客户投诉内容</legend>
     <div class='row'>
-        <div class='col-sm-4'>    
+        <div class='col-sm-4'>
             <div class='form-group'>
                 <label >编号</label>
                 <p class="form-control-static">{{$complaint->id}}</p>
@@ -46,8 +46,10 @@
         <div class='col-sm-8'>
             <div class='form-group'>
 
-                <label>地址</label>
-               <p class="form-control-static">{{$complaint->address}}</p>
+                <label>投诉房产</label>
+                @if($complaint->room_id)
+                <p class="form-control-static">{{$complaint->room->address()}}</p>
+            	@endif
             </div>
         </div>
         <div class='col-sm-4'>
@@ -79,7 +81,7 @@
 <fieldset>
     <legend>投诉受理单</legend>
     <div class='row'>
-        <div class='col-sm-4'>    
+        <div class='col-sm-4'>
             <div class='form-group'>
                 <label >编号</label>
                 <p class="form-control-static">系统自动生成</p>
@@ -98,36 +100,29 @@
             </div>
         </div>
     </div>
-    
-    <div class='row'>
-        <div class='col-sm-3'>    
+    <div class='row' id="row_sel">
+        <div class='col-sm-3'>
             <div class='form-group'>
                 <label >社区</label>
-                {{ Form::select('community', $communityEnums,'',array('class'=>'form-control'))}}
+                {{ Form::select('', $sellProjectSet,$room->fsellprojectid,array('class'=>'form-control','id'=>'sel_sellproject'))}}
             </div>
         </div>
         <div class='col-sm-3'>
             <div class='form-group'>
-                <label >区域</label>
-              	 {{ Form::select('area', $areaEnums,'',array('class'=>'form-control'))}}
-            </div>
-        </div>
-        <div class='col-sm-2'>
-            <div class='form-group'>
                 <label >楼号</label>
-  				 {{ Form::select('building', $buildingEnums,'',array('class'=>'form-control'))}}
+              	 {{ Form::select('', $buildingSet,$room->fbuildingid,array('class'=>'form-control','id'=>'sel_building'))}}
             </div>
         </div>
-          <div class='col-sm-2'>
+        <div class='col-sm-3'>
             <div class='form-group'>
                 <label >单元</label>
-  				 {{ Form::select('unit', $unitEnums,'',array('class'=>'form-control'))}}
+  				 {{ Form::select('', $buildingUnitSet,$room->fbuildunitid,array('class'=>'form-control','id'=>'sel_buildingunit'))}}
             </div>
         </div>
-        <div class='col-sm-2'>
+          <div class='col-sm-3'>
             <div class='form-group'>
                 <label >房间</label>
-  				{{ Form::text('room','0',array('class'=>'form-control')) }}
+  				 {{ Form::select('room_id', $roomSet,$room->id,array('class'=>'form-control','id'=>'sel_room'))}}
             </div>
         </div>
     </div>
@@ -138,28 +133,28 @@
             	 <textarea class="form-control" name="content" rows="3">{{$complaint->content}}</textarea>
             </div>
         </div>
-    </div>  
-    
+    </div>
+
     <div class='row'>
-        <div class='col-sm-4'>    
+        <div class='col-sm-4'>
             <div class='form-group'>
                 <label >信息来源</label>
                 {{ Form::select('from', $fromEnums,'',array('class'=>'form-control'))}}
             </div>
         </div>
-        <div class='col-sm-4'>    
+        <div class='col-sm-4'>
             <div class='form-group'>
                 <label >严重程度</label>
                 {{ Form::select('degree', $degreeEnums,'',array('class'=>'form-control'))}}
             </div>
         </div>
-         <div class='col-sm-4'>    
+         <div class='col-sm-4'>
             <div class='form-group'>
                 <label >投诉类别</label>
                 {{ Form::select('type', $typeEnums,'',array('class'=>'form-control'))}}
             </div>
         </div>
-    </div> 
+    </div>
     <div class='row'>
     <div class='col-sm-4'>
     	<div class='form-group'>
@@ -175,7 +170,7 @@
               {{ Form::select('tag_key',$tagSet,'',array('class'=>'form-control','id'=>'tag_key'))}}
         </div>
     </div>
-    
+
     <div class='col-sm-4'>
     	<div class='form-group'>
                <label >下一步处理人</label>
@@ -183,11 +178,11 @@
         </div>
     </div>
 
-    </div> 
-    
+    </div>
+
     <div class="row">
     <div class='col-sm-4'>
-    
+
     <div class='form-group'>
     	<label >附件</label>
     	<div class="checkbox">
@@ -198,23 +193,70 @@
 	 </div>
      </div>
     </div>
-    
-    
+
+
 
 <p>
 
  <button id="btn_accept" class="btn btn-sm btn-primary" >生成受理单</button>
  <button id="btn_reject" class="btn btn-sm btn-warning" >拒绝</button>
  <a class="btn btn-sm btn-default" href="{{ URL::to('complaint/list' ) }}">返回</a>
-</p> 
-    
-   
+</p>
+
+
 </fieldset>
-{{ Form::close() }}	
+{{ Form::close() }}
 
 <script type="text/javascript">
 	$(function(){
+		var selList=[
+		$("#sel_sellproject"),
+		$("#sel_building"),
+		$("#sel_buildingunit"),
+		$("#sel_room")
+		];
+
+		function getSelfunc(index,queryTag){
+			return function(){
+				$("#row_sel select:gt("+index+")").empty().attr("disabled",true).append($("<option value=''>--请选择--</option>"));
+				if($(this).val()=="") return;
+				$.get('{{URL::to("selroom/sel")}}',{'val':$(this).val(),'tag':queryTag},function(data){
+					var toSelect=$("#row_sel select:eq("+(index+1)+")");
+					for(var i=0;i<data.length;i++){
+						toSelect.append($("<option value='"+data[i].id+"'>"+data[i].name+"</option>"));
+					}
+					toSelect.removeAttr("disabled");
+				});
+			}
+		}
+
+		$("#sel_sellproject").change(getSelfunc(0,'building'));
+		$("#sel_building").change(function(){
+			$("#row_sel select:gt(1)").empty().attr("disabled",true).append($("<option value=''>--请选择--</option>"));
+			if($(this).val()=="") return;
+			$.get('{{URL::to("selroom/sel_buildingunit")}}',{'val':$(this).val()},function(data){
+				if(data.type=="unit"){
+					var toSelect=$("#sel_buildingunit");
+					for(var i=0;i<data.arr.length;i++){
+						toSelect.append($("<option value='"+data.arr[i].id+"'>"+data.arr[i].name+"</option>"));
+					}
+					toSelect.removeAttr("disabled");
+				}else if(data.type=="room"){
+					var toSelect=$("#sel_room");
+					for(var i=0;i<data.arr.length;i++){
+						toSelect.append($("<option value='"+data.arr[i].id+"'>"+data.arr[i].name+"</option>"));
+					}
+					toSelect.removeAttr("disabled");
+				}
+			});
+		});
+		$("#sel_buildingunit").change(getSelfunc(2,'room'));
+
 		$("#btn_accept").click(function(){
+			if($("#sel_room").val()==""){
+				alert("请先选择房间");
+				return false;
+			}
 			var url=$("form").attr('action');
 			$("form").attr('action',url+'/accept');
 			$("form").submit();

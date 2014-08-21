@@ -10,6 +10,7 @@ class ComplaintController extends BaseController {
 	}
 
 	public function deal($id){
+
 		$complaint=Complaint::find($id);
 		$files=UpFile::where('tabname', 'wx_complaint')
 			->Where('pkid',$id)
@@ -20,18 +21,23 @@ class ComplaintController extends BaseController {
 		$stateBeg=State::beg()->first();
 		$tagSet=SyTag::lists('name','key');
 
-		return View::make('complaint.deal')
-			->with('complaint',$complaint)
+		$view=View::make('complaint.deal');
+		$view->with('complaint',$complaint)
 			->with('files',$files)
- 			->with('communityEnums',Accept::communityEnums())
-			->with('areaEnums',Accept::areaEnums())
-			->with('buildingEnums',Accept::buildingEnums())
 			->with('fromEnums',Accept::fromEnums())
 			->with('degreeEnums',Accept::degreeEnums())
 			->with('typeEnums',Accept::typeEnums())
-			->with('unitEnums',Accept::unitEnums())
 			->with('stateBeg',$stateBeg)
 			->with('tagSet',$tagSet);
+
+		$room=$complaint->room;
+
+		$view->with('room',$room)
+			->with('sellProjectSet',UserVerify::sellProject())
+			->with('buildingSet',UserVerify::building($room->fsellprojectid))
+			->with('buildingUnitSet',UserVerify::buildingUnit($room->fbuildingid))
+			->with('roomSet',UserVerify::room($room->fbuildunitid));
+		return $view;
 	}
 
 	public function view($id){

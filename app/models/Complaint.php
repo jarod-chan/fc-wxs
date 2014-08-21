@@ -27,4 +27,7 @@ class Complaint extends Eloquent{
 		return $this->hasOne('Accept', 'complaint_id');
 	}
 
+	public function room(){
+		return $this->belongsTo('EasRoom', 'room_id');
+	}
 }

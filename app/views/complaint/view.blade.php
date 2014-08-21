@@ -15,7 +15,7 @@
  <fieldset>
     <legend>客户投诉内容</legend>
     <div class='row'>
-        <div class='col-sm-4'>    
+        <div class='col-sm-4'>
             <div class='form-group'>
                 <label >编号</label>
                 <p class="form-control-static">{{$complaint->id}}</p>
@@ -45,9 +45,10 @@
     <div class='row'>
         <div class='col-sm-8'>
             <div class='form-group'>
-
-                <label>地址</label>
-               <p class="form-control-static">{{$complaint->address}}</p>
+                <label>投诉房产</label>
+                @if($complaint->room_id)
+                <p class="form-control-static">{{$complaint->room->address()}}</p>
+            	@endif
             </div>
         </div>
         <div class='col-sm-4'>
@@ -75,7 +76,7 @@
 
 <p>
  <a class="btn btn-sm btn-default" href="{{ URL::to('complaint/list' ) }}">返回</a>
-</p>  
+</p>
 
 
 

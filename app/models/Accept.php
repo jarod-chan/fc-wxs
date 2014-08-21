@@ -5,7 +5,8 @@ class Accept extends Eloquent{
 
 	public $timestamps = false;
 
-	protected $fillable = array('no','name', 'phone', 'community','area','building','unit','room','content','from','degree','type','complaint_id','accept_id','create_at','tag_key','state_id',"grade_id");
+	protected $fillable = array('no','name', 'phone', 'community','area','building','unit','room','content','from','degree','type','complaint_id','accept_id','create_at','tag_key','state_id'
+			,'grade_id','room_id');
 
 	public static function communityEnums(){
 		return array('sj' =>'尚景','hj'=>'鸿景','jy'=>'景园');

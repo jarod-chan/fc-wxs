@@ -26,6 +26,10 @@ Route::get('complaint/view/{id}','ComplaintController@view');
 Route::post('complaint/deal/{id}/accept','ComplaintController@accept');
 Route::post('complaint/deal/{id}/reject','ComplaintController@reject');
 
+//房间选择联动查询
+Route::get('selroom/sel','SelRoomController@sel');
+Route::get('selroom/sel_buildingunit','SelRoomController@selBuildingunit');
+
 //投诉受理
 Route::get('accept/list','AcceptController@index');
 Route::get('accept/deal/{id}','AcceptController@deal');
