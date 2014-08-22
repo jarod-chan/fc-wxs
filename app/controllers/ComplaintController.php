@@ -4,7 +4,8 @@ class ComplaintController extends BaseController {
 
 
 	public function index(){
-		$complaintSet=Complaint::all();
+		$complaintSet=Complaint::orderBy('id')
+			->get();
 		return View::make('complaint.index')
 		->with('complaintSet',$complaintSet);
 	}

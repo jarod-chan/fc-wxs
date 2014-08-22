@@ -2,7 +2,8 @@
 class AcceptController extends BaseController{
 
 	public function index(){
-		$acceptSet=Accept::all();
+		$acceptSet=Accept::orderBy("id")
+			->get();
 		return View::make('accept.index')
 		->with('acceptSet',$acceptSet);
 	}

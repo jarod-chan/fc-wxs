@@ -5,10 +5,6 @@
 @section('content')
 <div class="container">
 
-
-
-
-
 <h1>客户投诉</h1>
 
 @include('common.alert')
@@ -45,5 +41,4 @@
 	</tbody>
 </table>
 
-</div>
 @stop
