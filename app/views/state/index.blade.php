@@ -11,10 +11,8 @@
 
 <h1>投诉受理状态</h1>
 
-<!-- will be used to show any messages -->
-@if (Session::has('message'))
-	<div class="alert alert-info">{{ Session::get('message') }}</div>
-@endif
+@include('common.alert')
+
 <a class="btn btn-sm btn-primary  pull-right" href="{{ URL::to('state/add') }}">新增</a>
 
 <table class="table table-striped table-bordered">
@@ -35,8 +33,8 @@
 			<td>
 
 				<!-- show the nerd (uses the show method found at GET /nerds/{id} -->
-				<a class="btn btn-small btn-primary" href="{{ URL::to('state/edit/'.$state->id) }}">编辑</a>
-				<a class="btn btn-small btn-primary" href="{{ URL::to('state/'.$state->id.'/userinfo') }}">人员配置</a>
+				<a class="btn btn-sm btn-primary" href="{{ URL::to('state/edit/'.$state->id) }}">编辑</a>
+				<a class="btn btn-sm btn-primary" href="{{ URL::to('state/'.$state->id.'/userinfo') }}">人员配置</a>
 			</td>
 		</tr>
 	@endforeach

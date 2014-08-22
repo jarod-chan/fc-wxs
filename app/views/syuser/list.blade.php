@@ -10,11 +10,9 @@
 
 <h1>系统用户</h1>
 
-<!-- will be used to show any messages -->
-@if (Session::has('message'))
-	<div class="alert alert-info">{{ Session::get('message') }}</div>
-@endif
-<a class="btn btn-small btn-primary  pull-right" href="{{ URL::to('syuser/add') }}">新增</a>
+@include('common.alert')
+
+<a class="btn btn-sm btn-primary  pull-right" href="{{ URL::to('syuser/add') }}">新增</a>
 <table class="table table-striped table-bordered">
 	<thead>
 		<tr>
@@ -36,7 +34,7 @@
 			<td>
 
 				<!-- show the nerd (uses the show method found at GET /nerds/{id} -->
-				<a class="btn btn-small btn-primary" href="{{ URL::to('syuser/edit/'.$syuser->id) }}">编辑</a>
+				<a class="btn btn-sm btn-primary" href="{{ URL::to('syuser/edit/'.$syuser->id) }}">编辑</a>
 
 			</td>
 		</tr>

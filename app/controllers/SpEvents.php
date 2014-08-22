@@ -59,7 +59,7 @@ class SpEvents {
 		//附件处理
 		if (Input::has('file'))
 		{
-			C::save_files('wx_event',$id,Input::get('file'));
+			C::save_fileable($event,Input::get('file'));
 		}
 		if(Input::has('delete_file_id')){
 			C::remove_filse(Input::get('delete_file_id'));

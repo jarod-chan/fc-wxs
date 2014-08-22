@@ -8,10 +8,8 @@
 
 <h1>注册用户</h1>
 
-<!-- will be used to show any messages -->
-@if (Session::has('message'))
-	<div class="alert alert-info">{{ Session::get('message') }}</div>
-@endif
+@include('common.alert')
+
 <table class="table table-striped table-bordered">
 	<thead>
 		<tr>
@@ -34,7 +32,7 @@
 			<td>{{ $wxuser->getTypeVal() }}</td>
 			<td>{{ $wxuser->idcard }}</td>
 			<td>
-				<a class="btn btn-default" href="{{ URL::to('registeruser/view/'.$wxuser->openid) }}">查看</a>
+				<a class="btn btn-sm btn-default" href="{{ URL::to('registeruser/view/'.$wxuser->openid) }}">查看</a>
 			</td>
 		</tr>
 	@endforeach

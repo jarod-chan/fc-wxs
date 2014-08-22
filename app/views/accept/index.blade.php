@@ -11,10 +11,7 @@
 
 <h1>投诉受理</h1>
 
-<!-- will be used to show any messages -->
-@if (Session::has('message'))
-	<div class="alert alert-info">{{ Session::get('message') }}</div>
-@endif
+@include('common.alert')
 
 <table class="table table-striped table-bordered">
 	<thead>
@@ -39,7 +36,7 @@
 			<td>
 
 				<!-- show the nerd (uses the show method found at GET /nerds/{id} -->
-				<a class="btn btn-small btn-default" href="{{ URL::to('accept/deal/'.$accept->id) }}">查看</a>
+				<a class="btn btn-sm btn-default" href="{{ URL::to('accept/deal/'.$accept->id) }}">查看</a>
 
 			</td>
 		</tr>

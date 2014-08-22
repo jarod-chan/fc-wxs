@@ -8,6 +8,7 @@
 
     <!-- Bootstrap -->
     {{HTML::style('css/bootstrap.min.css')}}
+    {{HTML::style('css/bootstrap-theme.min.css')}}
     {{HTML::script('js/jquery-1.11.1.min.js')}}
     {{HTML::script('js/bootstrap.min.js')}}
     {{HTML::script('js/myplug.js')}}

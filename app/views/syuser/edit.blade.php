@@ -11,21 +11,19 @@
 
 <h1>系统用户-新增</h1>
 
-<!-- will be used to show any messages -->
-@if (Session::has('message'))
-	<div class="alert alert-info">{{ Session::get('message') }}</div>
-@endif
+@include('common.alert')
+
 {{ Form::open(array('url' => 'syuser/save')) }}
 
   	{{ Form::hidden('id',$syuser->id) }}
 	 <div class='row'>
-	        <div class='col-sm-6'>    
+	        <div class='col-sm-6'>
 	            <div class='form-group'>
 	                <label >用户名</label>
 	                {{ Form::text('name',$syuser->name,array('class'=>'form-control')) }}
 	            </div>
 	        </div>
-	         <div class='col-sm-6'>    
+	         <div class='col-sm-6'>
 	            <div class='form-group'>
 	                <label >密码</label>
 	                {{ Form::text('password','',array('class'=>'form-control')) }}
@@ -50,11 +48,11 @@
 	            </div>
 	        </div>
 	</div>
-	
-	
+
+
 	{{ Form::submit('保存', array('class' => 'btn btn-sm btn-primary')) }}
 	 <a class="btn btn-sm btn-default" href="{{ URL::to('syuser/list' ) }}">返回</a>
-{{ Form::close() }}	
- 
+{{ Form::close() }}
+
  </div>
 @stop

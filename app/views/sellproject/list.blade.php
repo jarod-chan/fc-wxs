@@ -8,10 +8,8 @@
 
 <h1>小区管理</h1>
 
-<!-- will be used to show any messages -->
-@if (Session::has('message'))
-	<div class="alert alert-info">{{ Session::get('message') }}</div>
-@endif
+@include('common.alert')
+
 <table class="table table-striped table-bordered">
 	<thead>
 		<tr>
@@ -27,9 +25,9 @@
 			<td>{{ $project->state() }}</td>
 			<td>
 				@if($project->state=='on')
-				<button class="btn_switch btn btn-default btn-warning" data-id="{{ $project->fid}}">关闭</button>
+				<button class="btn_switch btn btn-sm btn-warning" data-id="{{ $project->fid}}">关闭</button>
 				@else
-				<button class="btn_switch btn btn-default btn-primary" data-id="{{ $project->fid}}">开启</button>
+				<button class="btn_switch btn btn-sm btn-primary" data-id="{{ $project->fid}}">开启</button>
 				@endif
 			</td>
 		</tr>

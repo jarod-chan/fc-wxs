@@ -11,10 +11,7 @@
 
 <h1>客户投诉</h1>
 
-<!-- will be used to show any messages -->
-@if (Session::has('message'))
-	<div class="alert alert-info">{{ Session::get('message') }}</div>
-@endif
+@include('common.alert')
 
 <table class="table table-striped table-bordered">
 	<thead>
@@ -37,7 +34,7 @@
 			<td>{{ $complaint->state() }}</td>
 
 			<td>
-				@if( $complaint->isDeal()) 
+				@if( $complaint->isDeal())
 					<a class="btn  btn-sm btn-default" href="{{ URL::to('complaint/view/' . $complaint->id) }}">查看</a>
 				@else
 					<a class="btn btn-sm btn-primary"  href="{{ URL::to('complaint/deal/' . $complaint->id) }}">处理投诉</a>

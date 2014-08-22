@@ -63,7 +63,7 @@
   </div>
 </div>
 
- <a class="btn btn-default" href="{{ URL::to('registeruser/list' ) }}">返回</a>
+ <a class="btn btn-sm btn-default" href="{{ URL::to('registeruser/list' ) }}">返回</a>
 
 </div>
 @stop

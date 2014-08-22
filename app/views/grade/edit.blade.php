@@ -11,10 +11,8 @@
 
 <h1>投诉处理满意度</h1>
 
-<!-- will be used to show any messages -->
-@if (Session::has('message'))
-	<div class="alert alert-info">{{ Session::get('message') }}</div>
-@endif
+@include('common.alert')
+
 {{ Form::open(array('url' => 'grade/save')) }}
 
   	{{ Form::hidden('id',$grade->id) }}

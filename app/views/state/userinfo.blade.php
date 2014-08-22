@@ -11,18 +11,15 @@
 
 <h1>投诉受理状态-人员配置</h1>
 
-<!-- will be used to show any messages -->
-@if (Session::has('message'))
-	<div class="alert alert-info">{{ Session::get('message') }}</div>
-@endif
+@include('common.alert')
 
  <div class='row'>
-        <div class='col-sm-12'>    
+        <div class='col-sm-12'>
  			<a class="btn btn-sm btn-primary  pull-right" id="btn_add">新增</a>
         </div>
 </div>
 
-{{ Form::open(array('url' => 'state/'.$id.'/userinfo')) }} 
+{{ Form::open(array('url' => 'state/'.$id.'/userinfo')) }}
 <table id="tab_main" class="table table-striped table-bordered">
 	<thead>
 		<tr>
@@ -47,11 +44,11 @@
 
 	<button class='btn btn-sm btn-primary' id='btn_save'>保存</button>
 	<a class="btn btn-sm btn-default" href="{{ URL::to('state/list' ) }}">返回</a>
-{{ Form::close() }}	
+{{ Form::close() }}
 
 <script type="text/javascript">
 	$(function(){
-		
+
 		var tr=$("<tr>");
 		$('<td class="hide"></td>').append($('{{ Form::hidden("stateUser[-][id]","")}}')).appendTo(tr);
 		$("<td>").append($('{{ Form::select("stateUser[-][user_id]",$syUserSet,'',array("class"=>"form-control"))}}')).appendTo(tr);
