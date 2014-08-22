@@ -55,7 +55,7 @@
 		{{ Form::select('degree',H::prepend($degreeEnums,'严重程度'),'',array('data-native-menu'=>'false'))}}
 		</li>
 		<li class="ui-field-contain">
-		{{ Form::select('type',H::prepend($typeEnums,'投诉类别'),'',array('data-native-menu'=>'false'))}}
+		{{ Form::select('type',H::prepend($typeEnums,'诉求类别'),'',array('data-native-menu'=>'false'))}}
 		</li>
 	 </ul>
 

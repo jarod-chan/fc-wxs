@@ -36,7 +36,7 @@ class WxRegisterController extends BaseController{
 				$firstRoom=UserVerify::firstRoom($name,$idcard);
 				$arr["defroom_id"]=$firstRoom->fid;
 				WxUser::create($arr);
-				$param=http_build_query(Input::only('tourl','openid'));
+				$param=Input::only('tourl','openid');
 				return View::make('wxregister.success')
 					->with($param);
 			}else{

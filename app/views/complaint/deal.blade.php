@@ -46,7 +46,7 @@
         <div class='col-sm-8'>
             <div class='form-group'>
 
-                <label>投诉房产</label>
+                <label>客户房产</label>
                 @if($complaint->room_id)
                 <p class="form-control-static">{{$complaint->room->address()}}</p>
             	@endif
@@ -122,7 +122,7 @@
           <div class='col-sm-3'>
             <div class='form-group'>
                 <label >房间</label>
-  				 {{ Form::select('room_id', $roomSet,$room->id,array('class'=>'form-control','id'=>'sel_room'))}}
+  				 {{ Form::select('room_id', $roomSet,$room->fid,array('class'=>'form-control','id'=>'sel_room'))}}
             </div>
         </div>
     </div>
@@ -150,7 +150,7 @@
         </div>
          <div class='col-sm-4'>
             <div class='form-group'>
-                <label >投诉类别</label>
+                <label >诉求类别</label>
                 {{ Form::select('type', $typeEnums,'',array('class'=>'form-control'))}}
             </div>
         </div>

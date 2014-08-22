@@ -45,7 +45,7 @@
     <div class='row'>
         <div class='col-sm-8'>
             <div class='form-group'>
-                <label>投诉房产</label>
+                <label>客户房产</label>
                 @if($complaint->room_id)
                 <p class="form-control-static">{{$complaint->room->address()}}</p>
             	@endif
