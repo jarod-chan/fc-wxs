@@ -10,7 +10,8 @@ class Accept extends Eloquent{
 
 
 	public static function fromEnums(){
-		return array('phone' =>'电话','net'=>'网络','book'=>'书面');
+		//return array('phone' =>'电话','net'=>'网络','book'=>'书面');
+		return Comenums::all();
 	}
 
 	public function from(){
