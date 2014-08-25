@@ -19,58 +19,67 @@ Route::get('login','LoginController@login');
 Route::post('login','LoginController@loginPost');
 Route::post('logout','LoginController@logout');
 
-//客户投诉
-Route::get('complaint/list',array('uses' =>'ComplaintController@index'));
-Route::get('complaint/deal/{id}','ComplaintController@deal');
-Route::get('complaint/view/{id}','ComplaintController@view');
-Route::post('complaint/deal/{id}/accept','ComplaintController@accept');
-Route::post('complaint/deal/{id}/reject','ComplaintController@reject');
+Route::group(array('before' => 'auth'), function()
+{
+
+	//客户投诉
+	Route::get('complaint/list','ComplaintController@index');
+	Route::get('complaint/deal/{id}','ComplaintController@deal');
+	Route::get('complaint/view/{id}','ComplaintController@view');
+	Route::post('complaint/deal/{id}/accept','ComplaintController@accept');
+	Route::post('complaint/deal/{id}/reject','ComplaintController@reject');
+
+	//投诉受理
+	Route::get('accept/list','AcceptController@index');
+	Route::get('accept/deal/{id}','AcceptController@deal');
+	Route::post('accept/deal/{id}','AcceptController@dealPost');
+
+	//系统用户
+	Route::get('syuser/list','SyUserController@toList');
+	Route::get('syuser/add','SyUserController@toAdd');
+	Route::get('syuser/edit/{id}','SyUserController@toEdit');
+	Route::post('syuser/save','SyUserController@save');
+
+	//系统标签
+	Route::get('sytag/list','SyTagController@index');
+
+	//投诉状态
+	Route::get('state/list','StateController@index');
+	Route::get('state/add','StateController@add');
+	Route::get('state/edit/{id}','StateController@edit');
+	Route::post('state/save','StateController@save');
+	Route::get('state/{id}/userinfo','StateController@userinfo');
+	Route::post('state/{id}/userinfo','StateController@userinfoPost');
+
+	//投诉处理满意度
+	Route::get('grade/list','GradeController@toList');
+	Route::get('grade/add','GradeController@toAdd');
+	Route::get('grade/edit/{id}','GradeController@toEdit');
+	Route::post('grade/save','GradeController@save');
+
+	//注册用户管理
+	Route::get('registeruser/list','RegisterUserController@toList');
+	Route::get('registeruser/view/{openid}','RegisterUserController@toView');
+
+	//小区管理
+	Route::get('sellproject/list','SellProjectController@toList');
+	Route::post('sellproject/switchstate','SellProjectController@switchState');
+
+
+	//配置选项
+	Route::get('syenum/list','SyenumController@toList');
+	Route::get('syenum/vals/{type}','SyenumController@toVals');
+	Route::post('syenum/vals/{type}','SyenumController@saveVal');
+
+});
+
+
+
 
 //房间选择联动查询
 Route::get('selroom/sel','SelRoomController@sel');
 Route::get('selroom/sel_buildingunit','SelRoomController@selBuildingunit');
 
-//投诉受理
-Route::get('accept/list','AcceptController@index');
-Route::get('accept/deal/{id}','AcceptController@deal');
-Route::post('accept/deal/{id}','AcceptController@dealPost');
-
-//系统用户
-Route::get('syuser/list','SyUserController@toList');
-Route::get('syuser/add','SyUserController@toAdd');
-Route::get('syuser/edit/{id}','SyUserController@toEdit');
-Route::post('syuser/save','SyUserController@save');
-
-//系统标签
-Route::get('sytag/list','SyTagController@index');
-
-//投诉状态
-Route::get('state/list','StateController@index');
-Route::get('state/add','StateController@add');
-Route::get('state/edit/{id}','StateController@edit');
-Route::post('state/save','StateController@save');
-Route::get('state/{id}/userinfo','StateController@userinfo');
-Route::post('state/{id}/userinfo','StateController@userinfoPost');
-
-//投诉处理满意度
-Route::get('grade/list','GradeController@toList');
-Route::get('grade/add','GradeController@toAdd');
-Route::get('grade/edit/{id}','GradeController@toEdit');
-Route::post('grade/save','GradeController@save');
-
-//注册用户管理
-Route::get('registeruser/list','RegisterUserController@toList');
-Route::get('registeruser/view/{openid}','RegisterUserController@toView');
-
-//小区管理
-Route::get('sellproject/list','SellProjectController@toList');
-Route::post('sellproject/switchstate','SellProjectController@switchState');
-
-
-//配置选项
-Route::get('syenum/list','SyenumController@toList');
-Route::get('syenum/vals/{type}','SyenumController@toVals');
-Route::post('syenum/vals/{type}','SyenumController@saveVal');
 
 
 
@@ -111,6 +120,8 @@ Route::post('wx/accept/doitem/{id}/commit','WxAcceptController@docommit');
 
 Route::get('wx/accept/history','WxAcceptController@history');
 Route::get('wx/accept/history/item/{id}','WxAcceptController@historyitem');
+
+
 
 
 
