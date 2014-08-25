@@ -58,6 +58,26 @@
             </div>
         </div>
     </div>
+    <div class='row'>
+        <div class='col-sm-4'>
+            <div class='form-group'>
+                <label >信息来源</label>
+                 <p class="form-control-static">{{$accept->from()->name }}</p>
+            </div>
+        </div>
+        <div class='col-sm-4'>
+            <div class='form-group'>
+                <label >严重程度</label>
+				 <p class="form-control-static">{{$accept->degree()->name }}</p>
+            </div>
+        </div>
+         <div class='col-sm-4'>
+            <div class='form-group'>
+                <label >诉求类别</label>
+                 <p class="form-control-static">{{$accept->type()->name }}</p>
+            </div>
+        </div>
+    </div>
     <div class="row">
 	  <div class="col-sm-12">
 	   <div class='form-group'>

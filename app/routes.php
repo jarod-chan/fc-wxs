@@ -67,6 +67,13 @@ Route::get('sellproject/list','SellProjectController@toList');
 Route::post('sellproject/switchstate','SellProjectController@switchState');
 
 
+//配置选项
+Route::get('syenum/list','SyenumController@toList');
+Route::get('syenum/vals/{type}','SyenumController@toVals');
+Route::post('syenum/vals/{type}','SyenumController@saveVal');
+
+
+
 //微信获得菜单
 Route::get('wx/menu','WxMenuController@service');
 

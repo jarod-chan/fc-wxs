@@ -46,13 +46,7 @@ class StateController extends BaseController{
 			->with('id',$id);
 	}
 
-	private static function  delete($arr,$element){
-		$key = array_search($element,$arr);
-		if($key>=0){
-			unset($arr[$key]);
-		}
-		return $arr;
-	}
+
 
 	public function userinfoPost($id){
 		$stateUserSet=Input::get('stateUser');
@@ -63,8 +57,7 @@ class StateController extends BaseController{
 				if(empty($arr_id)){
 					$stateUser=new StateUser();
 				}else {
-					$stateUserIds=self::delete($stateUserIds,$arr_id);
-					print_r($stateUserIds);
+					$stateUserIds=H::delete($stateUserIds,$arr_id);
 					$stateUser=StateUser::find($arr_id);
 				}
 				$arr["state_id"]=$id;

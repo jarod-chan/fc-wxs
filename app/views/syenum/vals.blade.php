@@ -9,9 +9,11 @@
 
 
 
-<h1>投诉受理状态-人员配置</h1>
+<h1>配置选项</h1>
 
 @include('common.alert')
+
+{{ Form::open(array('url' => 'syenum/vals/'.$type)) }}
 
 <div class='row'>
         <div class='col-sm-12'>
@@ -19,40 +21,45 @@
         </div>
 </div>
 
-{{ Form::open(array('url' => 'state/'.$id.'/userinfo')) }}
 <table id="tab_main" class="table table-striped table-bordered">
 	<thead>
 		<tr>
-			<th class="hide">id</th>
-			<th>用户</th>
-			<th>属性</th>
-			<th>操作</th>
+			<th>关键字</th>
+			<th>名称</th>
+			<th>排序</th>
 		</tr>
 	</thead>
 	<tbody>
-	@foreach($stateUserSet as $stateUser)
+		@foreach($syenumSet as $syenum)
 		<tr>
-			<td class="hide">{{ Form::hidden('stateUser[-][id]',$stateUser->id)}}</td>
-			<td>{{ Form::select('stateUser[-][user_id]',$syUserSet,$stateUser->user_id,array('class'=>'form-control'))}}</td>
-			<td>{{ Form::select('stateUser[-][tag_key]',$tagSet,$stateUser->tag_key,array('class'=>'form-control'))}}</td>
-			<td><button class="btn btn-sm  btn-warning btn_delete" >删除</button></td>
+			<td>
+				{{ Form::text("syenum[-][key]",$syenum->key,array("class"=>"form-control"))}}
+			</td>
+			<td>
+				{{ Form::text("syenum[-][name]",$syenum->name,array("class"=>"form-control"))}}
+			</td>
+			<td>
+				{{ Form::text("syenum[-][sq]",$syenum->sq,array("class"=>"form-control"))}}
+			</td>
+			<td>
+				<button class="btn btn-sm  btn-warning btn_delete" >删除</button>
+			</td>
 		</tr>
-	@endforeach
+		@endforeach
 	</tbody>
 </table>
 
-
 	<button class='btn btn-sm btn-primary' id='btn_save'>保存</button>
-	<a class="btn btn-sm btn-default" href="{{ URL::to('state/list' ) }}">返回</a>
+	<a class="btn btn-sm btn-default" href="{{ URL::to('syenum/list' ) }}">返回</a>
 {{ Form::close() }}
 
 <script type="text/javascript">
 	$(function(){
 
 		var tr=$("<tr>");
-		$('<td class="hide"></td>').append($('{{ Form::hidden("stateUser[-][id]","")}}')).appendTo(tr);
-		$("<td>").append($('{{ Form::select("stateUser[-][user_id]",$syUserSet,'',array("class"=>"form-control"))}}')).appendTo(tr);
-		$("<td>").append($('{{ Form::select("stateUser[-][tag_key]",$tagSet,'',array("class"=>"form-control"))}}')).appendTo(tr);
+		$("<td>").append($('{{ Form::text("syenum[-][key]","",array("class"=>"form-control"))}}')).appendTo(tr);
+		$("<td>").append($('{{ Form::text("syenum[-][name]","",array("class"=>"form-control"))}}')).appendTo(tr);
+		$("<td>").append($('{{ Form::text("syenum[-][sq]","",array("class"=>"form-control"))}}')).appendTo(tr);
 		$("<td>").append($('<button class="btn btn-sm  btn-warning btn_delete" >删除</button>')).appendTo(tr);
 		function copytr(){
 			var row=tr.clone();
@@ -72,7 +79,7 @@
 		});
 		$("#btn_save").click(function(){
 			$("#tab_main tbody").formatName();
-			$("form").eq(0).submit();
+			$("form").last().submit();
 		})
 	})
 </script>

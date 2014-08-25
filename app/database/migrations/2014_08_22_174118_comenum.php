@@ -12,11 +12,12 @@ class Comenum extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('sy_comenum', function($table)
+		Schema::create('sy_enum', function($table)
 		{
 			$table->string('type');//类型
 			$table->string('key');//关键字
 			$table->string('name');//显示值
+			$table->integer('sq');//序号
 			$table->primary(array('type', 'key'));
 		});
 	}
@@ -28,7 +29,7 @@ class Comenum extends Migration {
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('sy_comenum');
+		Schema::dropIfExists('sy_enum');
 	}
 
 }

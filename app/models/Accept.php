@@ -10,28 +10,27 @@ class Accept extends Eloquent{
 
 
 	public static function fromEnums(){
-		//return array('phone' =>'电话','net'=>'网络','book'=>'书面');
-		return Comenums::all();
+		return Syenum::vals('accept_from');
 	}
 
 	public function from(){
-		return self::fromEnums()[$this->from];
+		return Syenum::key('accept_from',$this->from);
 	}
 
 	public static function degreeEnums(){
-		return array('general' =>'一般','serious'=>'严重');
+		return Syenum::vals('accept_degree');
 	}
 
 	public function degree(){
-		return self::degreeEnums()[$this->degree];
+		return Syenum::key('accept_degree',$this->degree);
 	}
 
 	public static function typeEnums(){
-		return array('gczl' =>'工程质量','ghsj'=>'规划设计','xsfw'=>'销售服务');
+		return Syenum::vals('accept_type');
 	}
 
 	public function type(){
-		return self::typeEnums()[$this->type];
+		return Syenum::key('accept_type',$this->type);
 	}
 
 	public function state(){
