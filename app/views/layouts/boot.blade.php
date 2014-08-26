@@ -36,18 +36,20 @@
           </button>
           <a class="navbar-brand" href="#">客户投诉系统</a>
         </div>
+
         <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-              <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">投诉处理 <span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu">
-                <li><a href="{{ URL::to('complaint/list') }}">客户投诉</a></li>
-                <li><a href="{{ URL::to('accept/list') }}">投诉受理</a></li>
-              </ul>
-            </li>
+       @if (!Auth::guest())
+         	 <ul class="nav navbar-nav">
+	              <li class="dropdown">
+	              <a href="#" class="dropdown-toggle" data-toggle="dropdown">投诉处理 <span class="caret"></span></a>
+	              <ul class="dropdown-menu" role="menu">
+	                <li><a href="{{ URL::to('complaint/list') }}">客户投诉</a></li>
+	                <li><a href="{{ URL::to('accept/list') }}">投诉受理</a></li>
+	              </ul>
+	            </li>
 
              <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">基础信息 <span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">系统配置 <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
                 <li><a href="{{ URL::to('syuser/list') }}">系统用户</a></li>
                 <li><a href="{{ URL::to('sytag/list') }}">系统标签</a></li>
@@ -55,38 +57,22 @@
                 <li><a href="{{ URL::to('grade/list') }}">投诉处理满意度</a></li>
                 <li><a href="{{ URL::to('registeruser/list') }}">注册用户</a></li>
                 <li><a href="{{ URL::to('sellproject/list') }}">小区管理</a></li>
-                <li><a href="{{ URL::to('syenum/list') }}">配置选项</a></li>
+                <li><a href="{{ URL::to('syenum/list') }}">投诉受理配置选项</a></li>
               </ul>
             </li>
 
+		 </ul>
+		@endif
 
-<!--             <li class="active"><a href="#">客户投诉</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li class="divider"></li>
-                <li class="dropdown-header">Nav header</li>
-                <li><a href="#">Separated link</a></li>
-                <li><a href="#">One more separated link</a></li>
-              </ul>
-            </li> -->
-
-
-          </ul>
           @if ( Auth::guest() )
-          <ul class="nav navbar-nav navbar-right">
-        	<li>{{ HTML::link('/login', '登录') }}</li>
-          </ul>
+          <div  class="navbar-collapse collapse navbar-right">
+          {{ HTML::link('/login', '登录',array('class'=>'btn btn-sm btn-default navbar-btn')) }}
+          </div>
           @else
-          <ul class="nav navbar-nav navbar-right">
-        	<li><a id="btn_logout"  href="#">退出</a></li>
-          </ul>
-		  <p class="navbar-text navbar-right">用户：{{Auth::user()->name}}</p>
+          <div  class="navbar-collapse collapse navbar-right">
+          <button id="btn_logout" class="btn btn-sm btn-default navbar-btn">退出</button>
+         </div>
+		  <p class="navbar-text navbar-right">用户：{{Auth::user()->name}}&nbsp;&nbsp;</p>
 		  @endif
         </div><!--/.nav-collapse -->
       </div>

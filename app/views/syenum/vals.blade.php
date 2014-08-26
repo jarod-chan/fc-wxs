@@ -9,7 +9,7 @@
 
 
 
-<h1>配置选项</h1>
+<h1>投诉受理配置选项</h1>
 
 @include('common.alert')
 
