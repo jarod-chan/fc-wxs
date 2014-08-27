@@ -53,6 +53,15 @@ App::error(function(Exception $exception, $code)
 });
 
 /*
+ * 重复提交表单
+ * */
+App::error(function(Illuminate\Session\TokenMismatchException $exception)
+{
+	return View::make('common.message_pg')
+	->with('message', '重复提交产生错误，请关闭当前微信页面再重新打开。');
+});
+
+/*
 |--------------------------------------------------------------------------
 | Maintenance Mode Handler
 |--------------------------------------------------------------------------

@@ -1,7 +1,7 @@
 <?php
 class WxComplaintController extends BaseController {
 
-	public function complaint(){
+	public function toComplaint(){
 		$openid=Input::get('openid');
 		$wxUser=WxUser::find($openid);
 
@@ -22,7 +22,7 @@ class WxComplaintController extends BaseController {
 		}
 	}
 
-	public function  complaintPost(){
+	public function  complaint(){
 		$openid=Input::get('openid');
 		$arr=Input::All();
 		$arr['openid']=$openid;
@@ -41,7 +41,7 @@ class WxComplaintController extends BaseController {
 	}
 
 
-	public function mycp(){
+	public function toMycp(){
 		$openid=Input::get('openid');
 		$complaintSet = Complaint::where('openid',$openid)
 		->orderBy('create_at','desc')
@@ -50,7 +50,7 @@ class WxComplaintController extends BaseController {
 		->with("complaintSet",$complaintSet);
 	}
 
-	public function cpitem($id){
+	public function toCpitem($id){
 		$complaint=Complaint::find($id);
 		$accept_id=Accept::where("complaint_id",$id)
 			->pluck('id');

@@ -103,10 +103,10 @@ Route::post('wx/user/verify','WxUserController@verify');
 
 
 //微信投诉
-Route::get('wx/complaint','WxComplaintController@complaint');
-Route::post('wx/complaint','WxComplaintController@complaintPost');
-Route::get('wx/complaint/mycp','WxComplaintController@mycp');
-Route::get('wx/complaint/{id}','WxComplaintController@cpitem');
+Route::get('wx/complaint','WxComplaintController@toComplaint');
+Route::post('wx/complaint',array('before' => 'csrf','uses' =>'WxComplaintController@complaint'));
+Route::get('wx/complaint/mycp','WxComplaintController@toMycp');
+Route::get('wx/complaint/{id}','WxComplaintController@toCpitem');
 
 
 //微信处理投诉（内部人员）
