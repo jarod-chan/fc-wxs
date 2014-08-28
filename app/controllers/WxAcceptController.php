@@ -21,7 +21,6 @@ class WxAcceptController extends BaseController{
 		$syuser=SyUser::where('openid',$openid)->first();
 
 		$arr=Input::all();
-		$arr['no']=uniqid();
 		$arr['complaint_id']=null;
 		$arr['accept_id']=$syuser->id;
 		$arr['create_at']=new DateTime();

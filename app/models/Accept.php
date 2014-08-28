@@ -5,7 +5,7 @@ class Accept extends Eloquent{
 
 	public $timestamps = false;
 
-	protected $fillable = array('no','name','phone','content','from','degree','type','complaint_id','accept_id','create_at','tag_key','state_id'
+	protected $fillable = array('name','phone','content','from','degree','type','complaint_id','accept_id','create_at','tag_key','state_id'
 			,'grade_id','room_id');
 
 

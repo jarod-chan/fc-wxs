@@ -30,9 +30,11 @@ Route::group(array('before' => 'auth'), function()
 	Route::post('complaint/deal/{id}/reject','ComplaintController@reject');
 
 	//投诉受理
-	Route::get('accept/list','AcceptController@index');
-	Route::get('accept/deal/{id}','AcceptController@deal');
-	Route::post('accept/deal/{id}','AcceptController@dealPost');
+	Route::get('accept/list','AcceptController@toList');
+	Route::get('accept/deal/{id}','AcceptController@toDeal');
+	Route::post('accept/deal/{id}','AcceptController@deal');
+	Route::get('accept/add','AcceptController@toAdd');
+	Route::post('accept/add','AcceptController@add');
 
 	//系统用户
 	Route::get('syuser/list','SyUserController@toList');

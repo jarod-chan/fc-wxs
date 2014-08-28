@@ -49,7 +49,6 @@ class ComplaintController extends BaseController {
 		$complaint->save();
 
 		$arr=Input::all();
-		$arr['no']=uniqid();
 		$arr['name']=$complaint->name;
 		$arr['complaint_id']=$complaint->id;
 		$arr['create_at']=new DateTime();

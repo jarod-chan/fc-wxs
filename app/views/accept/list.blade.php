@@ -13,6 +13,7 @@
 
 @include('common.alert')
 
+<a class="btn btn-sm btn-primary  pull-right" href="{{ URL::to('accept/add') }}">新增</a>
 <table class="table table-striped table-bordered">
 	<thead>
 		<tr>
