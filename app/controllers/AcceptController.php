@@ -2,7 +2,7 @@
 class AcceptController extends BaseController{
 
 	public function toList(){
-		$acceptSet=Accept::orderBy("id")
+		$acceptSet=Accept::orderBy("id","desc")
 			->get();
 		return View::make('accept.list')
 		->with('acceptSet',$acceptSet);
