@@ -9,7 +9,7 @@
 
 
 
-<h1>投诉受理</h1>
+<h1>诉求受理</h1>
 
 @include('common.alert')
 

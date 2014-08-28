@@ -18,7 +18,7 @@ class WxComplaintController extends BaseController {
 			->with("roomSet",$roomSet);
 		}else {
 			return View::make('common.message_pg')
-			->with('message', '只有用户类型为[业主]的用户才能进行客户投诉。');
+			->with('message', '只有用户类型为[业主]的用户才能进行客户诉求。');
 		}
 	}
 

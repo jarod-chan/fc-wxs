@@ -6,14 +6,14 @@
 
 <div class="container">
 
-<h1>客户投诉-处理</h1>
+<h1>客户诉求-处理</h1>
 
 <!-- if there are creation errors, they will show here -->
 {{ HTML::ul($errors->all()) }}
 
 
  <fieldset>
-    <legend>客户投诉内容</legend>
+    <legend>客户诉求内容</legend>
     <div class='row'>
         <div class='col-sm-4'>
             <div class='form-group'>
@@ -79,7 +79,7 @@
 {{ Form::open(array('url' => 'complaint/deal/'.$complaint->id)) }}
 
 <fieldset>
-    <legend>投诉受理单</legend>
+    <legend>诉求受理</legend>
     <div class='row'>
         <div class='col-sm-4'>
             <div class='form-group'>

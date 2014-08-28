@@ -6,14 +6,14 @@
 
 <div class="container">
 
-<h1>投诉受理-处理</h1>
+<h1>诉求受理-处理</h1>
 
 <!-- if there are creation errors, they will show here -->
 {{ HTML::ul($errors->all()) }}
 
 
  <fieldset>
-    <legend>投诉受理内容</legend>
+    <legend>诉求受理内容</legend>
     <div class='row'>
         <div class='col-sm-4'>
             <div class='form-group'>
@@ -94,9 +94,13 @@
 	</div>
  </fieldset>
 
-    <div class="list-group">
-      @foreach ($eventHistory as $event)
-      <div class="list-group-item row">
+ <div class="panel panel-default">
+  <div class="panel-heading">处理流程</div>
+
+  <ul class="list-group">
+    @foreach ($eventHistory as $event)
+      <li class="list-group-item">
+      <div class="row">
 	     @if ($event->isCommited())
 	     <div class="col-sm-2">
 	     	<p>{{$event->state->name}}</p>
@@ -117,12 +121,14 @@
 		 @endif
 
 	     <div class="col-sm-4">
-	     	<div class="col-sm-12">处理人：{{ $event->deal->name}}</div>
-	     	<div class="col-sm-12">创建时间：{{ $event->create_at}}</div>
+	     	<p>处理人：{{ $event->deal->name}}</p>
+	     	<p>创建时间：{{ $event->create_at}}</p>
 	     </div>
 	  </div>
+	  </li>
       @endforeach
-	</div>
+  </ul>
+</div>
 
 <p>
  <a class="btn btn-sm btn-default" href="{{ URL::to('accept/list' ) }}">返回</a>

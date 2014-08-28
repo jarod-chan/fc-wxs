@@ -9,7 +9,7 @@
 
 
 
-<h1>投诉受理配置选项</h1>
+<h1>诉求受理配置选项</h1>
 
 @include('common.alert')
 
@@ -27,6 +27,7 @@
 			<th>关键字</th>
 			<th>名称</th>
 			<th>排序</th>
+			<th>操作</th>
 		</tr>
 	</thead>
 	<tbody>

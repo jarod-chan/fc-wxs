@@ -10,7 +10,7 @@
 @section('content')
 <div class="container">
 
-<h1>投诉受理-新增</h1>
+<h1>诉求受理-新增</h1>
 
 
 {{ Form::open(array('url' => 'accept/add')) }}

@@ -10,7 +10,7 @@
 		<li  class="ui-field-contain">
 			<p>房产:@if($accept->room_id){{$accept->room->address()}}@endif</p>
 		</li>
-    	<li data-role="list-divider">客户投诉内容</li>
+    	<li data-role="list-divider">客户诉求内容</li>
         <li  class="ui-field-contain">
       		<div  class="ui-grid-a">
         		<p style="white-space: normal;">{{$accept->content}}</p>

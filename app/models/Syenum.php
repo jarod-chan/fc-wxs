@@ -11,9 +11,9 @@ class Syenum extends Eloquent{
 
 	public static function allTypes(){
 		return array(
-				array('val'=>'accept_from','name'=>'投诉受理-信息来源'),
-				array('val'=>'accept_degree','name'=>'投诉受理-严重程度'),
-				array('val'=>'accept_type','name'=>'投诉受理-诉求类别')
+				array('val'=>'accept_from','name'=>'诉求受理-信息来源'),
+				array('val'=>'accept_degree','name'=>'诉求受理-严重程度'),
+				array('val'=>'accept_type','name'=>'诉求受理-诉求类别')
 		);
 	}
 

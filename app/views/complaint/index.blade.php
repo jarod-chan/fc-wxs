@@ -5,7 +5,7 @@
 @section('content')
 <div class="container">
 
-<h1>客户投诉</h1>
+<h1>客户诉求</h1>
 
 @include('common.alert')
 

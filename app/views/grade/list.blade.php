@@ -9,7 +9,7 @@
 
 
 
-<h1>投诉处理满意度</h1>
+<h1>诉求处理满意度</h1>
 
 @include('common.alert')
 
