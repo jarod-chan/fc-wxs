@@ -5,18 +5,16 @@
 @section('content')
 <div data-role="page">
   <div data-role="content">
-	{{ Form::open(array('url' => 'wx/accept/add?openid='.$openid,'files'=>true,'data-ajax'=>'false')) }}
+	{{ Form::open(array('url' => 'wx/accept/add?openid='.$openid,'files'=>true,'data-ajax'=>'true')) }}
 
     {{ Form::hidden('openid', $openid) }}
     <ul data-role="listview" data-inset="true">
     	<li data-role="list-divider">客户信息</li>
     	<li>
-		{{ Form::label('name', '姓名',array('class'=>'ui-hidden-accessible')) }}
-		{{ Form::text('name','',array('placeholder'=>'姓名')) }}
+		{{ Form::text('name','',array('placeholder'=>'姓名','id'=>'name')) }}
 		</li>
 		<li>
-		{{ Form::label('phone', '联系号码',array('class'=>'ui-hidden-accessible')) }}
-		{{ Form::text('phone','',array('placeholder'=>'联系号码')) }}
+		{{ Form::text('phone','',array('placeholder'=>'联系号码','id'=>'phone')) }}
 		</li>
 		<li data-role="list-divider">地址</li>
 		<li>
@@ -33,7 +31,7 @@
 		</li>
 		<li data-role="list-divider">投诉内容</li>
 		<li>
-			{{ Form::textarea('content') }}
+			{{ Form::textarea('content','',array('id'=>'content')) }}
 			<div class="ui-grid-a plug-fileup">
 					<div class="up_file_div"></div>
 					<div class="add_img_div"><input class="fileinput" data-role="none"  type="file" ></div>
@@ -49,13 +47,13 @@
      <ul data-role="listview" data-inset="true">
     	<li data-role="list-divider">投诉性质</li>
     	<li class="ui-field-contain">
-		{{ Form::select('from', H::prepend($fromEnums,'信息来源'),'',array('data-native-menu'=>'false'))}}
+		{{ Form::select('from', H::prepend($fromEnums,'信息来源'),'',array('id'=>'from','data-native-menu'=>'false'))}}
 		</li>
 		<li class="ui-field-contain">
-		{{ Form::select('degree',H::prepend($degreeEnums,'严重程度'),'',array('data-native-menu'=>'false'))}}
+		{{ Form::select('degree',H::prepend($degreeEnums,'严重程度'),'',array('id'=>'degree','data-native-menu'=>'false'))}}
 		</li>
 		<li class="ui-field-contain">
-		{{ Form::select('type',H::prepend($typeEnums,'诉求类别'),'',array('data-native-menu'=>'false'))}}
+		{{ Form::select('type',H::prepend($typeEnums,'诉求类别'),'',array('id'=>'type','data-native-menu'=>'false'))}}
 		</li>
 	 </ul>
 
@@ -77,6 +75,9 @@
 	<p>{{ Form::submit('提交') }}</p>
 
 	{{ Form::close() }}
+
+
+	@include('common.pop')
 	</div>
 	<script type="text/javascript">
 	$(function(){
@@ -142,9 +143,20 @@
 			});
 		});
 
+
 		$("form").last().submit(function(){
-			if($("#sel_room").val()==""){
-				alert("请先选择房间");
+			var msg="";
+			msg+=V.require($('#name'),'姓名');
+			msg+=V.require($('#phone'),'电话');
+			msg+=V.require($('#sel_room'),'房间');
+			msg+=V.require($('#content'),'投诉内容');
+			msg+=V.require($('#from'),'信息来源');
+			msg+=V.require($('#degree'),'严重程度');
+			msg+=V.require($('#type'),'诉求类别');
+			msg+=V.require($('#tag_key'),'流程标签');
+			msg+=V.require($('#next_id'),'下一步处理人');
+			if(msg!==""){
+				pop.open(msg);
 				return false;
 			}
 			return true;

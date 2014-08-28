@@ -3,11 +3,10 @@
 
 
 @section('content')
-<div data-role="page">
+<div data-role="page" data-url="{{URL::to('wx/accept/todo?syuserid='.$syuserid) }}">
   <div data-role="content">
 
-
-	<ul data-role="listview" data-inset="true">
+	<ul data-role="listview" data-inset="true" >
 	    <li data-role="list-divider">待处理投诉</li>
 	    @foreach($acceptSet as $accept)
 		 <li>

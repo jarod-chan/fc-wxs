@@ -111,7 +111,7 @@ Route::get('wx/complaint/{id}','WxComplaintController@toCpitem');
 
 //微信处理投诉（内部人员）
 Route::get('wx/accept/add','WxAcceptController@add');
-Route::post('wx/accept/add','WxAcceptController@addPost');
+Route::post('wx/accept/add',array('before' => 'csrf','uses' =>'WxAcceptController@addPost'));
 
 Route::get('wx/accept/todo','WxAcceptController@todo');
 Route::get('wx/accept/doitem/{id}','WxAcceptController@doitem');

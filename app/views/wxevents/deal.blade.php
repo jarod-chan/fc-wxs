@@ -1,34 +1,56 @@
 @extends('layouts.mobile')
 
 @section('content')
-	<script>
-	$(function(){
- 			$("#btn_save").click(function(){
-				var url=$("form").attr('action');
-				$("form").attr('action',url+'/save');
-			});
-			$("#btn_commit").click(function(){
-				if($("#next_id").length>0 && $("#next_id").val()==""){
-					alert("请选下一步处理人");
-					return false;
-				}
-				var url=$("form").attr('action');
-				$("form").attr('action',url+'/commit');
-			});
-	});
 
-   </script>
-
-<div data-role="page">
+<div data-role="page" class='event_deal'>
   <div data-role="content">
 
 	{{$accept_view}}
 
-	{{ Form::open(array('url' => 'wx/events/deal/'.$event->id, 'files'=>true,'data-ajax'=>'false')) }}
+	{{ Form::open(array('url' => '','data-ajax'=>'true')) }}
 	{{$event_deal}}
 	{{ Form::close() }}
 
 	{{$event_history}}
+
+	@include('common.pop')
+  	<script type="text/javascript">
+	  $(function(){
+		var page=$(".event_deal").last();
+		var form=page.find("form");
+
+		$(document).on('pagehide', '.event_deal', function(event, ui) {
+		    $(event.target).remove();
+		});
+		$(document).on('pagecreate', '.event_deal', function() {
+			var page=$(".event_deal").last();
+			var toSelect=page.find("#next_id");
+			toSelect.selectmenu();
+			toSelect.selectmenu('refresh', true);
+		});
+
+		page.find("#btn_save").click(function(){
+			form.attr('action',"{{URL::to('wx/events/deal/'.$event->id.'/save')}}");
+		});
+
+		page.find("#btn_commit").click(function(){
+			var msg="";
+			msg+=V.require(page.find('#result'),'结果记录');
+			if(page.find('input[type="radio"][name="grade_id"]').length==0){
+			   msg+=V.require(page.find('#next_id'),'下一步处理人');
+			}else{
+			   msg+=V.require(page.find('input[type="radio"][name="grade_id"]:checked'),'投诉处理满意度');
+			}
+			if(msg!==""){
+				pop.open(msg);
+				return false;
+			}
+			form.attr('action',"{{URL::to('wx/events/deal/'.$event->id.'/commit')}}");
+		});
+	  })
+
+
+	  </script>
 
   </div>
 </div>
