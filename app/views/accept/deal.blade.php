@@ -7,13 +7,13 @@
 <div class="container">
 
 <h1>诉求受理-处理</h1>
+<div class="text-right">
+<a class="btn btn-sm btn-default" href="{{ URL::to('accept/list' ) }}">返回</a>
+</div>
+<div class="panel panel-default">
+  <div class="panel-heading">诉求受理内容</div>
+  <div class="panel-body">
 
-<!-- if there are creation errors, they will show here -->
-{{ HTML::ul($errors->all()) }}
-
-
- <fieldset>
-    <legend>诉求受理内容</legend>
     <div class='row'>
         <div class='col-sm-4'>
             <div class='form-group'>
@@ -92,7 +92,9 @@
        </div>
 	  </div>
 	</div>
- </fieldset>
+
+ </div>
+</div>
 
  <div class="panel panel-default">
   <div class="panel-heading">处理流程</div>
@@ -130,9 +132,7 @@
   </ul>
 </div>
 
-<p>
- <a class="btn btn-sm btn-default" href="{{ URL::to('accept/list' ) }}">返回</a>
-</p>
+
 
 
 

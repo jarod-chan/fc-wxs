@@ -12,8 +12,13 @@
 {{ HTML::ul($errors->all()) }}
 
 
- <fieldset>
-    <legend>客户诉求内容</legend>
+
+<div class="text-right" ><a  class="btn btn-sm btn-default" d href="{{ URL::to('complaint/list' ) }}">返回</a></div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">客户诉求内容</div>
+  <div class="panel-body">
+
     <div class='row'>
         <div class='col-sm-4'>
             <div class='form-group'>
@@ -73,13 +78,16 @@
        </div>
 	  </div>
 	</div>
-</fieldset>
 
+</div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">诉求受理</div>
+  <div class="panel-body">
 
 {{ Form::open(array('url' => 'complaint/deal/'.$complaint->id)) }}
 
-<fieldset>
-    <legend>诉求受理</legend>
     <div class='row'>
         <div class='col-sm-4'>
             <div class='form-group'>
@@ -197,15 +205,14 @@
 
 
 <p>
-
  <button id="btn_accept" class="btn btn-sm btn-primary" >生成受理单</button>
  <button id="btn_reject" class="btn btn-sm btn-warning" >拒绝</button>
- <a class="btn btn-sm btn-default" href="{{ URL::to('complaint/list' ) }}">返回</a>
 </p>
 
 
-</fieldset>
 {{ Form::close() }}
+</div>
+</div>
 
 <script type="text/javascript">
 	$(function(){

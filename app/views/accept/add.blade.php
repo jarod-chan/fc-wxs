@@ -12,7 +12,13 @@
 
 <h1>诉求受理-新增</h1>
 
+<div class="text-right">
+<a class="btn btn-sm btn-default" href="{{ URL::to('accept/list' ) }}">返回</a>
+</div>
 
+<div class="panel panel-default">
+  <div class="panel-heading">诉求受理内容</div>
+  <div class="panel-body">
 {{ Form::open(array('url' => 'accept/add')) }}
 
 
@@ -137,11 +143,12 @@
 
 <p>
  <button id="btn_commit" class="btn btn-sm btn-primary" >生成受理单</button>
- <a class="btn btn-sm btn-default" href="{{ URL::to('accept/list' ) }}">返回</a>
 </p>
 
 
 {{ Form::close() }}
+ </div>
+</div>
 
 <script type="text/javascript">
 	$(function(){

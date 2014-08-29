@@ -11,9 +11,14 @@
 <!-- if there are creation errors, they will show here -->
 {{ HTML::ul($errors->all()) }}
 
+<div class="text-right">
+ <a class="btn btn-sm btn-default" href="{{ URL::to('complaint/list' ) }}">返回</a>
+</div>
 
- <fieldset>
-    <legend>客户诉求内容</legend>
+<div class="panel panel-default">
+  <div class="panel-heading">客户诉求内容</div>
+  <div class="panel-body">
+
     <div class='row'>
         <div class='col-sm-4'>
             <div class='form-group'>
@@ -72,11 +77,10 @@
        </div>
 	  </div>
 	</div>
-</fieldset>
 
-<p>
- <a class="btn btn-sm btn-default" href="{{ URL::to('complaint/list' ) }}">返回</a>
-</p>
+</div>
+</div>
+
 
 
 

@@ -16,6 +16,10 @@
     {{HTML::style('plug/lightbox/ekko-lightbox.min.css')}}
     {{HTML::script('plug/lightbox/ekko-lightbox.min.js')}}
 
+    <style type="text/css">
+	body { padding-top: 50px; }
+   </style>
+
 	@yield('import_head')
 
 
@@ -28,7 +32,7 @@
   </head>
   <body>
    <!-- Static navbar -->
-    <div class="navbar navbar-default navbar-static-top" role="navigation">
+    <div class="navbar navbar-default navbar-static-top navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
