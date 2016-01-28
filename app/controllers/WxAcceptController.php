@@ -3,7 +3,10 @@ class WxAcceptController extends BaseController{
 
 	public function add(){
 		$openid=Input::get("openid");
-		$stateBeg=State::beg()->first();
+
+		$currState=State::init()->first();
+		$stateBeg=State::nextState($currState)->first();
+
 		$tagSet=SyTag::lists('name','key');
 
 		return View::make('wxaccept.add')
@@ -20,28 +23,7 @@ class WxAcceptController extends BaseController{
 		$openid=Input::get('openid');
 		$syuser=SyUser::where('openid',$openid)->first();
 
-		$arr=Input::all();
-		$arr['complaint_id']=null;
-		$arr['accept_id']=$syuser->id;
-		$arr['create_at']=new DateTime();
-
-		$accept=Accept::create($arr);
-
-		if (Input::has('file'))
-		{
-			C::save_fileable($accept,Input::get('file'));
-		}
-
-		//生成下一个节点处理人
-		$next_id=Input::get("next_id");
-		$state_id=Input::get("next_state_id");
-		$arr=array(
-				'state_id'=>$state_id,
-				'deal_id'=>$next_id,
-				'create_at'=>new Datetime(),
-				'accept_id'=>$accept->id
-		);
-		$nextEvent=Events::create($arr);
+		SpAccept::addAccept($syuser);
 
 		return View::make('common.message_pg')
 			->with('message', '投诉已经受理！');

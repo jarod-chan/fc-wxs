@@ -50,7 +50,7 @@
 	              <li class="dropdown">
 	              <a href="#" class="dropdown-toggle" data-toggle="dropdown">诉求处理 <span class="caret"></span></a>
 	              <ul class="dropdown-menu" role="menu">
-	                <li><a href="{{ URL::to('complaint/list') }}">客户诉求</a></li>
+	              	<!--   <li><a href="{{ URL::to('complaint/list') }}">客户诉求</a></li> -->
 	                <li><a href="{{ URL::to('accept/list') }}">诉求受理</a></li>
 	              </ul>
 	            </li>

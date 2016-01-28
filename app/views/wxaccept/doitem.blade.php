@@ -3,7 +3,7 @@
 
 
 @section('content')
-<div data-role="page" class="doitem">
+<div data-role="page" class="doitem pgcommon">
   <div data-role="content">
 
   {{$accept_view}}
@@ -26,11 +26,13 @@
 	page.find("#btn_commit").click(function(){
 		var msg="";
 		msg+=V.require(page.find('#result'),'结果记录');
-		if(page.find('input[type="radio"][name="grade_id"]').length==0){
-		   msg+=V.require(page.find('#next_id'),'下一步处理人');
-		}else{
-		   msg+=V.require(page.find('input[type="radio"][name="grade_id"]:checked'),'投诉处理满意度');
+
+		msg+=V.req(page.find('#tag_key'),'流程标签');//如果存在则校验
+		msg+=V.req(page.find('#next_id'),'下一步处理人');//如果存在则校验
+		if(page.find('input[type="radio"][name="grade_id"]').length>0){
+			msg+=V.require(page.find('input[type="radio"][name="grade_id"]:checked'),'投诉处理满意度');
 		}
+
 		if(msg!==""){
 			pop.open(msg);
 			return false;

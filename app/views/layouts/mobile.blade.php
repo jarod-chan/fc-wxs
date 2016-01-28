@@ -18,6 +18,16 @@
 				return msg;
 			}
 			return "";
+		},
+		req:function(jq,name){
+			var msg='<p>'+name+'不能为空</p>';
+			if(jq.length==0){
+				return "";
+			}
+			if($.trim(jq.val())==""){
+				return msg;
+			}
+			return "";
 		}
 	 };
     </script>

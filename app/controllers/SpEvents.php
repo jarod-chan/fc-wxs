@@ -7,22 +7,9 @@ class SpEvents {
 		$currState=$event->state;
 		$nextState=State::nextState($currState)->first();
 
-		$stateUserSet=$nextState->stateUser;
-		$dealUserSet=array();
-		foreach ($stateUserSet as $stateUser){
-			if ($stateUser->tag_key==$accept->tag->key) {
-				$dealUserSet[$stateUser->user_id]=$stateUser->user_name;
-			}
-		}
-
-		if ($currState->isGrade()) {
-			$gradeOn=Grade::stateOn()->get();
-			$view->with('gradeSet',$gradeOn);
-		}
-
 		$view->with('event',$event)
 			->with('accept',$accept)
-			->with('dealUserSet',$dealUserSet)
+			->with('currState',$currState)
 			->with('nextState',$nextState);
 		return $view;
 
@@ -50,6 +37,7 @@ class SpEvents {
 	}
 
 	public static function commitEvent($id){
+		//保存当前节点
 		$arr=Input::all();
 		$arr["commit_at"]=new Datetime();
 		$event=Events::find($id);
@@ -70,14 +58,7 @@ class SpEvents {
 
 
 		//如果非结束节点，生成下一节点
-		if($nextState->isEnd()){
-			//更新受理单状态
-			$accept=Accept::find($event->accept_id);
-			$accept->state_id=$nextState->id;
-			$accept->save();
-
-			return array('isfinish'=>true,'eventid'=>$event->id);
-		}else{
+		if(!$nextState->isEnd()){
 			$next_id=Input::get("next_id");
 			$arr=array(
 					'state_id'=>$nextState->id,
@@ -89,10 +70,21 @@ class SpEvents {
 
 			$accept=Accept::find($event->accept_id);
 			$accept->state_id=$event->state_id;
-			$accept->grade_id=$event->grade_id;
+			//流程标签，只在负责人审批节点有效
+			if($event->tag_key){
+				$accept->tag_key=$event->tag_key;
+			}
 			$accept->save();
 
 			return array('isfinish'=>false,'eventid'=>$nextEvent->id);
+		}else{
+			//更新受理单状态，不添加事件节点
+			$accept=Accept::find($event->accept_id);
+			$accept->state_id=$nextState->id;
+			$accept->grade_id=$event->grade_id;//满意度评价，在在最后确认节点有效
+			$accept->save();
+
+			return array('isfinish'=>true,'eventid'=>$event->id);
 		}
 	}
 

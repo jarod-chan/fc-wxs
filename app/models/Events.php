@@ -5,7 +5,7 @@ class Events extends Eloquent{
 
 	public $timestamps = false;
 
-	protected $fillable = array('state_id','result', 'deal_id', 'next_id','create_at','commit_at','accept_id','grade_id');
+	protected $fillable = array('state_id','result', 'deal_id', 'next_id','create_at','commit_at','accept_id','grade_id','tag_key');
 
 	public function isCommited(){
 		return $this->commit_at!=null;

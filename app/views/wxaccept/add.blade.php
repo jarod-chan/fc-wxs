@@ -64,10 +64,7 @@
 		{{ Form::hidden('next_state_id',$stateBeg->id)}}
 		</li>
 		<li class="ui-field-contain">
-		{{ Form::select('tag_key',H::prepend($tagSet,'流程标签'),'',array('id'=>'tag_key','data-native-menu'=>'false'))}}
-		</li>
-		<li class="ui-field-contain">
-		{{ Form::select('next_id',H::prepend(array(),'下一步处理人'),'',array('id'=>'next_id','data-native-menu'=>'false'))}}
+		{{ Form::select('next_id',H::prepend($stateBeg->stateUser->lists("user_name","user_id"),'下一步处理人'),'',array('id'=>'next_id','data-native-menu'=>'false'))}}
 		</li>
 	 </ul>
 
@@ -81,19 +78,6 @@
 	</div>
 	<script type="text/javascript">
 	$(function(){
-		var nextSet={{$stateBeg->stateUser->toJson()}};
-		$("#tag_key").change(function(){
-			var select=$("#next_id");
-			select.find("option").remove();
-			var tag=$(this).val()
-			$.each(nextSet,function(n,obj){
-				if(obj.tag_key==tag){
-					select.append("<option value='"+obj.user_id+"'>"+obj.user_name+"</option>");
-				}
-			});
-			select.selectmenu();
-			select.selectmenu('refresh', true);
-		});
 
 		$("#sel_sellproject").change(function(){
 			$("#sel_building,#sel_buildingunit,#sel_room").find("option:gt(0)").remove();
@@ -153,7 +137,6 @@
 			msg+=V.require($('#from'),'信息来源');
 			msg+=V.require($('#degree'),'严重程度');
 			msg+=V.require($('#type'),'诉求类别');
-			msg+=V.require($('#tag_key'),'流程标签');
 			msg+=V.require($('#next_id'),'下一步处理人');
 			if(msg!==""){
 				pop.open(msg);

@@ -106,17 +106,10 @@
         </div>
     </div>
 
-     <div class='col-sm-4'>
-    	<div class='form-group'>
-               <label >流程标签</label>
-              {{ Form::select('tag_key',$tagSet,'',array('class'=>'form-control','id'=>'tag_key'))}}
-        </div>
-    </div>
-
     <div class='col-sm-4'>
     	<div class='form-group'>
                <label >下一步处理人</label>
-              {{ Form::select('next_id',array(),'',array('class'=>'form-control','id'=>'next_id'))}}
+              {{ Form::select('next_id',$stateBeg->stateUser->lists("user_name","user_id"),'',array('class'=>'form-control','id'=>'next_id'))}}
         </div>
     </div>
 
@@ -190,25 +183,16 @@
 		$("#sel_buildingunit").change(getSelfunc(2,'room'));
 
 		$("#btn_commit").click(function(){
-			if($("#sel_room").val()==""){
+			if(!$("#next_id").val()){
+				alert("请先选择下一步处理人");
+				return false;
+			}
+			if(!$("#sel_room").val()){
 				alert("请先选择房间");
 				return false;
 			}
 			$("form").submit();
 		})
-
-
-		var nextSet={{$stateBeg->stateUser->toJson()}};
-		$("#tag_key").change(function(){
-			$("#next_id option").remove();
-			var tag=$(this).val()
-			$.each(nextSet,function(n,obj){
-				if(obj.tag_key==tag){
-					$("#next_id").append("<option value='"+obj.user_id+"'>"+obj.user_name+"</option>");
-				}
-			});
-		});
-		$("#tag_key").triggerHandler('change');
 	})
 </script>
 
