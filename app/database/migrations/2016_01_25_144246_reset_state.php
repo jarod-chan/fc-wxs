@@ -12,7 +12,7 @@ class ResetState extends Migration {
 	 */
 	public function up()
 	{
-
+		DB::statement("delete from `sy_state` where id in (1,2,3,4,5) ");
 		DB::statement("insert into `sy_state`(`id`,`no`,`name`,`deleted_at`,`prop`) values (1,1,'受理',null,'init')");
 		DB::statement("insert into `sy_state`(`id`,`no`,`name`,`deleted_at`,`prop`) values (2,2,'方案制定',null,'beg')");
 		DB::statement("insert into `sy_state`(`id`,`no`,`name`,`deleted_at`,`prop`) values (3,3,'方案执行',null,'proc')");
