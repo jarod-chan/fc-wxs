@@ -22,13 +22,14 @@
 	@foreach($sellProjectSet as $project)
 		<tr>
 			<td>{{ $project->fname_l2 }}</td>
-			<td>{{ $project->state() }}</td>
+			<td><span class="label @if($project->state=='on') label-success @else label-default @endif">{{ $project->state() }}</span></td>
 			<td>
-				@if($project->state=='on')
-				<button class="btn_switch btn btn-sm btn-warning" data-id="{{ $project->fid}}">关闭</button>
-				@else
-				<button class="btn_switch btn btn-sm btn-primary" data-id="{{ $project->fid}}">开启</button>
-				@endif
+
+				<button class="btn_switch btn btn-sm btn-primary" data-id="{{ $project->fid}}">
+				@if($project->state=='on')关闭 @else 开启 @endif
+				</button>
+
+
 			</td>
 		</tr>
 	@endforeach
@@ -36,7 +37,7 @@
 </table>
 
 {{ Form::open(array('url' => 'sellproject/switchstate')) }}
- {{Form::hidden('id','',array('id'=>'project_id'))}}
+{{ Form::hidden('id','',array('id'=>'project_id')) }}
 {{ Form::close() }}
 
 </div>

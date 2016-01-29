@@ -45,17 +45,20 @@
         </div>
 
         <div class="navbar-collapse collapse">
-       @if (!Auth::guest())
-         	 <ul class="nav navbar-nav">
-	              <li class="dropdown">
-	              <a href="#" class="dropdown-toggle" data-toggle="dropdown">诉求处理 <span class="caret"></span></a>
-	              <ul class="dropdown-menu" role="menu">
-	              	<!--   <li><a href="{{ URL::to('complaint/list') }}">客户诉求</a></li> -->
-	                <li><a href="{{ URL::to('accept/list') }}">诉求受理</a></li>
-	              </ul>
-	            </li>
+       	@if (!Auth::guest())
+        	<ul class="nav navbar-nav">
+        	@if (Auth::user()->inState('init')||Auth::user()->role=='admin')
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">诉求处理 <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+              	<!--   <li><a href="{{ URL::to('complaint/list') }}">客户诉求</a></li> -->
+                <li><a href="{{ URL::to('accept/list') }}">诉求受理</a></li>
+              </ul>
+            </li>
+            @endif
 
-             <li class="dropdown">
+			@if (Auth::user()->role=='admin')
+            <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">系统配置 <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
                 <li><a href="{{ URL::to('syuser/list') }}">系统用户</a></li>
@@ -66,7 +69,8 @@
                 <li><a href="{{ URL::to('sellproject/list') }}">小区管理</a></li>
                 <li><a href="{{ URL::to('syenum/list') }}">诉求受理配置选项</a></li>
               </ul>
-            </li>
+           </li>
+           @endif
 
 		 </ul>
 		@endif

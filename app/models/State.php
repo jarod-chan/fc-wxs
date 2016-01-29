@@ -30,7 +30,7 @@ class State extends Eloquent{
 		return $this->prop=='end';
 	}
 
-	//范围查询
+	//la默认的范围查询
 	public function scopeInit($query)
 	{
 		return $query->where('prop','init');

@@ -12,15 +12,18 @@ class LoginController extends BaseController{
 		$password = Input::get('password');
 
 		$credentials = array('name' => $name, 'password' => $password);
-		if(Auth::attempt($credentials))
-		{
-			return Redirect::to('accept/list');
+
+		if (Auth::validate($credentials)){
+			$syUser=SyUser::where('name',$name)->first();
+			if($syUser->role=='admin'||$syUser->inState('init')){
+				Auth::login($syUser);
+				return Redirect::to('accept/list');
+			}
 		}
-		else
-		{
-			return Redirect::to('login')
+
+		return Redirect::to('login')
 			->with('login_errors', true);
-		}
+
 	}
 
 	public function logout(){

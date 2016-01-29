@@ -2,8 +2,17 @@
 class AcceptController extends BaseController{
 
 	public function toList(){
-		$acceptSet=Accept::orderBy("id","desc")
+		$syUser = Auth::user();
+ 		if($syUser->role=='admin'){
+			$acceptSet=Accept::orderBy("id","desc")
 			->get();
+		}
+		if($syUser->inState('init')){
+			$acceptSet=Accept::where('accept_id',$syUser->id)
+			->orderBy("id","desc")
+			->get();
+		}
+
 		return View::make('accept.list')
 		->with('acceptSet',$acceptSet);
 	}
