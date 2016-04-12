@@ -124,11 +124,6 @@ Route::get('wx/accept/history','WxAcceptController@history');
 Route::get('wx/accept/history/item/{id}','WxAcceptController@historyitem');
 
 
-
-
-
-
-
 //直接发送处理
 Route::get('wx/events/deal/{id}','WxEventsController@deal');
 Route::post('wx/events/deal/{id}/save','WxEventsController@save');
@@ -137,6 +132,8 @@ Route::post('wx/events/deal/{id}/commit','WxEventsController@commit');
 //微信显示图片
 Route::get('wx/img/{imgname}','WxImgController@toImg');
 
+//微信接口
+Route::any('wecht/server','WechtController@server');
 
 
 
